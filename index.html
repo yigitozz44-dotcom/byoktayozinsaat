@@ -241,7 +241,9 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .facts li span:first-child{color:var(--muted)}
 .facts li span:last-child{text-align:right}
 .facts a{border-bottom:1px solid currentColor}
-.p-logo{height:clamp(70px,9vw,120px);width:auto;margin-bottom:26px}
+.p-logos{margin-bottom:clamp(24px,2.6vw,36px)}
+.p-logos .plogo{display:block;height:clamp(130px,12vw,190px);width:auto;max-width:100%}
+.p-logos .plogo.wide{height:clamp(56px,5.6vw,86px)}
 .p-logo.wide{height:clamp(40px,5vw,64px)}
 .stats{background:var(--deep);color:#fff;padding-block:clamp(64px,8vw,110px)}
 .stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(255,255,255,.25)}
@@ -515,6 +517,61 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 .cc-pop li b{font-weight:400;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
 .of-msg{margin:10px 0 0;font-size:15px;color:var(--blue)}
 .of .bad{border-color:#b3261e!important}
+
+/* teklif kutusu: koyu, monogramlı zemin (portre alanı gibi) */
+.of-box{background:var(--deep);color:#fff;overflow:hidden}
+.of-mono{position:absolute;right:-8%;bottom:-10%;width:min(620px,62%);height:auto;aspect-ratio:332/297.5;opacity:.07;pointer-events:none;color:#fff}
+#ofForm{position:relative;z-index:1}
+.of-x{z-index:2}
+.of-x{color:#fff}.of-x:hover{background:rgba(255,255,255,.1)}
+.of-ey,.of-k,.of-note,.of-kvkk,.fl{color:rgba(255,255,255,.62)}
+.of h2{color:var(--blue-lt)}
+.of-sub{color:rgba(255,255,255,.78)}
+.of input,.of select,.of textarea{background:rgba(255,255,255,.94);border-color:rgba(255,255,255,.2);color:var(--ink)}
+.of input::placeholder,.of textarea::placeholder{color:#8A9390}
+.of input:focus,.of select:focus,.of textarea:focus{border-color:var(--blue-lt);background:#fff}
+.of select option{color:var(--ink)}
+.tel > span,.cc{background:rgba(255,255,255,.94);border-color:rgba(255,255,255,.2)}
+.chips button{border-color:rgba(255,255,255,.35);color:#fff}
+.chips button:hover{border-color:#fff}
+.chips button[aria-checked="true"]{background:#fff;border-color:#fff;color:var(--deep)}
+.files .add{border-color:rgba(255,255,255,.5);color:#fff}
+.files .add:hover{border-color:var(--blue-lt);color:var(--blue-lt)}
+.of-send{background:var(--blue)}
+.of-send:hover{background:#005A8C}
+.of-send[aria-disabled="true"],.of-send[aria-disabled="true"]:hover{background:rgba(255,255,255,.16);color:rgba(255,255,255,.7)}
+.of-msg{color:var(--blue-lt)}
+.of-kvkk.bad span,.of-err{color:#FF9A92}
+.chips.err button,.files.bad .add{border-color:#FF9A92;color:#FF9A92}
+.of .bad{border-color:#FF6B60!important}
+.of-kvkk input{accent-color:var(--blue-lt)}
+
+/* teklif kutusu: ekranın ortasında, kaydırmadan sığsın */
+.of{padding:max(20px,env(safe-area-inset-top,0px)) var(--gutR) max(20px,env(safe-area-inset-bottom,0px)) var(--gutL)}
+.of-box{margin-block:auto;padding:clamp(24px,3vw,44px) clamp(24px,3.4vw,52px)}
+.of h2{font-size:clamp(30px,3vw,44px);margin:4px 0 2px}
+.of-sub{margin:0 0 6px;font-size:16px}
+.of-k{margin-top:12px;margin-bottom:5px}
+.of input,.of select,.of textarea{padding:10px 13px;font-size:15px}
+.of textarea{min-height:92px}
+.chips button{padding:9px 12px}
+.files .add{width:46px;height:46px;font-size:22px}
+.of-kvkk{margin-top:12px}
+.of-note{margin:10px 0 6px}
+.of-send{padding:15px}
+#ofForm{gap:clamp(24px,3.4vw,48px)}
+@media (max-height:760px) and (min-width:861px){
+  .of-box{padding:22px 36px}
+  .of h2{font-size:32px}
+  .of-ey{font-size:11px}
+  .of-k{margin-top:9px;margin-bottom:4px;font-size:11px}
+  .of input,.of select,.of textarea{padding:8px 12px}
+  .of textarea{min-height:70px}
+  .chips button{padding:7px 11px;font-size:11px}
+  .files .add{width:40px;height:40px}
+  .of-send{padding:13px}
+}
+@media (max-width:860px){.of{padding-top:max(16px,env(safe-area-inset-top,0px))}.of-box{margin-block:0 auto}}
 .inl{border-bottom:1px solid currentColor}
 @media (max-width:860px){#ofForm{grid-template-columns:1fr}.of{padding-top:calc(env(safe-area-inset-top,0px) + 72px)}}
 @media (max-width:480px){.two{grid-template-columns:1fr}}
@@ -707,8 +764,8 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
   <section class="intro" id="pIntro">
     <div class="wrap intro-grid">
       <div class="rv">
-        <img class="p-logo" id="pLogo" alt="">
-        <h2 class="h-sec" id="pTitle"></h2>
+        <div class="plogos grp p-logos" id="pLogos"></div>
+        <h2 class="sr-only" id="pTitle"></h2>
         <p id="pStory" style="margin-top:20px"></p>
       </div>
       <div></div>
@@ -898,6 +955,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 
 <div class="of" id="of" role="dialog" aria-modal="true" aria-labelledby="ofTitle" hidden>
   <div class="of-box">
+    <svg class="of-mono" aria-hidden="true"><use href="#emblem"/></svg>
     <button class="of-x" type="button" id="ofClose" aria-label="Kapat">×</button>
     <form id="ofForm" novalidate>
       <div class="of-l">
@@ -919,7 +977,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
       </div>
       <div class="of-r">
         <label class="of-k" for="of-title" data-i18n="of_title_k">Hitap</label>
-        <select id="of-title"><option data-i18n="of_h0">Sayın</option><option data-i18n="of_h1">Bay</option><option data-i18n="of_h2">Bayan</option></select>
+        <select id="of-title"><option data-i18n="of_h0">Sayın</option><option data-i18n="of_h2">Hanımefendi</option><option data-i18n="of_h1">Beyefendi</option></select>
         <div class="two"><label><span class="of-k" data-i18n="c_fn">Ad *</span><input id="of-fn" autocomplete="given-name"></label><label><span class="of-k" data-i18n="c_ln">Soyad *</span><input id="of-ln" autocomplete="family-name"></label></div>
         <label><span class="of-k"><span data-i18n="mail">E-posta</span> *</span><input id="of-mail" type="email" autocomplete="email"></label>
         <div><span class="of-k"><span data-i18n="phone">Telefon</span> *</span><div class="tel">
@@ -1044,7 +1102,7 @@ plevne:[
 const COV={essenora:["ess-hero","ess-towers","ess-front","ess-sign","ess-park","ess-wide","ess-city","ess-flare","ess-gate","ess-pool","ess-gym","ess-court"],plevne:["plv-render","plv-hero","plv-render2","plv-garden","plv-carsi","plv-top","plv-a","plv-b","plv-carsi-sign"]};
 
 /* =========================== i18n =========================== */
-const EN={nav_press_oz:"Oktay Öz in the press",bio_p1:"Originally from Malatya, R. Oktay Öz completed his primary, secondary and high school education at Gaziosmanpaşa Plevne High School. He graduated from the Department of Geological Engineering at the Faculty of Mines, Istanbul Technical University. He is married and the father of two children.",bio_p2:"He began his career at Öz Plastik in plastic bag manufacturing, where he worked for 11 years. He then moved into the automotive sector, serving for 15 years as an authorised Škoda dealer within Doğuş Group, Volkswagen Group's representative in Türkiye. He went on to chair the board of Atik Otomotiv Tic. Ltd. Şti., a Suzuki dealership providing sales and service. During this period, Atik Sigorta Aracılık Hizmetleri Ltd. Şti. held the agencies of six insurance companies.",bio_p3:"R. Oktay Öz is a founding partner of Essenora, the first urban regeneration project in Gaziosmanpaşa. The key handover ceremony for the project, comprising 758 homes, 82 terrace villas and retail units, was held by the then President of Türkiye.",bio_p4:"Another project of BY OKTAYÖZ İnşaat A.Ş., of which he is a founding partner, is Plevne İstanbul beside the TEM motorway, planned at 1,600 homes in total. Its first phase includes 400 homes, office floors and shops; the groundbreaking ceremony was held by the then Minister of Environment and Urbanisation.",bio_p5:"The company's long-term projects include the Taksim Hacıhüsrev urban regeneration project in Beyoğlu. Preliminary agreements and power-of-attorney work continue at the urban regeneration office BY OKTAYÖZ İnşaat opened in Hacıhüsrev.",bio_p6:"R. Oktay Öz believes urban regeneration should rest on willing consent, and that a positive tone in communication benefits everyone involved. In his view, reaching people's hearts makes even the hardest processes possible. He is known for his warm, sincere and people-centred approach.",bio_p7:"His aim is to develop projects that stand out for their qualities, to work in harmony with local communities and to offer people the life they imagine. He sees investing in people as the foundation of business.",bio_t:"Biography",bio_vision:"Approach",bio_edu_k:"Education",bio_edu_v:"ITU Faculty of Mines, Geological Engineering",bio_from_k:"Hometown",bio_from_v:"Malatya",bio_mem_k:"Memberships",bio_mem_v:"OYDER (Automotive Authorised Dealers Association), İMAD (Malatya Businessmen's Association)",bio_proj_k:"Projects",bio_sum:"Founding partner of Essenora, Gaziosmanpaşa's first urban regeneration project, and of BY OKTAYÖZ İnşaat A.Ş., developer of Plevne Konutları & Çarşı.",cc_search:"Search country",of_kvkk:"I have read the KVKK notice and agree that my details are used only to respond to my offer. *",nav_offer:"Project Offers",of_t:"Do you have an offer?",of_sub:"Tell us about your land or project. We will review it and get back to you.",of_desc_k:"Describe your offer",of_desc_ph:"Location of the land, parcel details, area, zoning status and your expectations. Anything you want us to know.",of_type_k:"Type of offer",of_o1:"Land sale offer",of_o2:"Flat-for-land project offer",of_o3:"Something else",of_loc_k:"Land / project location",of_loc_ph:"City, district, neighbourhood",opt:"Optional",of_files_k:"Documents and photos",of_files_h:"Title deed, zoning status, photos (PDF or image)",of_title_k:"Title",of_h0:"Dear",of_h1:"Mr",of_h2:"Ms",of_note:"All fields marked with an asterisk (*) are required.",of_send:"Send offer",of_need:"Please complete the fields marked in red. Turkish numbers must have 10 digits.",of_sent:"Thank you. In this preview the offer is not sent anywhere yet; on the live site it will go to info@byoktayozinsaat.com.",ct_lead:"Contact us about our projects, partnerships and careers.<br>For land and flat-for-land offers, use the <a href=\"#teklif\" data-offer=\"\" class=\"inl\">Project Offers</a> form.",ct_addr:"Address",ct_dir:"Get directions",ct_form:"Contact form",c_fn:"First name *",c_ln:"Last name *",c_mail:"Email *",c_tel:"Phone *",ct_t0:"General enquiry",ct_t1:"Project information",ct_t5:"Press",c_kvkk:"I have read and understood the KVKK notice. *",c_cons:"I consent to receiving commercial messages through the following channels.",c_c1:"Phone call",c_c2:"SMS",c_c3:"Email",copy:"Copy",copied:"Copied",ct_sent:"Thank you. In this preview the form is not sent anywhere yet; on the live site your message will go to info@byoktayozinsaat.com.",ct_need:"Please fill in the starred fields, enter a valid email and tick the KVKK consent.",vp_blocked:"This preview environment does not allow embedded video. On the live site the video plays right here, without leaving the page.",vp_open:"Open video",nav_board:"Board of Directors",nav_vm:"Vision & Mission",nav_press_us:"Our projects in the press",ab_who_t:"Who we are",ab_who:"We are a real estate developer that plans residential, retail and hotel functions together.",ab_who2:"We design our projects not just as housing but as a living environment with green spaces, social facilities and shopping arcades.",bd_lead:"“Management should be built on long-term thinking, transparency and keeping one's word.”",portrait_ph:"Portrait to be added",bd_bio:"Chairman of the Board of BY OKTAYÖZ İnşaat. He has discussed the Essenora and Plevne projects in the press and spoke at the Brand Cities Summit 2017 and the Bosch Construction and Housing Conference 2018.",bd_cta:"Watch his interviews",bd_other:"Board members",name_ph:"Full name",bd_ph:"Member details to be added",vm_lead:"Three principles that explain why we build and how we work.",vm_aim_t:"Our purpose",vm_aim:"To build earthquake-resistant living spaces.",cp_lead:"Interviews, summit talks and project reviews by Chairman Oktay Öz.",nav_about:"About us",all_projects:"All developments",ab_lead:"We are a real estate developer building residential, hotel and commercial projects. Essenora and Plevne, completed in Gaziosmanpaşa, are now places where thousands of people live and shop.",ab_mis_t:"Our mission",ab_mis:"The mission of our company, which develops residential, hotel and commercial projects, is to meet our customers' housing, shopping and investment needs not only with four walls but with a developed environment, quality amenities and the assurance of our brand.",ab_info_t:"Company details",ab_title:"Legal name",ab_field:"Fields of activity",ab_field_v:"Residential · Retail · Hotel",ab_done:"Completed projects",ab_chair:"Chairman of the Board",pr_ey:"Completed projects",pr_lead:"Two completed developments bringing residences, terrace villas, a shopping arcade and a hotel together.",nav_home:"Home",nav_company:"Company",nav_dev:"Developments",nav_press:"Press",nav_contact:"Contact",nav_p1:"Essenora",nav_p2:"Plevne",
+const EN={nav_press_oz:"Oktay Öz in the press",bio_p1:"Originally from Malatya, R. Oktay Öz completed his primary, secondary and high school education at Gaziosmanpaşa Plevne High School. He graduated from the Department of Geological Engineering at the Faculty of Mines, Istanbul Technical University. He is married and the father of two children.",bio_p2:"He began his career at Öz Plastik in plastic bag manufacturing, where he worked for 11 years. He then moved into the automotive sector, serving for 15 years as an authorised Škoda dealer within Doğuş Group, Volkswagen Group's representative in Türkiye. He went on to chair the board of Atik Otomotiv Tic. Ltd. Şti., a Suzuki dealership providing sales and service. During this period, Atik Sigorta Aracılık Hizmetleri Ltd. Şti. held the agencies of six insurance companies.",bio_p3:"R. Oktay Öz is a founding partner of Essenora, the first urban regeneration project in Gaziosmanpaşa. The key handover ceremony for the project, comprising 758 homes, 82 terrace villas and retail units, was held by the then President of Türkiye.",bio_p4:"Another project of BY OKTAYÖZ İnşaat A.Ş., of which he is a founding partner, is Plevne İstanbul beside the TEM motorway, planned at 1,600 homes in total. Its first phase includes 400 homes, office floors and shops; the groundbreaking ceremony was held by the then Minister of Environment and Urbanisation.",bio_p5:"The company's long-term projects include the Taksim Hacıhüsrev urban regeneration project in Beyoğlu. Preliminary agreements and power-of-attorney work continue at the urban regeneration office BY OKTAYÖZ İnşaat opened in Hacıhüsrev.",bio_p6:"R. Oktay Öz believes urban regeneration should rest on willing consent, and that a positive tone in communication benefits everyone involved. In his view, reaching people's hearts makes even the hardest processes possible. He is known for his warm, sincere and people-centred approach.",bio_p7:"His aim is to develop projects that stand out for their qualities, to work in harmony with local communities and to offer people the life they imagine. He sees investing in people as the foundation of business.",bio_t:"Biography",bio_vision:"Approach",bio_edu_k:"Education",bio_edu_v:"ITU Faculty of Mines, Geological Engineering",bio_from_k:"Hometown",bio_from_v:"Malatya",bio_mem_k:"Memberships",bio_mem_v:"OYDER (Automotive Authorised Dealers Association), İMAD (Malatya Businessmen's Association)",bio_proj_k:"Projects",bio_sum:"Founding partner of Essenora, Gaziosmanpaşa's first urban regeneration project, and of BY OKTAYÖZ İnşaat A.Ş., developer of Plevne Konutları & Çarşı.",cc_search:"Search country",of_kvkk:"I have read the KVKK notice and agree that my details are used only to respond to my offer. *",nav_offer:"Project Offers",of_t:"Do you have an offer?",of_sub:"Tell us about your land or project. We will review it and get back to you.",of_desc_k:"Describe your offer",of_desc_ph:"Location of the land, parcel details, area, zoning status and your expectations. Anything you want us to know.",of_type_k:"Type of offer",of_o1:"Land sale offer",of_o2:"Flat-for-land project offer",of_o3:"Something else",of_loc_k:"Land / project location",of_loc_ph:"City, district, neighbourhood",opt:"Optional",of_files_k:"Documents and photos",of_files_h:"Title deed, zoning status, photos (PDF or image)",of_title_k:"Title",of_h0:"Dear",of_h1:"Mr",of_h2:"Ms",of_note:"All fields marked with an asterisk (*) are required.",of_send:"Send offer",of_need:"Please complete the fields marked in red. Turkish numbers must have 10 digits.",of_sent:"Thank you, your offer has reached us. We will get back to you shortly.",sending:"Sending…",send_err:"Could not send. Please try again or call +90 212 615 24 44.",ct_lead:"Contact us about our projects, partnerships and careers.<br>For land and flat-for-land offers, use the <a href=\"#teklif\" data-offer=\"\" class=\"inl\">Project Offers</a> form.",ct_addr:"Address",ct_dir:"Get directions",ct_form:"Contact form",c_fn:"First name *",c_ln:"Last name *",c_mail:"Email *",c_tel:"Phone *",ct_t0:"General enquiry",ct_t1:"Project information",ct_t5:"Press",c_kvkk:"I have read and understood the KVKK notice. *",c_cons:"I consent to receiving commercial messages through the following channels.",c_c1:"Phone call",c_c2:"SMS",c_c3:"Email",copy:"Copy",copied:"Copied",ct_sent:"Thank you, your message has reached us. We will get back to you shortly.",ct_need:"Please fill in the starred fields, enter a valid email and tick the KVKK consent.",vp_blocked:"This preview environment does not allow embedded video. On the live site the video plays right here, without leaving the page.",vp_open:"Open video",nav_board:"Board of Directors",nav_vm:"Vision & Mission",nav_press_us:"Our projects in the press",ab_who_t:"Who we are",ab_who:"We are a real estate developer that plans residential, retail and hotel functions together.",ab_who2:"We design our projects not just as housing but as a living environment with green spaces, social facilities and shopping arcades.",bd_lead:"“Management should be built on long-term thinking, transparency and keeping one's word.”",portrait_ph:"Portrait to be added",bd_bio:"Chairman of the Board of BY OKTAYÖZ İnşaat. He has discussed the Essenora and Plevne projects in the press and spoke at the Brand Cities Summit 2017 and the Bosch Construction and Housing Conference 2018.",bd_cta:"Watch his interviews",bd_other:"Board members",name_ph:"Full name",bd_ph:"Member details to be added",vm_lead:"Three principles that explain why we build and how we work.",vm_aim_t:"Our purpose",vm_aim:"To build earthquake-resistant living spaces.",cp_lead:"Interviews, summit talks and project reviews by Chairman Oktay Öz.",nav_about:"About us",all_projects:"All developments",ab_lead:"We are a real estate developer building residential, hotel and commercial projects. Essenora and Plevne, completed in Gaziosmanpaşa, are now places where thousands of people live and shop.",ab_mis_t:"Our mission",ab_mis:"The mission of our company, which develops residential, hotel and commercial projects, is to meet our customers' housing, shopping and investment needs not only with four walls but with a developed environment, quality amenities and the assurance of our brand.",ab_info_t:"Company details",ab_title:"Legal name",ab_field:"Fields of activity",ab_field_v:"Residential · Retail · Hotel",ab_done:"Completed projects",ab_chair:"Chairman of the Board",pr_ey:"Completed projects",pr_lead:"Two completed developments bringing residences, terrace villas, a shopping arcade and a hotel together.",nav_home:"Home",nav_company:"Company",nav_dev:"Developments",nav_press:"Press",nav_contact:"Contact",nav_p1:"Essenora",nav_p2:"Plevne",
 press_oktay_s:"Oktay Öz in the press",press_p1_s:"Essenora",press_p2_s:"Plevne",
 hero_cta:"Discover the project",intro_t:"Developments",intro_p:"We develop residential, hotel and commercial projects. Our aim is to meet our residents' housing, shopping and investment needs not only with four walls, but with a developed environment, quality amenities and the assurance of our brand. Our two completed projects are now home to thousands of people.",intro_cta:"See our developments",
 tab_press:"In the press",see_project:"Go to project page",ban_t:"Our vision",ban_p1:"To stand out and lead with our projects, to build permanent structures with sustainable features, to analyse needs accurately and to add value to the city and society through projects backed by advanced architecture and engineering.",ban_p2:"Under BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. we plan residential, retail and hotel functions together.",ban_cta:"Chairman Oktay Öz in the press",feat:"Plevne Çarşı · 60 retail units",
@@ -1056,9 +1114,9 @@ g1_ey:"Chairman of the Board",g1_t:"Oktay Öz in the press",g1_p:"Interviews, su
 vision:"Vision & Mission",career:"Careers",land:"Land development",hq:"Headquarters",addr_ph:"New address to be added",phone:"Telephone",mail:"Email",mail_ph:"Corporate email to be added",kvkk:"KVKK Notice",privacy:"Privacy Policy",cookies:"Cookie Policy",cookie_pref:"Cookie preferences",taxo:"Tax office",taxno:"Tax no",
 cookie_p:"We use essential cookies to run the site. Analytics cookies are enabled only with your consent.",c_all:"Accept all",c_ess:"Essential only",
 press_ey_p:"Press & Media",k_loc:"Location",k_status:"Status",k_types:"Unit types",k_func:"Functions",k_web:"Website",watch:"Watch",press_of:"in the press",videos:"videos",photos:"photos",project:"Project",
-sent:"Thank you. Form submission is not connected yet in this prototype; please call +90 212 615 24 44.",need:"Please fill in name, phone and the KVKK consent."};
-const TRK={of_files_h:"Tapu, imar durumu, fotoğraf (PDF veya görsel)",of_need:"Lütfen kırmızıyla işaretli alanları doldurun. Türkiye numaraları 10 haneli olmalı (5XX XXX XX XX).",of_sent:"Teşekkürler. Bu önizlemede teklif henüz bir yere gönderilmiyor; canlı sitede info@byoktayozinsaat.com adresine iletilecek.",ct_sent:"Teşekkürler. Bu önizlemede form henüz bir yere gönderilmiyor; canlı sitede mesajınız info@byoktayozinsaat.com adresine iletilecek.",ct_need:"Lütfen yıldızlı alanları doldurun, geçerli bir e-posta girin ve KVKK onayını işaretleyin.",copied:"Kopyalandı",press_ey_p:"Basın & Medya",k_loc:"Konum",k_status:"Durum",k_types:"Daire tipleri",k_func:"Fonksiyonlar",k_web:"Web sitesi",watch:"İzle",press_of:"basında",videos:"video",photos:"fotoğraf",project:"Proje",
-sent:"Teşekkürler. Bu prototipte form gönderimi henüz bağlı değil; lütfen +90 212 615 24 44 numarasını arayın.",need:"Lütfen ad soyad, telefon ve KVKK onayını doldurun."};
+sent:"Thank you, your request has reached us. We will get back to you shortly.",need:"Please fill in name, phone and the KVKK consent."};
+const TRK={of_files_h:"Tapu, imar durumu, fotoğraf (PDF veya görsel)",of_need:"Lütfen kırmızıyla işaretli alanları doldurun. Türkiye numaraları 10 haneli olmalı (5XX XXX XX XX).",of_sent:"Teşekkürler, teklifiniz bize ulaştı. En kısa sürede size dönüş yapacağız.",sending:"Gönderiliyor…",send_err:"Gönderilemedi. Lütfen tekrar deneyin ya da +90 212 615 24 44 numarasını arayın.",ct_sent:"Teşekkürler, mesajınız bize ulaştı. En kısa sürede size dönüş yapacağız.",ct_need:"Lütfen yıldızlı alanları doldurun, geçerli bir e-posta girin ve KVKK onayını işaretleyin.",copied:"Kopyalandı",press_ey_p:"Basın & Medya",k_loc:"Konum",k_status:"Durum",k_types:"Daire tipleri",k_func:"Fonksiyonlar",k_web:"Web sitesi",watch:"İzle",press_of:"basında",videos:"video",photos:"fotoğraf",project:"Proje",
+sent:"Teşekkürler, talebiniz bize ulaştı. En kısa sürede size dönüş yapacağız.",need:"Lütfen ad soyad, telefon ve KVKK onayını doldurun."};
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 let LANG="tr";
 const t=k=>LANG==="en"?(EN[k]??TRK[k]??k):(TRK[k]??k);
@@ -1080,7 +1138,7 @@ const VMETA={"0zbxVppo5H4": ["2013-09-26", 395], "3IFrStAYo3M": ["2017-10-03", 2
 Object.keys(V).forEach(g=>V[g].sort((a,b)=>(VMETA[b[0]]?.[0]||"").localeCompare(VMETA[a[0]]?.[0]||"")));
 const fmtDur=n=>{n=+n||0;const h=Math.floor(n/3600),m=Math.floor(n%3600/60),x=String(n%60).padStart(2,"0");return h?`${h}:${String(m).padStart(2,"0")}:${x}`:`${m}:${x}`};
 const fmtDate=d=>{if(!d)return "";const [y,m,dd]=d.split("-").map(Number);return new Intl.DateTimeFormat(LANG==="en"?"en-GB":"tr-TR",{day:"numeric",month:"long",year:"numeric"}).format(new Date(Date.UTC(y,m-1,dd)))};
-const thumb=id=>(window.__THUMB&&window.__THUMB[id])||"";
+const thumb=id=>(window.__THUMB&&window.__THUMB[id])||`https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 function vcard(v){
   const [id,title]=v;const m=VMETA[id]||[];
   return `<button type="button" class="vcard" data-vid="${id}" aria-label="${esc(title)} — ${esc(t("watch"))}"><img src="${thumb(id)}" alt="" loading="lazy">${m[1]?`<span class="dur">${fmtDur(m[1])}</span>`:""}<span class="vplay"><i></i>${esc(t("watch"))}</span></button>`;
@@ -1201,9 +1259,9 @@ function renderProject(key){
   $("#pKicker").textContent=L(p.tag);
   swapWord($("#pWord"),p.word,true);
   $("#pMeta").innerHTML=`<span>${esc(L(p.loc))}</span><span class="chip">${esc(L(p.status))}</span>`;
-  const lg=$("#pLogo");lg.src=I(p.logo);lg.alt=p.name;lg.className="p-logo"+(p.logoWide?" wide":"");
+  $("#pLogos").innerHTML=`<img class="plogo${p.logoWide?" wide":""}" src="${I(p.logo)}" alt="${esc(p.name)}">${p.subLogos?`<div class="psubs">${p.subLogos.map(x=>`<img src="${I(x)}" alt="">`).join("")}</div>`:""}`;
   $("#pTitle").textContent=p.name;
-  $("#pStory").textContent=L(p.story);
+  $("#pStory").textContent=L(p.story);$("#pStory").dataset.ck=`proj.${key}.story`;
   $("#pFacts").innerHTML=p.facts.map(([k,v])=>{const val=v==="loc"?esc(L(p.loc)):v==="status"?esc(L(p.status)):typeof v==="object"?esc(L(v)):v;return `<li><span>${t(k)}</span><span>${val}</span></li>`}).join("");
   $("#pStats").innerHTML=p.stats.map(([n,u,l])=>`<div class="stat rv"><b>${n}${u?`<small>${u}</small>`:""}</b><span>${esc(L(l))}</span></div>`).join("");
   $("#pRail").innerHTML=p.gallery.map(([f,alt],i)=>`<button class="card" type="button" data-lb="${i}"><img src="${I(`img/${f}.jpg`)}" alt="${esc(alt)}" loading="lazy"><span class="label-bar">${ARR}<span>${esc(alt)}</span></span></button>`).join("");
@@ -1225,7 +1283,11 @@ function renderProject(key){
 }
 
 /* contact form */
-$("#ctForm").addEventListener("submit",e=>{e.preventDefault();const ok=["#c-fn","#c-ln","#c-mail","#c-tel"].every(q=>$(q).value.trim())&&/\S+@\S+\.\S+/.test($("#c-mail").value)&&$("#c-kvkk").checked;const n=$("#ctNote");n.hidden=false;n.textContent=ok?t("ct_sent"):t("ct_need")});
+$("#ctForm").addEventListener("submit",async e=>{e.preventDefault();const ok=["#c-fn","#c-ln","#c-mail","#c-tel"].every(q=>$(q).value.trim())&&/\S+@\S+\.\S+/.test($("#c-mail").value)&&$("#c-kvkk").checked;const n=$("#ctNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("ct_need");return}
+  const b=e.target.querySelector('[type="submit"]');if(b.getAttribute("aria-busy"))return;n.textContent=t("sending");
+  const ch=[["#c-c1","Telefon"],["#c-c2","SMS"],["#c-c3","E-posta"]].filter(([q])=>$(q).checked).map(x=>x[1]).join(", ");
+  const sent=await sendForm("iletisim",{name:($("#c-fn").value+" "+$("#c-ln").value).trim(),email:$("#c-mail").value.trim(),phone:$("#c-tel").value.trim(),topic:$("#c-topic").value,message:$("#c-msg").value.trim(),channels:ch},[],b);
+  if(sent){n.textContent=t("ct_sent");e.target.reset()}else{n.textContent=t("send_err");n.style.color="#b3261e"}});
 $("#copyMail").addEventListener("click",async e=>{const b=e.currentTarget;try{await navigator.clipboard.writeText("info@byoktayozinsaat.com");b.textContent=t("copied")}catch(_){const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const sel=getSelection();sel.removeAllRanges();sel.addRange(r)}});
 document.addEventListener("click",e=>{const a=e.target.closest("[data-topic]");if(a)setTimeout(()=>{$("#c-topic").value=a.dataset.topic},50)});
 
@@ -1265,13 +1327,16 @@ function ofCheck(mark){
 }
 let ofTried=false;
 ["input","change","click"].forEach(ev=>$("#ofForm").addEventListener(ev,()=>setTimeout(()=>ofCheck(ofTried),0)));
-$("#ofForm").addEventListener("submit",e=>{e.preventDefault();ofTried=true;
+$("#ofForm").addEventListener("submit",async e=>{e.preventDefault();ofTried=true;
   const {all,ok}=ofCheck(true);const m=$("#ofMsg");m.hidden=false;
   m.style.color="";
-  if(!all){m.textContent=t("of_need");m.style.color="#b3261e";const first=["desc","type","loc","files","fn","ln","mail","tel","kvkk"].find(k=>!ok[k]);
+  if(!all){m.textContent=t("of_need");m.style.color="#FF9A92";const first=["desc","type","loc","files","fn","ln","mail","tel","kvkk"].find(k=>!ok[k]);
     const el={desc:"#of-desc",type:"#ofType button",loc:"#of-loc",files:"#ofForm .add",fn:"#of-fn",ln:"#of-ln",mail:"#of-mail",tel:"#of-tel",kvkk:"#of-kvkk"}[first];
     const n=document.querySelector(el);n&&n.focus&&n.focus();return}
-  m.textContent=t("of_sent")});
+  const b=$("#ofSend");if(b.getAttribute("aria-busy"))return;m.textContent=t("sending");
+  const files=[...$("#of-files").files];
+  const sent=await sendForm("teklif",{title:$("#of-title").value,name:($("#of-fn").value+" "+$("#of-ln").value).trim(),email:$("#of-mail").value.trim(),phone:"+"+ccCur[2]+" "+$("#of-tel").value.trim(),location:$("#of-loc").value.trim(),offerType:document.querySelector('#ofType [aria-checked="true"]')?.dataset.v||"",message:$("#of-desc").value.trim()},files,b);
+  if(sent){m.textContent=t("of_sent");$("#ofForm").reset();document.querySelectorAll("#ofType button").forEach(x=>x.setAttribute("aria-checked","false"));$("#ofFiles").textContent=t("of_files_h");ofTried=false;ofCheck(false)}else{m.textContent=t("send_err");m.style.color="#FF9A92"}});
 /* country code picker */
 const CC=[["TR","Türkiye","90"],["DE","Almanya","49"],["US","ABD","1"],["GB","Birleşik Krallık","44"],["NL","Hollanda","31"],["FR","Fransa","33"],["AE","BAE","971"],["SA","Suudi Arabistan","966"],["QA","Katar","974"],["KW","Kuveyt","965"],["AZ","Azerbaycan","994"],["RU","Rusya","7"],["AT","Avusturya","43"],["BE","Belçika","32"],["CH","İsviçre","41"],["IT","İtalya","39"],["ES","İspanya","34"],["SE","İsveç","46"],["NO","Norveç","47"],["DK","Danimarka","45"],["GR","Yunanistan","30"],["BG","Bulgaristan","359"],["RO","Romanya","40"],["CY","Kıbrıs","357"],["IQ","Irak","964"],["IR","İran","98"],["JO","Ürdün","962"],["LB","Lübnan","961"],["EG","Mısır","20"],["LY","Libya","218"],["DZ","Cezayir","213"],["MA","Fas","212"],["KZ","Kazakistan","7"],["UZ","Özbekistan","998"],["TM","Türkmenistan","993"],["KG","Kırgızistan","996"],["GE","Gürcistan","995"],["UA","Ukrayna","380"],["PL","Polonya","48"],["CA","Kanada","1"],["AU","Avustralya","61"],["CN","Çin","86"],["JP","Japonya","81"],["IN","Hindistan","91"],["PK","Pakistan","92"],["BA","Bosna-Hersek","387"],["MK","Kuzey Makedonya","389"],["AL","Arnavutluk","355"],["XK","Kosova","383"],["IL","İsrail","972"]];
 const flag=c=>c.toUpperCase().replace(/./g,ch=>String.fromCodePoint(127397+ch.charCodeAt(0)));
@@ -1323,7 +1388,10 @@ $("#lb").addEventListener("click",e=>{if(e.target.id==="lb")lbClose()});
 document.addEventListener("keydown",e=>{if(!$("#lb").classList.contains("open"))return;if(e.key==="ArrowRight")lbOpen(lbI+1);if(e.key==="ArrowLeft")lbOpen(lbI-1)});
 
 /* form */
-$("#infoForm").addEventListener("submit",e=>{e.preventDefault();const ok=$("#f-name").value.trim()&&$("#f-phone").value.trim()&&$("#f-kvkk").checked;const n=$("#formNote");n.hidden=false;n.textContent=ok?t("sent"):t("need")});
+$("#infoForm").addEventListener("submit",async e=>{e.preventDefault();const ok=$("#f-name").value.trim()&&$("#f-phone").value.trim()&&$("#f-kvkk").checked;const n=$("#formNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("need");return}
+  const b=e.target.querySelector('[type="submit"]');if(b&&b.getAttribute("aria-busy"))return;n.textContent=t("sending");
+  const sent=await sendForm("bilgi",{name:$("#f-name").value.trim(),phone:$("#f-phone").value.trim(),email:$("#f-mail").value.trim(),topic:$("#f-topic").value,message:$("#f-msg").value.trim(),project:P[curProj]?P[curProj].name:""},[],b);
+  if(sent){n.textContent=t("sent");e.target.reset()}else{n.textContent=t("send_err");n.style.color="#b3261e"}});
 
 /* =========================== Press page =========================== */
 let ppKey="essenora";
@@ -1359,7 +1427,7 @@ function route(){
   let h=location.hash.slice(1);
   if(h==="teklif"){ofOpen("");h=""}
   if(h==="basin"){history.replaceState(null,"","#kurumsal-basin");h="kurumsal-basin"}
-  const view=P[h]?"project":ROUTES[h]||"home";
+  const view=P[h]?"project":ROUTES[h]||(typeof cpage==="function"&&cpage(h)?"custom":"home");
   document.querySelectorAll(".view").forEach(v=>{const on=v.dataset.view===view;v.hidden=!on;if(on&&!reduce){v.classList.remove("enter");void v.offsetWidth;v.classList.add("enter")}});
   if(view!=="home"&&homeShow){homeShow.stop();homeShow=null}
   if(view!=="project"&&projShow){projShow.stop();projShow=null}
@@ -1367,6 +1435,7 @@ function route(){
   if(view==="project")renderProject(h);
   if(view==="projects")renderProjects();
   if(view==="cpress")renderCPress();
+  if(view==="custom")renderCustomPage(h);
   if(view==="ppress"){setFilter(pendingFilter||ppKey);pendingFilter=null}
   document.querySelectorAll(".hdr-r [data-grp]").forEach(a=>a.classList.toggle("on",a.dataset.grp===GROUP[view]));
   document.querySelectorAll(".side a").forEach(a=>a.classList.toggle("cur",a.getAttribute("href")==="#"+h));
@@ -1374,6 +1443,7 @@ function route(){
   document.querySelectorAll(".view:not([hidden]) .subnav .wrap").forEach(w=>{const a=w.querySelector("a.on");w.scrollLeft=a?Math.max(0,a.offsetLeft-w.clientWidth/2+a.offsetWidth/2):0});
   scrollTo(0,0);onScroll();
   requestAnimationFrame(()=>reveal(document.querySelector(`.view[data-view="${view}"]`)));
+  window.decorate&&window.decorate();
 }
 addEventListener("hashchange",route);
 function renderAll(){buildRail();renderHomePress();const h=location.hash.slice(1);if(P[h])renderProject(h);if(h==="kurumsal-basin")renderCPress();if(h==="proje-basin")setFilter(ppKey);if(h==="projeler")renderProjects();if(homeShow){startHome()}}
@@ -1383,6 +1453,282 @@ const ck=$("#cookie");
 if(!store.get("bo_cookie")){const show=()=>{if(scrollY>innerHeight*.5){ck.hidden=false;removeEventListener("scroll",show)}};addEventListener("scroll",show,{passive:true})}
 ck.querySelectorAll("[data-c]").forEach(b=>b.addEventListener("click",()=>{store.set("bo_cookie",b.dataset.c);ck.hidden=true}));
 $("#cookieOpen").addEventListener("click",()=>{ck.hidden=false});
+
+/* =========================== CMS: içerik, formlar, admin =========================== */
+const API=(window.__API||"https://byoktayoz-api.yigitozz44.workers.dev");
+const MAILTO="info@byoktayozinsaat.com";
+const ADMIN=!!window.__ADMIN;
+let CMS={tx:{tr:{},en:{}},videos:{},vmeta:{},proj:{},extra:{},pages:[]};
+const CPV=new Set(["about","board","vision","cpress","projects","ppress","contact"]);
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const LT=v=>v&&typeof v==="object"?(v[LANG]||v.tr||""):(v||"");
+function sanitize(html){
+  const tp=document.createElement("template");tp.innerHTML=html;
+  const ok={A:["href","data-offer","class","target","rel"],BR:[],B:[],STRONG:[],I:[],EM:[],SMALL:[]};
+  (function walk(n){[...n.childNodes].forEach(c=>{
+    if(c.nodeType===1){walk(c);
+      if(ok[c.tagName]){[...c.attributes].forEach(a=>{if(!ok[c.tagName].includes(a.name))c.removeAttribute(a.name)});if(c.tagName==="A"&&/^\s*javascript:/i.test(c.getAttribute("href")||""))c.removeAttribute("href")}
+      else if(c.tagName==="DIV"||c.tagName==="P"){c.before(document.createElement("br"));c.replaceWith(...c.childNodes)}
+      else c.replaceWith(...c.childNodes)}
+    else if(c.nodeType!==3)c.remove()})})(tp.content);
+  return tp.innerHTML.replace(/^(<br>)+|(<br>)+$/g,"").replace(/&nbsp;/g," ").trim();
+}
+
+/* --- içerik uygulama --- */
+function applyContent(c){
+  if(!c||typeof c!=="object")return;
+  CMS={tx:{tr:{},en:{}},videos:{},vmeta:{},proj:{},extra:{},pages:[],...c};
+  CMS.tx={tr:{},en:{},...(c.tx||{})};
+  for(const[k,v]of Object.entries(CMS.tx.tr||{})){TRK[k]=v;document.querySelectorAll(`[data-i18n="${k}"]`).forEach(n=>n.dataset.tr=v)}
+  for(const[k,v]of Object.entries(CMS.tx.en||{}))EN[k]=v;
+  Object.assign(VMETA,CMS.vmeta||{});
+  for(const[g,list]of Object.entries(CMS.videos||{}))if(Array.isArray(list)&&V[g])V[g]=list.map(x=>x.slice());
+  Object.keys(V).forEach(g=>V[g].sort((a,b)=>(VMETA[b[0]]?.[0]||"").localeCompare(VMETA[a[0]]?.[0]||"")));
+  for(const[k,o]of Object.entries(CMS.proj||{}))if(P[k])for(const[f,v]of Object.entries(o))P[k][f]=v;
+}
+function refreshAll(){applyLang();renderMenus();renderExtras();renderAll();const h=location.hash.slice(1);if(cpage(h))renderCustomPage(h);decorate()}
+
+/* --- özel sayfalar ve alanlar --- */
+const cpage=h=>h&&h.startsWith("sayfa-")&&(CMS.pages||[]).find(p=>"sayfa-"+p.id===h);
+function rowsHTML(rows,base){
+  return (rows||[]).map((r,i)=>`<div class="about-row cx-row"><h2 data-ck="${base}.${i}.t">${LT(r.t)}</h2><div></div><p data-ck="${base}.${i}.p">${LT(r.p)}</p>${ADMIN?`<button type="button" class="cms-x" data-delrow="${base}.${i}" title="Alanı sil">×</button>`:""}</div>`).join("")
+}
+function renderExtras(){
+  document.querySelectorAll(".cx-sec").forEach(n=>n.remove());
+  document.querySelectorAll(".view[data-view]").forEach(v=>{const k=v.dataset.view;if(!CPV.has(k))return;
+    const rows=(CMS.extra||{})[k]||[];if(!rows.length&&!ADMIN)return;
+    const s=document.createElement("section");s.className="about-sec cx-sec";
+    s.innerHTML=`<div class="wrap">${rowsHTML(rows,"extra."+k)}${ADMIN?`<button type="button" class="cms-add" data-addrow="extra.${k}">+ Alan ekle</button>`:""}</div>`;
+    v.appendChild(s)});
+}
+function renderMenus(){
+  document.querySelectorAll("[data-cp]").forEach(n=>n.remove());
+  const pages=CMS.pages||[];
+  const dd=document.querySelectorAll(".hdr-r .nav-item .dd");
+  const subs={corp:$("#sub1 ul"),proj:$("#sub2 ul")};
+  const ft={corp:document.querySelector('#footer .fh[data-i18n="nav_company"]')?.closest("ul"),proj:document.querySelector('#footer .fh[data-i18n="nav_dev"]')?.closest("ul")};
+  pages.forEach(p=>{const t=LT(p.title),href="#sayfa-"+p.id,ck=`pages.${p.id}.title`;
+    const d=dd[p.parent==="proj"?1:0];if(d)d.insertAdjacentHTML("beforeend",`<a href="${href}" data-cp data-ck="${ck}">${t}</a>`);
+    subs[p.parent]?.insertAdjacentHTML("beforeend",`<li data-cp><a href="${href}" data-ck="${ck}">${t}</a></li>`);
+    const fu=ft[p.parent];if(fu){const last=[...fu.querySelectorAll('li a[href^="#"]')].pop();(last?last.closest("li"):fu.lastElementChild).insertAdjacentHTML("afterend",`<li data-cp><a href="${href}" data-ck="${ck}">${t}</a></li>`)}
+    document.querySelectorAll(`.subnav[aria-label="${p.parent==="proj"?"Projeler":"Kurumsal"}"] .wrap`).forEach(w=>w.insertAdjacentHTML("beforeend",`<a href="${href}" data-cp data-ck="${ck}">${t}</a>`));
+  });
+  if(ADMIN){dd.forEach((d,i)=>d.insertAdjacentHTML("beforeend",`<a href="#" data-cp class="cms-addpage" data-addpage="${i?"proj":"corp"}">+ Sayfa ekle</a>`))}
+}
+function ensureCustomView(){
+  let v=document.querySelector('.view[data-view="custom"]');if(v)return v;
+  v=document.createElement("div");v.className="view nohero";v.dataset.view="custom";v.hidden=true;
+  v.innerHTML=`<nav class="subnav"><div class="wrap"></div></nav><section class="pg-intro"><div class="wrap"><h1 class="ao-h cp-title"></h1></div></section><section class="about-sec cp-body"><div class="wrap"></div></section>`;
+  document.querySelector("main").appendChild(v);return v;
+}
+function renderCustomPage(h){
+  const p=cpage(h);if(!p)return;const v=ensureCustomView();
+  GROUP.custom=p.parent==="proj"?"proj":"corp";
+  const src=document.querySelector(`.view:not([data-view="custom"]) .subnav[aria-label="${p.parent==="proj"?"Projeler":"Kurumsal"}"]`);
+  const sn=v.querySelector(".subnav");sn.setAttribute("aria-label",src?src.getAttribute("aria-label"):"");sn.querySelector(".wrap").innerHTML=src?src.querySelector(".wrap").innerHTML:"";
+  sn.querySelectorAll("a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));
+  const ti=v.querySelector(".cp-title");ti.dataset.ck=`pages.${p.id}.title`;ti.innerHTML=LT(p.title);
+  v.querySelector(".cp-body .wrap").innerHTML=rowsHTML(p.rows,`pages.${p.id}.rows`)+(ADMIN?`<div class="cms-pagebar"><button type="button" class="cms-add" data-addrow="pages.${p.id}.rows">+ Alan ekle</button><button type="button" class="cms-add danger" data-delpage="${p.id}">Bu sayfayı sil</button></div>`:"");
+}
+
+/* --- yol (path) ile içerik okuma/yazma: extra.vision.0.t, pages.<id>.title, proj.essenora.story --- */
+function ckGet(path,make){
+  const s=path.split(".");
+  if(s[0]==="extra"){CMS.extra=CMS.extra||{};const arr=CMS.extra[s[1]]=CMS.extra[s[1]]||[];const r=arr[+s[2]];return r?{o:r,f:s[3]}:null}
+  if(s[0]==="pages"){const p=(CMS.pages||[]).find(x=>x.id===s[1]);if(!p)return null;if(s[2]==="title")return{o:p,f:"title"};const r=p.rows[+s[3]];return r?{o:r,f:s[4]}:null}
+  if(s[0]==="proj"){CMS.proj=CMS.proj||{};const o=CMS.proj[s[1]]=CMS.proj[s[1]]||{};if(!o[s[2]]){const cur=P[s[1]][s[2]];o[s[2]]=typeof cur==="object"?{...cur}:{tr:cur,en:cur}}return{o,f:s[2],proj:s[1]}}
+  return null;
+}
+
+/* --- herkese açık açılış --- */
+(function boot(){
+  try{const c=JSON.parse(lsGet("bo_content")||"null");if(c)applyContent(c)}catch(e){}
+  renderMenus();renderExtras();
+  fetch(API+"/content",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(c=>{if(!c)return;const s=JSON.stringify(c);if(s===lsGet("bo_content")&&!ADMIN)return;lsSet("bo_content",s);applyContent(c);refreshAll()}).catch(()=>{});
+})();
+
+/* --- form gönderimi --- */
+async function sendForm(type,fields,files,btn){
+  btn&&btn.setAttribute("aria-busy","true");
+  const fd=new FormData();fd.append("type",type);fd.append("lang",LANG);fd.append("page",location.hash||"#");
+  for(const[k,v]of Object.entries(fields))if(v)fd.append(k,v);
+  (files||[]).forEach(f=>fd.append("files",f));
+  let ok=false;
+  try{const r=await fetch(API+"/submit",{method:"POST",body:fd});ok=r.ok}catch(e){}
+  const subj={teklif:"Yeni proje teklifi",iletisim:"Yeni iletişim mesajı",bilgi:"Yeni proje bilgi talebi"}[type];
+  try{const r2=await fetch("https://formsubmit.co/ajax/"+MAILTO,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+    body:JSON.stringify({_subject:`${subj} · ${fields.name||""}`,_template:"table",_captcha:"false",...fields,...(files&&files.length?{ekler:`${files.length} dosya (yönetim panelinde)`}:{})})});ok=ok||r2.ok}catch(e){}
+  btn&&btn.removeAttribute("aria-busy");
+  return ok;
+}
+
+/* =========================== ADMIN =========================== */
+if(ADMIN)(function(){
+  let PW=lsGet("bo_admin")||(()=>{try{return sessionStorage.getItem("bo_admin")}catch(e){return null}})()||"",EDIT=true,DIRTY=false;
+  const css=document.createElement("style");css.textContent=`
+  body.cms-edit [data-i18n]:not(option),body.cms-edit [data-ck]{outline:1px dashed transparent;outline-offset:3px;cursor:text;transition:outline-color .15s}
+  body.cms-edit [data-i18n]:not(option):hover,body.cms-edit [data-ck]:hover{outline-color:#006CA7}
+  [contenteditable="true"]{outline:2px solid #006CA7!important;background:rgba(111,174,214,.12)}
+  .cms-bar{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:200;display:flex;gap:6px;align-items:center;background:#1D2321;color:#fff;padding:8px;border-radius:4px;box-shadow:0 10px 40px rgba(0,0,0,.3);font:400 13px/1 Jost,system-ui,sans-serif;max-width:calc(100vw - 24px);overflow-x:auto}
+  .cms-bar button,.cms-bar a,.cms-bar select{height:38px;padding:0 14px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:2px;cursor:pointer;font:inherit;letter-spacing:.06em;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+  .cms-bar select option{color:#000}
+  .cms-bar .pri{background:#006CA7;border-color:#006CA7}
+  .cms-bar .pri.dirty::after{content:"";width:7px;height:7px;border-radius:50%;background:#FFD27A}
+  .cms-bar .tag{border:0;padding:0 8px;letter-spacing:.2em;font-size:11px;opacity:.8}
+  .cms-x{position:absolute;top:8px;right:8px;z-index:5;width:30px;height:30px;border-radius:50%;border:0;background:#B3261E;color:#fff;font-size:18px;line-height:30px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+  .cx-row,.vgrid>article,#pVids>article{position:relative}
+  .cms-add{display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 20px;margin-top:24px;border:1px dashed #006CA7;background:rgba(111,174,214,.08);color:#006CA7;font:400 15px/1 Jost,system-ui,sans-serif;cursor:pointer;border-radius:2px}
+  .cms-add.danger{border-color:#B3261E;color:#B3261E;background:transparent;margin-left:10px}
+  .cms-vadd{display:grid;place-items:center;min-height:200px;aspect-ratio:16/9;border:2px dashed #006CA7;background:rgba(111,174,214,.08);color:#006CA7;font:400 18px/1.3 Jost,system-ui,sans-serif;cursor:pointer;width:100%}
+  .cms-addpage{color:#006CA7!important}
+  .cms-modal{position:fixed;inset:0;z-index:300;background:rgba(17,22,21,.6);display:grid;place-items:center;padding:16px}
+  .cms-modal form{background:#fff;width:min(520px,100%);padding:30px;display:grid;gap:14px;font:300 16px/1.5 Jost,system-ui,sans-serif;color:#2B3330;max-height:calc(100vh - 32px);overflow:auto}
+  .cms-modal h3{margin:0;font-weight:400;font-size:26px;color:#006CA7}
+  .cms-modal label{display:grid;gap:6px;font-size:13px;letter-spacing:.08em;color:#6B7470}
+  .cms-modal input{height:44px;border:1px solid #DDE3E0;padding:0 12px;font:inherit;color:#2B3330}
+  .cms-modal .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .cms-modal .act{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+  .cms-modal button{height:44px;padding:0 18px;border:1px solid #1D2321;background:#1D2321;color:#fff;cursor:pointer;font:inherit}
+  .cms-modal button.g{background:transparent;color:#1D2321}
+  .cms-modal .er{color:#B3261E;font-size:14px;margin:0;min-height:1em}
+  .cms-login{position:fixed;inset:0;z-index:400;background:#F3F5F4;display:grid;place-items:center;padding:24px 16px;font:300 16px/1.55 Jost,system-ui,sans-serif;color:#2B3330}
+  .cms-login form{width:min(420px,100%);background:#FAFBFA;border:1px solid #DDE3E0;padding:44px 36px;display:grid;gap:20px}
+  .cms-login .cl-lg{width:170px;height:51px;--logo-ink:#2B3330}
+  .cms-login .cl-ey{display:block;font:400 12px/1 Jost,system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#6B7470}
+  .cms-login h1{margin:10px 0 0;font:400 30px/1.1 Jost,system-ui,sans-serif;color:#006CA7;letter-spacing:-.5px}
+  .cms-login .cl-f{display:grid;gap:8px}
+  .cms-login .cl-f input{height:48px;border:1px solid #DDE3E0;background:#fff;padding:0 14px;border-radius:2px;font:inherit;font-size:16px;color:#2B3330}
+  .cms-login .cl-f input:focus{outline:2px solid #6FAED6;outline-offset:1px}
+  .cms-login .cl-rm{display:flex;gap:10px;align-items:center;font-size:14px;color:#6B7470}
+  .cms-login .er{color:#B3261E;font-size:14px;min-height:1em;margin:0}
+  .cms-login .cl-btn{height:48px;border:0;background:#1D2321;color:#fff;font:400 13px/1 Jost,system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border-radius:2px}
+  .cms-login .cl-btn:hover{background:#006CA7}
+  .cms-login .cl-back{justify-self:center;font-size:14px;color:#6B7470;text-decoration:none}
+  .cms-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:250;background:#006CA7;color:#fff;padding:10px 16px;font:400 15px/1.3 Jost,system-ui,sans-serif;border-radius:2px}
+  .cms-pagebar{margin-top:8px}`;
+  document.head.appendChild(css);
+  const toast=t=>{let e=$(".cms-toast");if(!e){e=document.createElement("div");e.className="cms-toast";document.body.appendChild(e)}e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2600)};
+  const dirty=()=>{DIRTY=true;$("#cmsSave")&&$("#cmsSave").classList.add("dirty")};
+  addEventListener("beforeunload",e=>{if(DIRTY){e.preventDefault();e.returnValue=""}});
+
+  function modal(html,onSubmit){
+    const m=document.createElement("div");m.className="cms-modal";m.innerHTML=`<form novalidate>${html}<p class="er"></p><div class="act"><button type="button" class="g" data-cancel>Vazgeç</button><button type="submit">Tamam</button></div></form>`;
+    document.body.appendChild(m);const f=m.querySelector("form");
+    m.addEventListener("click",e=>{if(e.target===m||e.target.dataset.cancel!==undefined)m.remove()});
+    f.addEventListener("submit",e=>{e.preventDefault();const r=onSubmit(f);if(r===true)m.remove();else f.querySelector(".er").textContent=r||""});
+    setTimeout(()=>{const i=f.querySelector("input");i&&i.focus()},30);
+  }
+
+  /* giriş */
+  function login(){
+    const w=document.createElement("div");w.className="cms-login";
+    w.innerHTML=`<form novalidate autocomplete="on"><svg class="cl-lg" role="img" aria-label="BY OKTAYÖZ İnşaat A.Ş."><use href="#logoH"/></svg><div><span class="cl-ey">Yönetim paneli</span><h1>Hoş geldiniz</h1></div><label class="cl-f"><span class="cl-ey">Şifre</span><input type="password" id="cmsPw" autocomplete="current-password"></label><label class="cl-rm"><input type="checkbox" id="cmsRm" checked> Bu cihazda oturumum açık kalsın</label><p class="er" role="alert"></p><button type="submit" class="cl-btn">Giriş yap</button><a href="/" class="cl-back">← Siteye dön</a></form>`;
+    document.body.appendChild(w);setTimeout(()=>$("#cmsPw").focus(),30);
+    w.querySelector("form").addEventListener("submit",async e=>{e.preventDefault();const pw=$("#cmsPw").value;const er=w.querySelector(".er");er.textContent="Kontrol ediliyor…";
+      try{const r=await fetch(API+"/ping",{headers:{Authorization:"Bearer "+pw}});if(r.ok){PW=pw;if($("#cmsRm").checked)lsSet("bo_admin",pw);else try{sessionStorage.setItem("bo_admin",pw)}catch(x){}w.remove();ready()}else er.textContent=r.status===401?"Şifre hatalı.":"Sunucu hatası ("+r.status+")."}catch(err){er.textContent="Sunucuya ulaşılamadı."}});
+  }
+  function ready(){
+    document.body.classList.add("cms-edit");
+    const pages=[["#","Ana sayfa"],["#hakkimizda","Hakkımızda"],["#yonetim-kurulu","Yönetim Kurulu"],["#vizyon-misyon","Vizyon ve Misyon"],["#kurumsal-basin","Basında Oktay Öz"],["#projeler","Tüm projeler"],["#essenora","Essenora"],["#plevne","Plevne"],["#proje-basin","Basında Projelerimiz"],["#iletisim","İletişim"]];
+    const bar=document.createElement("div");bar.className="cms-bar";
+    bar.innerHTML=`<span class="tag">ADMIN</span><select id="cmsGo" aria-label="Sayfaya git">${pages.map(p=>`<option value="${p[0]}">${p[1]}</option>`).join("")}</select><button type="button" id="cmsEdit">✎ Düzenleme açık</button><a href="gelen.html" target="_blank" rel="noopener" id="cmsInbox">Gelen kutusu</a><button type="button" class="pri" id="cmsSave">Kaydet</button><button type="button" id="cmsOut">Çıkış</button>`;
+    document.body.appendChild(bar);
+    const syncGo=()=>{const h=location.hash||"#";const s=$("#cmsGo");if([...s.options].some(o=>o.value===h))s.value=h};syncGo();addEventListener("hashchange",syncGo);
+    $("#cmsGo").addEventListener("change",e=>{location.hash=e.target.value==="#"?"":e.target.value;if(e.target.value==="#")route()});
+    $("#cmsEdit").addEventListener("click",()=>{EDIT=!EDIT;document.body.classList.toggle("cms-edit",EDIT);$("#cmsEdit").textContent=EDIT?"✎ Düzenleme açık":"Gezinme modu";decorate()});
+    $("#cmsOut").addEventListener("click",()=>{if(DIRTY&&$("#cmsOut").dataset.sure!=="1"){$("#cmsOut").dataset.sure="1";$("#cmsOut").textContent="Kaydedilmedi! Yine de çık";return}DIRTY=false;try{localStorage.removeItem("bo_admin");sessionStorage.removeItem("bo_admin")}catch(e){}location.href="/"});
+    $("#cmsSave").addEventListener("click",save);
+    fetch(API+"/list",{headers:{Authorization:"Bearer "+PW}}).then(r=>r.json()).then(j=>{const n=(j.items||[]).filter(i=>i.status==="yeni").length;if(n)$("#cmsInbox").textContent=`Gelen kutusu (${n})`}).catch(()=>{});
+    refreshAll();
+    new MutationObserver(()=>decorate()).observe(document.querySelector("main"),{childList:true,subtree:true});
+  }
+  async function save(){
+    const b=$("#cmsSave");b.textContent="Kaydediliyor…";
+    try{const r=await fetch(API+"/content",{method:"PUT",headers:{Authorization:"Bearer "+PW,"Content-Type":"application/json"},body:JSON.stringify(CMS)});
+      if(r.ok){DIRTY=false;b.classList.remove("dirty");lsSet("bo_content",JSON.stringify(CMS));toast("Kaydedildi. Değişiklikler canlı sitede.")}else toast(r.status===401?"Oturum düştü, tekrar giriş yapın":"Kaydedilemedi ("+r.status+")")}
+    catch(e){toast("Sunucuya ulaşılamadı")}
+    b.textContent="Kaydet";
+  }
+
+  /* metin düzenleme */
+  let curEl=null;
+  document.addEventListener("click",e=>{
+    if(!EDIT||!PW)return;
+    if(e.target.closest(".cms-bar,.cms-modal"))return;
+    const t=e.target;
+    if(t.closest("[data-addpage]")){e.preventDefault();e.stopPropagation();addPage(t.closest("[data-addpage]").dataset.addpage);return}
+    if(t.closest("[data-addrow]")){e.preventDefault();addRow(t.closest("[data-addrow]").dataset.addrow);return}
+    if(t.closest("[data-delrow]")){e.preventDefault();delRow(t.closest("[data-delrow]").dataset.delrow);return}
+    if(t.closest("[data-delpage]")){e.preventDefault();delPage(t.closest("[data-delpage]").dataset.delpage);return}
+    if(t.closest("[data-delvid]")){e.preventDefault();e.stopPropagation();const b=t.closest("[data-delvid]");delVideo(b.dataset.g,b.dataset.delvid);return}
+    if(t.closest("[data-addvid]")){e.preventDefault();e.stopPropagation();addVideo(t.closest("[data-addvid]").dataset.addvid);return}
+    const el=t.closest("[data-i18n]:not(option):not(select),[data-ck]");
+    if(!el||el.closest(".vcard"))return;
+    e.preventDefault();e.stopPropagation();
+    if(el.isContentEditable)return;
+    startEdit(el);
+  },true);
+  function startEdit(el){
+    if(curEl&&curEl!==el)curEl.blur();
+    curEl=el;el.dataset.before=el.innerHTML;el.contentEditable="true";el.focus();
+    const sel=getSelection(),rg=document.createRange();rg.selectNodeContents(el);rg.collapse(false);sel.removeAllRanges();sel.addRange(rg);
+    const done=()=>{el.removeEventListener("blur",done);el.removeEventListener("keydown",key);el.contentEditable="false";el.removeAttribute("contenteditable");curEl=null;commit(el)};
+    const key=e=>{if(e.key==="Escape"){el.innerHTML=el.dataset.before;el.blur()}else if(e.key==="Enter"&&(!e.shiftKey&&(el.closest("nav,header,footer,.dd,.subnav")||/^H[1-6]$/.test(el.tagName)||el.tagName==="A"||el.tagName==="BUTTON"))){e.preventDefault();el.blur()}};
+    el.addEventListener("blur",done);el.addEventListener("keydown",key);
+    el.addEventListener("paste",ev=>{ev.preventDefault();document.execCommand("insertText",false,ev.clipboardData.getData("text/plain"))},{once:true});
+  }
+  function commit(el){
+    const html=sanitize(el.innerHTML);if(html===el.dataset.before)return;
+    if(el.dataset.ck){const r=ckGet(el.dataset.ck);if(!r)return;const o=r.o,f=r.f;
+      if(!o[f]||typeof o[f]!=="object")o[f]={tr:o[f]||"",en:o[f]||""};
+      const plain=r.proj?el.innerText.trim():html;o[f][LANG]=plain;if(r.proj)P[r.proj][f]=o[f];
+      if(el.dataset.ck.startsWith("pages.")&&el.dataset.ck.endsWith(".title"))renderMenus();
+    }else{const k=el.dataset.i18n;
+      CMS.tx[LANG]=CMS.tx[LANG]||{};CMS.tx[LANG][k]=html;
+      if(LANG==="tr"){TRK[k]=html;document.querySelectorAll(`[data-i18n="${k}"]`).forEach(n=>{n.dataset.tr=html;if(n!==el)n.innerHTML=html})}
+      else{EN[k]=html;document.querySelectorAll(`[data-i18n="${k}"]`).forEach(n=>{if(n!==el)n.innerHTML=html})}
+    }
+    el.innerHTML=html;dirty();
+  }
+
+  /* alan ve sayfa */
+  function addRow(base){const s=base.split(".");let arr;
+    if(s[0]==="extra"){CMS.extra=CMS.extra||{};arr=CMS.extra[s[1]]=CMS.extra[s[1]]||[]}else{arr=(CMS.pages.find(p=>p.id===s[1])||{}).rows}
+    if(!arr)return;arr.push({t:{tr:"Yeni başlık",en:"New heading"},p:{tr:"Metni buraya yazın.",en:"Write the text here."}});dirty();refreshAll();toast("Alan eklendi. Başlığa ve metne tıklayıp düzenleyin.")}
+  function delRow(path){const s=path.split(".");let arr=s[0]==="extra"?(CMS.extra||{})[s[1]]:(CMS.pages.find(p=>p.id===s[1])||{}).rows;const i=+s[s.length-1];if(!arr)return;
+    modal(`<h3>Alan silinsin mi?</h3><p style="margin:0">“${LT(arr[i].t)}” başlıklı alan silinecek.</p>`,()=>{arr.splice(i,1);dirty();refreshAll();return true})}
+  function addPage(parent){
+    modal(`<h3>Yeni sayfa</h3><label>Menüde görünecek başlık<input name="t" placeholder="Örn. Kariyer"></label>`,f=>{const t=f.t.value.trim();if(!t)return"Başlık yazın.";
+      const id=Date.now().toString(36);CMS.pages=CMS.pages||[];CMS.pages.push({id,parent,title:{tr:t,en:t},rows:[{t:{tr:t,en:t},p:{tr:"Metni buraya yazın.",en:"Write the text here."}}]});
+      dirty();renderMenus();location.hash="sayfa-"+id;toast("Sayfa eklendi. Kaydet'e basmayı unutmayın.");return true})}
+  function delPage(id){const p=CMS.pages.find(x=>x.id===id);if(!p)return;
+    modal(`<h3>Sayfa silinsin mi?</h3><p style="margin:0">“${LT(p.title)}” sayfası ve menüdeki bağlantısı silinecek.</p>`,()=>{CMS.pages=CMS.pages.filter(x=>x.id!==id);dirty();location.hash=p.parent==="proj"?"projeler":"hakkimizda";refreshAll();return true})}
+
+  /* videolar */
+  const GRIDS=[["#g-oktay",()=>"oktay"],["#ppGrid",()=>ppKey],["#pVids",()=>curProj]];
+  window.decorate=function(){
+    document.querySelectorAll(".cms-x[data-delvid],.cms-vadd").forEach(n=>{if(!EDIT)n.remove()});
+    if(!EDIT||!PW)return;
+    GRIDS.forEach(([sel,gf])=>{const g=$(sel);if(!g||!g.offsetParent&&g.closest(".view")?.hidden)return;const grp=gf();if(!grp||!V[grp])return;
+      g.querySelectorAll(":scope>article").forEach(a=>{if(a.querySelector(".cms-x"))return;const id=a.querySelector("[data-vid]")?.dataset.vid;if(!id)return;a.insertAdjacentHTML("afterbegin",`<button type="button" class="cms-x" data-delvid="${id}" data-g="${grp}" title="Videoyu kaldır">×</button>`)});
+      if(!g.querySelector(".cms-vadd"))g.insertAdjacentHTML("afterbegin",`<article><button type="button" class="cms-vadd" data-addvid="${grp}">+ Video ekle</button></article>`)});
+  };
+  const ytId=s=>{s=s.trim();const m=s.match(/(?:v=|youtu\.be\/|shorts\/|embed\/|live\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(s)?s:null)};
+  const secs=s=>{if(!s)return 0;const p=s.split(":").map(Number);return p.some(isNaN)?0:p.reduce((a,b)=>a*60+b,0)};
+  const grpName={oktay:"Basında Oktay Öz",essenora:"Essenora",plevne:"Plevne"};
+  function addVideo(g){
+    modal(`<h3>Video ekle · ${grpName[g]||g}</h3><label>YouTube linki<input name="u" placeholder="https://www.youtube.com/watch?v=…"></label><label>Başlık<input name="t"></label><div class="row2"><label>Kaynak (kanal)<input name="s" placeholder="Örn. CNN Türk"></label><label>Yayın tarihi<input name="d" type="date"></label></div><label>Süre (isteğe bağlı)<input name="l" placeholder="3:45"></label>`,f=>{
+      const id=ytId(f.u.value);if(!id)return"Geçerli bir YouTube linki yapıştırın.";if(!f.t.value.trim())return"Başlık yazın.";if(V[g].some(v=>v[0]===id))return"Bu video zaten listede.";
+      V[g].push([id,f.t.value.trim(),f.s.value.trim()]);const meta=[f.d.value||new Date().toISOString().slice(0,10),secs(f.l.value)];VMETA[id]=meta;CMS.vmeta=CMS.vmeta||{};CMS.vmeta[id]=meta;
+      V[g].sort((a,b)=>(VMETA[b[0]]?.[0]||"").localeCompare(VMETA[a[0]]?.[0]||""));CMS.videos=CMS.videos||{};CMS.videos[g]=V[g].map(x=>x.slice());
+      dirty();renderAll();toast("Video eklendi. Kaydet'e basmayı unutmayın.");return true})}
+  function delVideo(g,id){const v=V[g].find(x=>x[0]===id);if(!v)return;
+    modal(`<h3>Video kaldırılsın mı?</h3><p style="margin:0">“${esc(v[1])}” listeden kaldırılacak.</p>`,()=>{V[g]=V[g].filter(x=>x[0]!==id);CMS.videos=CMS.videos||{};CMS.videos[g]=V[g].map(x=>x.slice());dirty();renderAll();return true})}
+
+  if(PW){fetch(API+"/ping",{headers:{Authorization:"Bearer "+PW}}).then(r=>{if(r.ok)ready();else{PW="";login()}}).catch(()=>ready())}else login();
+})();
+if(typeof window.decorate!=="function")window.decorate=()=>{};
 
 /* boot */
 LANG=store.get("bo_lang")||"tr";applyLang();buildRail();renderHomePress();route();
