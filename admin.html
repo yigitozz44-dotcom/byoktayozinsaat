@@ -450,6 +450,19 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 }
 .info-sec{padding-block:clamp(40px,5vw,80px)}
 .view[data-view="info"]{min-height:100vh}
+
+/* iletişim ve bilgi formları: ülke kodu, yıldızlı alanlar */
+.form .tel-field{display:grid;gap:6px;font-size:14px;color:var(--muted);letter-spacing:.04em}
+.form .tel{display:flex;position:relative}
+.form .tel .cc{background:#fff;border:1px solid var(--line);border-right:0;border-radius:3px 0 0 3px;font-size:17px;color:var(--ink)}
+.form .tel > input{border-radius:0 3px 3px 0;min-width:0}
+.form .cc-pop{letter-spacing:0}
+.form .cc-pop input{padding:12px 14px;font-size:15px}
+.form .bad,.form .tel.bad input,.form .tel.bad .cc{border-color:#b3261e!important}
+.form .kvkk.bad span{color:#b3261e}
+.form-req{margin:0;font-size:13px;color:var(--muted)}
+.form .bar-btn[aria-disabled="true"]{background:#9AA4A1;cursor:not-allowed}
+.form .bar-btn[aria-disabled="true"]:hover{background:#9AA4A1}
 /* Sayfalar birbirinin üzerine doğar */
 .stk-sn{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 76px);z-index:60}
 @media (max-width:700px){.stk-sn{top:calc(env(safe-area-inset-top,0px) + 64px)}}
@@ -921,13 +934,14 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(28p
     <div class="rv"><span class="eyebrow" data-i18n="info_ey">Bilgi talebi</span><h2 class="h-sec" data-i18n="info_t">Proje hakkında bilgi alın</h2><p style="margin-top:20px;color:var(--muted)" data-i18n="info_p">Satış, kiralama ve ticari alanlarla ilgili sorularınızı iletin; ekibimiz size dönüş yapsın. Dilerseniz doğrudan arayabilirsiniz: +90 212 615 24 44</p></div>
     <div></div>
     <form class="form rv d1" id="infoForm" novalidate>
-      <label><span data-i18n="f_name">Ad soyad</span><input id="f-name" name="name" autocomplete="name" required></label>
-      <label><span data-i18n="f_phone">Telefon</span><input id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="(5__) ___ __ __" required></label>
-      <label class="full"><span data-i18n="f_mail">E-posta</span><input id="f-mail" name="mail" type="email" autocomplete="email"></label>
+      <label><span data-i18n="f_name">Ad soyad *</span><input id="f-name" name="name" autocomplete="name" data-req="text"></label>
+      <label><span data-i18n="f_phone">Telefon *</span><input id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="(5__) ___ __ __" maxlength="15" data-req="tel"></label>
+      <label class="full"><span data-i18n="f_mail">E-posta *</span><input id="f-mail" name="mail" type="email" autocomplete="email" data-req="email"></label>
       <label class="full"><span data-i18n="f_proj">Proje</span><select id="f-proj" name="project"><option>Essenora</option><option>Plevne Konutları</option><option>Plevne Çarşı</option><option>Plevne Otel</option></select></label>
       <label class="full"><span data-i18n="f_topic">Konu</span><select id="f-topic" name="topic"><option data-i18n="t1">Satılık / kiralık daire</option><option data-i18n="t2">Ticari alan</option><option data-i18n="t3">İş ortaklığı</option><option data-i18n="t5">Diğer</option></select></label>
       <label class="full"><span data-i18n="f_msg">Mesajınız</span><textarea id="f-msg" name="msg"></textarea></label>
-      <label class="kvkk"><input type="checkbox" id="f-kvkk" required><span data-i18n="f_kvkk">Kişisel verilerimin <a href="#kvkk" target="_blank" class="inl">KVKK Aydınlatma Metni</a> kapsamında işlenmesini kabul ediyorum.</span></label>
+      <label class="kvkk"><input type="checkbox" id="f-kvkk" data-req="check"><span data-i18n="f_kvkk">Kişisel verilerimin <a href="#kvkk" target="_blank" class="inl">KVKK Aydınlatma Metni</a> kapsamında işlenmesini kabul ediyorum. *</span></label>
+      <p class="form-req full" data-i18n="of_note">Yıldızlı (*) tüm alanların doldurulması zorunludur.</p>
       <button class="bar-btn" type="submit"><svg><use href="#arr"/></svg><span data-i18n="f_send">Gönder</span></button>
       <p class="form-note" id="formNote" hidden></p>
     </form>
@@ -956,19 +970,20 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(28p
   <section class="ct-form"><div class="wrap">
     <h2 class="h-sec rv" data-i18n="ct_form">İletişim formu</h2>
     <form class="form cform" id="ctForm" novalidate>
-      <label><span data-i18n="c_fn">Ad *</span><input id="c-fn" autocomplete="given-name" required></label>
-      <label><span data-i18n="c_ln">Soyad *</span><input id="c-ln" autocomplete="family-name" required></label>
-      <label><span data-i18n="c_mail">E-posta *</span><input id="c-mail" type="email" autocomplete="email" required></label>
-      <label><span data-i18n="c_tel">Telefon *</span><input id="c-tel" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="(5__) ___ __ __" required></label>
+      <label><span data-i18n="c_fn">Ad *</span><input id="c-fn" autocomplete="given-name" data-req="text"></label>
+      <label><span data-i18n="c_ln">Soyad *</span><input id="c-ln" autocomplete="family-name" data-req="text"></label>
+      <label><span data-i18n="c_mail">E-posta *</span><input id="c-mail" type="email" autocomplete="email" data-req="email"></label>
+      <label><span data-i18n="c_tel">Telefon *</span><input id="c-tel" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="(5__) ___ __ __" maxlength="15" data-req="tel"></label>
       <label class="full"><span data-i18n="f_topic">Konu</span><select id="c-topic">
         <option value="Genel bilgi" data-i18n="ct_t0">Genel bilgi</option><option value="Proje bilgisi" data-i18n="ct_t1">Proje bilgisi</option><option value="İş ortaklığı" data-i18n="t3">İş ortaklığı</option><option value="Kariyer" data-i18n="career">Kariyer</option><option value="Basın" data-i18n="ct_t5">Basın</option></select></label>
       <label class="full"><span data-i18n="f_msg">Mesajınız</span><textarea id="c-msg"></textarea></label>
-      <label class="kvkk"><input type="checkbox" id="c-kvkk" required><span data-i18n="c_kvkk"><a href="#kvkk" target="_blank" class="inl">KVKK Aydınlatma Metni</a>'ni okudum, anladım. *</span></label>
+      <label class="kvkk"><input type="checkbox" id="c-kvkk" data-req="check"><span data-i18n="c_kvkk"><a href="#kvkk" target="_blank" class="inl">KVKK Aydınlatma Metni</a>'ni okudum, anladım. *</span></label>
       <fieldset class="consent full"><legend data-i18n="c_cons">Tarafıma aşağıdaki yöntemlerle ticari ileti gönderilmesine onay veriyorum.</legend>
         <label><input type="checkbox" id="c-c1"><span data-i18n="c_c1">Telefon araması</span></label>
         <label><input type="checkbox" id="c-c2"><span data-i18n="c_c2">SMS</span></label>
         <label><input type="checkbox" id="c-c3"><span data-i18n="c_c3">E-posta</span></label>
       </fieldset>
+      <p class="form-req full" data-i18n="of_note">Yıldızlı (*) tüm alanların doldurulması zorunludur.</p>
       <button class="bar-btn" type="submit"><svg><use href="#arr"/></svg><span data-i18n="f_send">Gönder</span></button>
       <p class="form-note" id="ctNote" hidden role="status"></p>
     </form>
@@ -1257,7 +1272,7 @@ hero_cta:"Discover the project",intro_t:"Developments",intro_p:"We develop resid
 tab_press:"In the press",see_project:"Go to project page",ban_t:"Our vision",ban_p1:"To embrace distinction and leadership in our projects, producing sustainable, high-quality and lasting buildings; and, by analysing needs correctly, to add value to the city and society through advanced technology, contemporary architecture and engineering solutions.",ban_p2:"Under BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. we plan residential, retail and hotel functions together.",ban_cta:"Chairman Oktay Öz in the press",feat:"Plevne Çarşı · 60 retail units",
 press_t:"BY OKTAYÖZ in the press",press_all:"All press content",discover:"Discover",in_numbers:"In numbers",gallery:"Gallery",
 info_ey:"Enquiry",info_t:"Ask about the project",info_p:"Send us your questions about sales, rentals or retail space and our team will get back to you. You can also call: +90 212 615 24 44",
-f_name:"Full name",f_phone:"Phone",f_mail:"Email",f_topic:"Subject",f_msg:"Message",f_kvkk:"I consent to the processing of my personal data under the KVKK notice.",f_send:"Send",t1:"Apartment for sale / rent",t2:"Retail space",t3:"Partnership",t4:"Land development offer",t5:"Other",
+f_name:"Full name *",f_phone:"Phone *",f_mail:"Email *",f_topic:"Subject",f_msg:"Message",f_kvkk:"I consent to the processing of my personal data under the KVKK notice.",f_send:"Send",t1:"Apartment for sale / rent",t2:"Retail space",t3:"Partnership",t4:"Land development offer",t5:"Other",
 press_ey:"Press & Media",press_h:"Press",press_hp:"Interviews with Chairman Oktay Öz, plus TV, news and advertising films for Essenora and Plevne. Videos open on YouTube.",f_all:"All",
 g1_ey:"Chairman of the Board",g1_t:"Oktay Öz in the press",g1_p:"Interviews, summit talks and project reviews.",g2_t:"Essenora in the press",g2_p:"Promotional and advertising films, opening and TV news.",g3_t:"Plevne in the press",g3_p:"Launch and advertising films, groundbreaking ceremony, urban regeneration news.",
 vision:"Vision & Mission",career:"Careers",land:"Land development",hq:"Headquarters",addr_ph:"New address to be added",phone:"Telephone",mail:"Email",mail_ph:"Corporate email to be added",kvkk:"KVKK Notice",privacy:"Privacy Policy",cookies:"Cookie Policy",cookie_pref:"Cookie preferences",taxo:"Tax office",taxno:"Tax no",
@@ -1457,11 +1472,11 @@ const PROJV=["project","project2"];
 })();
 
 /* contact form */
-$("#ctForm").addEventListener("submit",async e=>{e.preventDefault();const ok=["#c-fn","#c-ln","#c-mail","#c-tel"].every(q=>$(q).value.trim())&&/\S+@\S+\.\S+/.test($("#c-mail").value)&&$("#c-kvkk").checked;const n=$("#ctNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("ct_need");return}
+$("#ctForm").addEventListener("submit",async e=>{e.preventDefault();e.target.dataset.tried="1";const {all:ok,first}=fvCheck(e.target,true);const n=$("#ctNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("of_need");n.style.color="#b3261e";first&&first.focus();return}
   const b=e.target.querySelector('[type="submit"]');if(b.getAttribute("aria-busy"))return;n.textContent=t("sending");
   const ch=[["#c-c1","Telefon"],["#c-c2","SMS"],["#c-c3","E-posta"]].filter(([q])=>$(q).checked).map(x=>x[1]).join(", ");
-  const sent=await sendForm("iletisim",{name:($("#c-fn").value+" "+$("#c-ln").value).trim(),email:$("#c-mail").value.trim(),phone:$("#c-tel").value.trim(),topic:$("#c-topic").value,message:$("#c-msg").value.trim(),channels:ch},[],b);
-  if(sent){n.textContent=t("ct_sent");e.target.reset()}else{n.textContent=t("send_err");n.style.color="#b3261e"}});
+  const sent=await sendForm("iletisim",{name:($("#c-fn").value+" "+$("#c-ln").value).trim(),email:$("#c-mail").value.trim(),phone:telVal($("#c-tel")),topic:$("#c-topic").value,message:$("#c-msg").value.trim(),channels:ch},[],b);
+  if(sent){n.textContent=t("ct_sent");e.target.reset();fvReset(e.target)}else{n.textContent=t("send_err");n.style.color="#b3261e"}});
 $("#copyMail").addEventListener("click",async e=>{const b=e.currentTarget;try{await navigator.clipboard.writeText("info@byoktayozinsaat.com");b.textContent=t("copied")}catch(_){const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const sel=getSelection();sel.removeAllRanges();sel.addRange(r)}});
 document.addEventListener("click",e=>{const a=e.target.closest("[data-topic]");if(a)setTimeout(()=>{$("#c-topic").value=a.dataset.topic},50)});
 
@@ -1523,9 +1538,39 @@ $("#ccSearch").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefau
 /* TR phone mask: (5XX) XXX XX XX */
 function trFmt(v){let d=v.replace(/\D/g,"");if(d.startsWith("90")&&d.length>10)d=d.slice(2);if(d[0]==="0")d=d.slice(1);d=d.slice(0,10);if(!d)return"";let o="("+d.slice(0,3);if(d.length>=3)o+=")";if(d.length>3)o+=" "+d.slice(3,6);if(d.length>6)o+=" "+d.slice(6,8);if(d.length>8)o+=" "+d.slice(8,10);return o}
 function maskTel(el,isTR){el.addEventListener("input",e=>{if(!isTR()||el.value.trim().startsWith("+"))return;const back=e.inputType==="deleteContentBackward";let v=el.value;if(back&&/\)$/.test(v))v=v.slice(0,-2);el.value=trFmt(v)})}
-maskTel($("#of-tel"),()=>ccCur[0]==="TR");maskTel($("#c-tel"),()=>true);document.querySelectorAll('[data-pid="f-phone"]').forEach(el=>maskTel(el,()=>true));
+maskTel($("#of-tel"),()=>ccCur[0]==="TR");
 $("#ccList").addEventListener("click",e=>{const li=e.target.closest("li");if(!li)return;ccCur=CC.find(c=>c[0]===li.dataset.c);$("#ccFlag").textContent=flag(ccCur[0]);$("#ccCode").textContent="+"+ccCur[2];$("#of-tel").placeholder=ccCur[0]==="TR"?"(5__) ___ __ __":"";$("#of-tel").maxLength=ccCur[0]==="TR"?15:20;$("#of-tel").dispatchEvent(new Event("input"));ccOpen(false);$("#of-tel").focus();ofCheck(ofTried)});
 document.addEventListener("click",e=>{if(!e.target.closest(".tel"))ccOpen(false)});
+/* ortak: ülke kodlu telefon alanı + yıldızlı alan kontrolü (iletişim ve bilgi formları) */
+function telPicker(inp){
+  if(!inp||inp.closest(".tel"))return;
+  const lab=inp.closest("label");if(lab){const d=document.createElement("div");d.className=lab.className+" tel-field";while(lab.firstChild)d.appendChild(lab.firstChild);lab.replaceWith(d)}
+  const w=document.createElement("div");w.className="tel";inp.before(w);w.cc=CC[0];
+  w.innerHTML=`<button type="button" class="cc" aria-haspopup="listbox" aria-expanded="false" aria-label="Ülke kodu"><span class="cc-f">${flag("TR")}</span><span class="cc-n">+90</span><span class="cc-c">▾</span></button>`;
+  w.appendChild(inp);
+  const pop=document.createElement("div");pop.className="cc-pop";pop.hidden=true;pop.innerHTML=`<input type="text" autocomplete="off" data-i18n-ph="cc_search" placeholder="Ülke ara"><ul role="listbox"></ul>`;w.appendChild(pop);
+  const btn=w.querySelector(".cc"),sr=pop.querySelector("input"),ul=pop.querySelector("ul");
+  const draw=(q="")=>{q=q.toLocaleLowerCase("tr");ul.innerHTML=CC.filter(c=>!q||c[1].toLocaleLowerCase("tr").includes(q)||("+"+c[2]).includes(q)||c[0].toLowerCase()===q).map(c=>`<li role="option" data-c="${c[0]}" class="${c===w.cc?"on":""}"><span class="cc-f">${flag(c[0])}</span>${c[1]}<b>+${c[2]}</b></li>`).join("")};
+  const open=o=>{pop.hidden=!o;btn.setAttribute("aria-expanded",o);if(o){sr.value="";draw();setTimeout(()=>sr.focus(),0)}};w.ccOpen=open;
+  btn.addEventListener("click",e=>{e.stopPropagation();document.querySelectorAll(".tel").forEach(x=>x!==w&&x.ccOpen&&x.ccOpen(false));open(pop.hidden)});
+  sr.addEventListener("input",()=>draw(sr.value));
+  sr.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();ul.querySelector("li")?.click()}if(e.key==="Escape"){e.stopPropagation();open(false);btn.focus()}});
+  ul.addEventListener("click",e=>{const li=e.target.closest("li");if(!li)return;w.cc=CC.find(c=>c[0]===li.dataset.c);btn.querySelector(".cc-f").textContent=flag(w.cc[0]);btn.querySelector(".cc-n").textContent="+"+w.cc[2];
+    const tr=w.cc[0]==="TR";inp.placeholder=tr?"(5__) ___ __ __":"";inp.maxLength=tr?15:20;inp.dispatchEvent(new Event("input",{bubbles:true}));open(false);inp.focus()});
+  maskTel(inp,()=>w.cc[0]==="TR");
+}
+document.addEventListener("click",e=>{if(!e.target.closest(".tel"))document.querySelectorAll(".tel").forEach(x=>x.ccOpen&&x.ccOpen(false))});
+const telVal=inp=>{const w=inp.closest(".tel");const v=inp.value.trim();return v?("+"+(w&&w.cc?w.cc[2]:"90")+" "+v):""};
+function fvCheck(f,mark){let all=true,first=null;
+  f.querySelectorAll("[data-req]").forEach(el=>{const k=el.dataset.req,v=(el.value||"").trim();let ok;
+    if(k==="text")ok=v.length>=2;else if(k==="email")ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);else if(k==="tel"){const n=v.replace(/\D/g,""),w=el.closest(".tel");ok=w&&w.cc&&w.cc[0]!=="TR"?(n.length>=6&&n.length<=14):n.length===10}else if(k==="check")ok=el.checked;
+    if(!ok){all=false;first=first||el}
+    if(mark)(k==="check"?el.closest("label"):(el.closest(".tel")||el)).classList.toggle("bad",!ok)});
+  const b=f.querySelector('[type="submit"]');b&&b.setAttribute("aria-disabled",String(!all));return {all,first}}
+function fvWire(f){if(f.dataset.fv)return;f.dataset.fv="1";["input","change"].forEach(ev=>f.addEventListener(ev,()=>setTimeout(()=>fvCheck(f,f.dataset.tried==="1"),0)));fvCheck(f,false)}
+function fvReset(f){f.dataset.tried="";f.querySelectorAll(".bad").forEach(x=>x.classList.remove("bad"));fvCheck(f,false)}
+telPicker($("#c-tel"));document.querySelectorAll('[data-pid="f-phone"]').forEach(telPicker);fvWire($("#ctForm"));document.querySelectorAll('[data-pid="infoForm"]').forEach(fvWire);
+
 /* video player */
 const VALL=Object.values(V).flat();
 let vpId=null;
@@ -1562,10 +1607,10 @@ $("#lb").addEventListener("click",e=>{if(e.target.id==="lb")lbClose()});
 document.addEventListener("keydown",e=>{if(!$("#lb").classList.contains("open"))return;if(e.key==="ArrowRight")lbOpen(lbI+1);if(e.key==="ArrowLeft")lbOpen(lbI-1)});
 
 /* form */
-function wireInfoForm(f){f.addEventListener("submit",async e=>{e.preventDefault();const q=id=>f.querySelector(`[data-pid="${id}"]`);const pk=f.closest(".view").dataset.proj||curProj;const ok=q("f-name").value.trim()&&q("f-phone").value.trim()&&q("f-kvkk").checked;const n=q("formNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("need");return}
+function wireInfoForm(f){fvWire(f);f.addEventListener("submit",async e=>{e.preventDefault();const q=id=>f.querySelector(`[data-pid="${id}"]`);const pk=f.closest(".view").dataset.proj||curProj;f.dataset.tried="1";const {all:ok,first}=fvCheck(f,true);const n=q("formNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("of_need");n.style.color="#b3261e";first&&first.focus();return}
   const b=e.target.querySelector('[type="submit"]');if(b&&b.getAttribute("aria-busy"))return;n.textContent=t("sending");
-  const sent=await sendForm("bilgi",{name:q("f-name").value.trim(),phone:q("f-phone").value.trim(),email:q("f-mail").value.trim(),topic:q("f-topic").value,message:q("f-msg").value.trim(),project:(q("f-proj")&&q("f-proj").value)||(P[pk]?P[pk].name:"")},[],b);
-  if(sent){n.textContent=t("sent");e.target.reset()}else{n.textContent=t("send_err");n.style.color="#b3261e"}})}
+  const sent=await sendForm("bilgi",{name:q("f-name").value.trim(),phone:telVal(q("f-phone")),email:q("f-mail").value.trim(),topic:q("f-topic").value,message:q("f-msg").value.trim(),project:(q("f-proj")&&q("f-proj").value)||(P[pk]?P[pk].name:"")},[],b);
+  if(sent){n.textContent=t("sent");e.target.reset();fvReset(f)}else{n.textContent=t("send_err");n.style.color="#b3261e"}})}
 
 /* =========================== Press page =========================== */
 let ppKey="essenora";
