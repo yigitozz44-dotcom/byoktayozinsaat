@@ -91,7 +91,8 @@ body.menu-open .burger i:nth-child(3){width:52px;transform:translateY(-8px) rota
 .lang{display:flex;gap:4px}
 .lang button{background:none;border:0;color:inherit;opacity:.55;font-size:16px;font-weight:400;cursor:pointer;padding:4px}
 .lang button[aria-pressed="true"]{opacity:1}
-@media (max-width:1180px){.hdr-r a{display:none}}
+@media (max-width:1000px){.hdr-r a{display:none}}
+@media (min-width:1001px) and (max-width:1240px){.hdr-r{gap:14px;font-size:14.5px}.hdr-in{padding-left:calc(var(--gutL) + 1vw);padding-right:calc(var(--gutR) + 1vw)}}
 
 /* Side menu */
 .veil{position:fixed;inset:0;z-index:70;background:rgba(17,22,21,.5);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .5s var(--ease),visibility 0s .5s}
@@ -348,7 +349,7 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .dd a{display:block;padding:10px 22px;font-size:16px;white-space:nowrap}
 .dd a::after{display:none}
 .dd a:hover,.dd a.on{color:var(--blue)}
-@media (max-width:1180px){.nav-item{display:none}}
+@media (max-width:1000px){.nav-item{display:none}}
 /* Sub navigation */
 .subnav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);z-index:20;background:#fff;border-bottom:1px solid var(--line)}
 .subnav .wrap{display:flex;gap:clamp(18px,3vw,44px);overflow-x:auto;scrollbar-width:none}
@@ -404,6 +405,135 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .bd-quote blockquote{margin:0}
 .bd-quote p{margin:0;font-size:clamp(24px,2.4vw,34px);line-height:1.4;letter-spacing:-.4px;color:var(--ink);text-wrap:balance}
 .bd-quote figcaption{font-size:17px;color:var(--blue);letter-spacing:.04em}
+
+
+
+/* Telefon üst menü: logo solunda Hakkımızda · Projeler, sağında Teklifler · İletişim */
+.mnav{display:none}
+.ft-lang{display:none}
+@media (max-width:1000px){
+  .hdr-in{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);column-gap:14px}
+  .burger,.hdr-r{display:none}
+  .mnav{display:flex;flex-direction:column;gap:5px;font-size:10.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;line-height:1.2;min-width:0}
+  .mnav-l{justify-self:end;align-items:flex-end;text-align:right}
+  .mnav-r{justify-self:start;align-items:flex-start}
+  .mnav a{position:relative;padding:3px 0;white-space:nowrap;opacity:.88;transition:opacity .3s}
+  .mnav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transition:transform .45s var(--ease)}
+  .mnav-l a::after{transform-origin:right}.mnav-r a::after{transform-origin:left}
+  .mnav a.on{opacity:1}.mnav a.on::after{transform:scaleX(1)}
+  .hlogo{display:block;padding-inline:4px;border-inline:1px solid currentColor;border-color:rgba(255,255,255,.28)}
+  .hdr.solid .hlogo{border-color:var(--line)}
+  .hlogo .logo{margin-inline:12px}
+  .ft-lang{display:inline-flex;margin-left:auto}
+}
+@media (min-width:701px) and (max-width:1000px){.mnav{flex-direction:row;gap:22px;font-size:12px}.hlogo .logo{margin-inline:18px}}
+@media (max-width:360px){.mnav{font-size:9.5px;letter-spacing:.12em}.hlogo .logo{margin-inline:8px}}
+
+
+
+/* Tüm projeler: tek ekran, iki proje yan yana */
+@media (min-width:901px){
+  .plist{grid-template-columns:1fr 1fr;gap:clamp(28px,3.4vw,56px);padding-block:clamp(18px,2vw,28px) clamp(24px,3vw,40px)!important}
+  .pitem,.pitem:nth-child(2){grid-template-columns:1fr;gap:clamp(14px,1.6vw,22px);align-items:start;align-content:start}
+  .pitem:nth-child(2) .pimg{order:0}
+  .pimg{aspect-ratio:auto;height:clamp(180px,calc(100vh - 630px),420px)}
+  .pinfo{display:grid;grid-template-rows:auto auto auto}
+  .pinfo .plogos{margin:0;height:clamp(72px,calc((100vh - 600px) * .38 + 40px),118px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px}
+  .pinfo .plogo{height:clamp(64px,calc((100vh - 600px) * .35 + 40px),110px)}
+  .pinfo .plogo.wide{height:clamp(34px,calc((100vh - 600px) * .14 + 22px),54px)}
+  .pinfo .psubs img{height:clamp(18px,1.6vw,26px)}
+  .pinfo .facts{margin:clamp(12px,1.4vw,18px) 0 clamp(14px,1.6vw,20px)}
+  .pinfo .facts li{padding:clamp(8px,1vh,12px) 0;font-size:15.5px}
+  .pinfo .bar-btn{padding-block:12px;justify-self:start}
+  .view[data-view="projects"] .pg-intro{padding-top:clamp(18px,2vw,30px)}
+  .view[data-view="projects"] .pg-lead{font-size:clamp(18px,1.6vw,24px)}
+}
+/* Sayfalar birbirinin üzerine doğar */
+.stk-sn{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 76px);z-index:60}
+@media (max-width:700px){.stk-sn{top:calc(env(safe-area-inset-top,0px) + 64px)}}
+body.stack-on .view.stk{position:sticky;background:#fff;isolation:isolate}
+body.stack-on .view.stk-first{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding-top:calc(env(safe-area-inset-top,0px) + 76px + var(--snh,66px))}
+body.stack-on .view.stk-first > section:not(.pg-intro){flex:1 0 auto}
+body.corp-stack .view[data-view="about"] > .about-one{display:flex;flex-direction:column;justify-content:center}
+body.corp-stack .view[data-view="about"] > .about-one > .wrap{width:100%}
+body.stack-on .view.stk:not(.stk-first){padding-top:0;box-shadow:0 -24px 60px rgba(29,35,33,.12)}
+body.stack-on .view.stk:not(.stk-first) > .subnav{display:none}
+body.stack-on .view.stk::after{content:"";position:absolute;inset:0;background:#1D2321;opacity:calc(var(--cv,0) * .42);pointer-events:none;z-index:50}
+body.stack-on .view.stk > *{transform:translateY(calc(var(--cv,0) * -40px)) scale(calc(1 - var(--cv,0) * .025));transform-origin:50% 100%}
+body.stack-on .view.stk .hero{height:calc(100svh - var(--stko,142px));min-height:480px}
+@media (max-width:700px){body.stack-on .view.stk-first{padding-top:calc(env(safe-area-inset-top,0px) + 64px + var(--snh,58px))}}
+@media (prefers-reduced-motion:reduce){body.stack-on .view.stk > *{transform:none!important}}
+/* Yasal sayfalar */
+.lg{padding-block:clamp(36px,4.5vw,64px) clamp(64px,8vw,110px)}
+.lg-crumb{display:flex;gap:10px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:clamp(28px,3vw,44px)}
+.lg-crumb a{color:var(--muted)}.lg-crumb a:hover{color:var(--ink)}
+.lg-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 24px;padding-bottom:clamp(22px,2.4vw,32px);border-bottom:1px solid var(--line)}
+.lg-head h1{margin:0;font-weight:300;font-size:clamp(36px,4.4vw,64px);line-height:1.05;letter-spacing:-1.5px;color:var(--blue);text-wrap:balance}
+.lg-lang{display:flex;gap:8px}
+.lg-lang button{font:inherit;font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:12px 18px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;border-radius:2px}
+.lg-lang button[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:#fff}
+.lg-grid{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:clamp(32px,5vw,90px);align-items:start;margin-top:clamp(28px,3vw,44px)}
+.lg-body{max-width:72ch}
+.lg-body .lg-lead{font-size:clamp(18px,1.4vw,21px);line-height:1.6;color:var(--ink);margin:0 0 8px}
+.lg-body section{padding-top:clamp(26px,2.8vw,38px)}
+.lg-body h2{margin:0 0 14px;font-weight:400;font-size:clamp(22px,1.9vw,28px);letter-spacing:-.4px;color:var(--blue)}
+.lg-body p,.lg-body li{font-size:16.5px;line-height:1.75;color:var(--ink)}
+.lg-body p{margin:0 0 12px}
+.lg-body ul{margin:0 0 12px;padding-left:22px}
+.lg-body li{margin:0 0 8px}
+.lg-body li::marker{color:var(--blue)}
+.lg-body b{font-weight:600}
+.lg-body a{color:var(--blue);border-bottom:1px solid currentColor}
+.lg-dl{list-style:none;padding:0!important;border-top:1px solid var(--line)}
+.lg-dl li{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;margin:0!important;padding:12px 0;border-bottom:1px solid var(--line)}
+.lg-dl li span:first-child{color:var(--muted)}
+.lg-tw{overflow-x:auto;margin:0 0 12px}
+.lg-tb{width:100%;border-collapse:collapse;font-size:15px;min-width:520px}
+.lg-tb th{text-align:left;font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:10px 12px 10px 0;border-bottom:1px solid var(--ink)}
+.lg-tb td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.lg-tb td:first-child{font-family:ui-monospace,Menlo,monospace;font-size:14px;color:var(--blue)}
+.lg-up{margin-top:clamp(32px,3.4vw,48px)!important;font-size:14px!important;color:var(--muted)!important}
+.lg-nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 110px);display:grid;border-top:1px solid var(--line)}
+.lg-nav a{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px;color:var(--muted)}
+.lg-nav a:hover{color:var(--ink)}
+.lg-nav a.on{color:var(--blue)}
+.cookie p a{border-bottom:1px solid currentColor}
+@media (max-width:900px){.lg-grid{grid-template-columns:minmax(0,1fr)}.lg-nav{position:static;order:-1}.lg-dl li{grid-template-columns:1fr;gap:2px}}
+/* Yönetim Kurulu: tek ekran */
+.bd-one{padding-block:clamp(10px,1.2vw,16px) clamp(40px,5vw,72px)}
+.bd-one .wrap{display:grid;grid-template-columns:minmax(0,3.1fr) minmax(0,9fr);gap:clamp(26px,2.8vw,46px);align-items:start}
+.bd-side{display:flex;flex-direction:column;gap:clamp(14px,1.6vw,22px);position:sticky;top:calc(env(safe-area-inset-top,0px) + 158px);height:calc(100vh - env(safe-area-inset-top,0px) - 158px - 24px);min-height:560px}
+.bd-side .portrait{aspect-ratio:auto;width:100%;flex:1 1 auto;min-height:260px;height:auto}
+.bd-side .bd-facts{margin-top:auto}
+.bd-side .portrait.has-img img{object-position:50% 25%}
+.bd-side .bd-quote{margin:0;padding:0;border:0;display:grid;gap:8px;max-width:none}
+.bd-side .bd-quote p{font-size:inherit;line-height:1.4;letter-spacing:-.2px;color:var(--ink);text-wrap:pretty;font-style:italic}
+.bd-side .bd-quote blockquote{margin:0;font-size:clamp(13.5px,1.06vw,17px);line-height:1.5}
+.bd-side .bd-quote blockquote p{display:inline}
+.bd-side .bd-sig{display:block;text-align:right;margin:1.4em 0 0;font-style:normal;font-size:15px;line-height:1.4;color:var(--blue);letter-spacing:.02em;font-weight:600;white-space:nowrap}
+.bd-side .bd-facts{display:grid;gap:0;margin:4px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.bd-side .bd-facts li{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:2px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.45}
+.bd-side .bd-facts li span:first-child{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bd-side .bd-facts li span:last-child{text-align:left}
+.bd-side .bd-facts a{border-bottom:1px solid currentColor}
+.bd-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.bd-head .eyebrow{font-size:11px}
+.bd-role{margin:4px 0 0;font-size:15px;letter-spacing:.06em;color:var(--muted)}
+.bd-head .h-sec{margin:0;font-size:clamp(26px,2.3vw,34px)}
+.bd-head .bar-btn{display:inline-flex;padding-block:11px;font-size:15px}
+.bd-cols{columns:1}
+.bd-cols p{margin:0 0 .5em;font-size:var(--bdfs,16px);line-height:1.58;max-width:none;color:var(--ink);orphans:2;widows:2}
+.bd-cols .bio-h{font-size:clamp(20px,1.6vw,24px);margin:0 0 10px;break-after:avoid}
+.bd-cols p + .bio-h{margin-top:1.4em}
+.bd-main .bio-facts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1.5fr);gap:0 20px;margin:clamp(10px,1.2vw,16px) 0 0;border-top:1px solid var(--line)}
+.bd-main .bio-facts li{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:2px;padding:10px 0 0;border:0;font-size:13.5px;line-height:1.4}
+.bd-main .bio-facts li span:first-child{font-size:12px;letter-spacing:.06em}
+.bd-main .bio-facts li span:last-child{text-align:left;line-height:1.55}
+@media (min-width:1101px) and (max-height:840px){.bd-head .h-sec{font-size:26px}.bd-head .bar-btn{padding-block:11px}.bd-cols .bio-h{font-size:17px}}
+@media (min-width:1101px) and (max-height:900px){.bd-cols .bio-h{font-size:17px;margin-bottom:4px}.bd-head{padding-bottom:10px;margin-bottom:12px}}
+@media (min-width:1101px) and (max-height:820px){.bd-side .bd-quote blockquote{font-size:13px}.bd-one{padding-top:8px}.bd-cols{column-gap:20px}.bd-cols .bio-h{font-size:16px}.bd-side .bd-facts li{padding:7px 0}.bd-head .h-sec{font-size:24px}.bd-role{font-size:13px}}
+@media (max-width:1100px){.bd-side{height:auto;min-height:0}.bd-side .portrait{flex:none;aspect-ratio:4/5}.bd-cols{columns:1}.bd-main .bio-facts{grid-template-columns:1fr 1fr;gap:4px 20px}.bd-side .portrait{max-width:100%}}
+@media (max-width:760px){.bd-side{position:static;height:auto;min-height:0}.bd-side .portrait{flex:none;aspect-ratio:4/5;height:auto}.bd-one .wrap{grid-template-columns:1fr}.bd-side .portrait{max-width:340px}.bd-cols p{font-size:16px}}
 .bio-member{align-items:start}
 .bio-member .portrait{position:sticky;top:calc(env(safe-area-inset-top,0px) + 170px)}
 .bio-member .h-sec{margin-bottom:clamp(28px,3vw,44px)}
@@ -699,7 +829,9 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 <header class="hdr" id="hdr">
   <div class="hdr-in">
     <button class="burger" id="burger" aria-label="Menü" aria-expanded="false" aria-controls="side"><i></i><i></i><i></i></button>
-    <a href="#" data-go="home" aria-label="BY OKTAYÖZ İnşaat A.Ş. ana sayfa"><svg class="logo" role="img" aria-label="BY OKTAYÖZ İnşaat A.Ş."><use href="#logoH"/></svg></a>
+    <nav class="mnav mnav-l" aria-label="Menü"><a href="#hakkimizda" data-grp="corp" data-i18n="m_about">Hakkımızda</a><a href="#projeler" data-grp="proj" data-i18n="nav_dev">Projeler</a></nav>
+    <a class="hlogo" href="#" data-go="home" aria-label="BY OKTAYÖZ İnşaat A.Ş. ana sayfa"><svg class="logo" role="img" aria-label="BY OKTAYÖZ İnşaat A.Ş."><use href="#logoH"/></svg></a>
+    <nav class="mnav mnav-r" aria-label="Menü"><a href="#teklif" data-offer="" data-i18n="m_offer">Teklifler</a><a href="#iletisim" data-grp="contact" data-i18n="nav_contact">İletişim</a></nav>
     <div class="hdr-r">
       <div class="nav-item"><a href="#hakkimizda" data-grp="corp" data-i18n="nav_company">Kurumsal</a>
         <div class="dd"><a href="#hakkimizda" data-i18n="nav_about">Hakkımızda</a><a href="#yonetim-kurulu" data-i18n="nav_board">Yönetim Kurulu</a><a href="#vizyon-misyon" data-i18n="nav_vm">Vizyon ve Misyonumuz</a><a href="#kurumsal-basin" data-i18n="nav_press_oz">Basında Oktay Öz</a></div></div>
@@ -792,7 +924,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
       <label class="full"><span data-i18n="f_mail">E-posta</span><input id="f-mail" name="mail" type="email" autocomplete="email"></label>
       <label class="full"><span data-i18n="f_topic">Konu</span><select id="f-topic" name="topic"><option data-i18n="t1">Satılık / kiralık daire</option><option data-i18n="t2">Ticari alan</option><option data-i18n="t3">İş ortaklığı</option><option data-i18n="t5">Diğer</option></select></label>
       <label class="full"><span data-i18n="f_msg">Mesajınız</span><textarea id="f-msg" name="msg"></textarea></label>
-      <label class="kvkk"><input type="checkbox" id="f-kvkk" required><span data-i18n="f_kvkk">Kişisel verilerimin KVKK Aydınlatma Metni kapsamında işlenmesini kabul ediyorum.</span></label>
+      <label class="kvkk"><input type="checkbox" id="f-kvkk" required><span data-i18n="f_kvkk">Kişisel verilerimin <a href="#kvkk" target="_blank" class="inl">KVKK Aydınlatma Metni</a> kapsamında işlenmesini kabul ediyorum.</span></label>
       <button class="bar-btn" type="submit"><svg><use href="#arr"/></svg><span data-i18n="f_send">Gönder</span></button>
       <p class="form-note" id="formNote" hidden></p>
     </form>
@@ -828,7 +960,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
       <label class="full"><span data-i18n="f_topic">Konu</span><select id="c-topic">
         <option value="Genel bilgi" data-i18n="ct_t0">Genel bilgi</option><option value="Proje bilgisi" data-i18n="ct_t1">Proje bilgisi</option><option value="İş ortaklığı" data-i18n="t3">İş ortaklığı</option><option value="Kariyer" data-i18n="career">Kariyer</option><option value="Basın" data-i18n="ct_t5">Basın</option></select></label>
       <label class="full"><span data-i18n="f_msg">Mesajınız</span><textarea id="c-msg"></textarea></label>
-      <label class="kvkk"><input type="checkbox" id="c-kvkk" required><span data-i18n="c_kvkk">KVKK Aydınlatma Metni'ni okudum, anladım. *</span></label>
+      <label class="kvkk"><input type="checkbox" id="c-kvkk" required><span data-i18n="c_kvkk"><a href="#kvkk" target="_blank" class="inl">KVKK Aydınlatma Metni</a>'ni okudum, anladım. *</span></label>
       <fieldset class="consent full"><legend data-i18n="c_cons">Tarafıma aşağıdaki yöntemlerle ticari ileti gönderilmesine onay veriyorum.</legend>
         <label><input type="checkbox" id="c-c1"><span data-i18n="c_c1">Telefon araması</span></label>
         <label><input type="checkbox" id="c-c2"><span data-i18n="c_c2">SMS</span></label>
@@ -868,29 +1000,28 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 <div class="view nohero" data-view="board" hidden>
   <h1 class="sr-only" data-i18n="nav_board">Yönetim Kurulu</h1>
   <nav class="subnav" aria-label="Kurumsal"><div class="wrap"><a href="#hakkimizda" data-i18n="nav_about">Hakkımızda</a><a href="#yonetim-kurulu" data-i18n="nav_board">Yönetim Kurulu</a><a href="#vizyon-misyon" data-i18n="nav_vm">Vizyon ve Misyonumuz</a><a href="#kurumsal-basin" data-i18n="nav_press_oz">Basında Oktay Öz</a></div></nav>
-  <section class="about-sec"><div class="wrap board">
-    <article class="member bio-member rv">
+  <section class="bd-one"><div class="wrap">
+    <aside class="bd-side rv">
       <div class="portrait has-img"><img id="bdPortrait" data-i="img/oktay-oz.jpg" alt="R. Oktay Öz" loading="lazy"></div>
-      <div class="mbody">
-        <span class="eyebrow" data-i18n="ab_chair">Yönetim Kurulu Başkanı</span>
-        <h2 class="h-sec">R. Oktay Öz</h2>
-        <h3 class="bio-h" data-i18n="bio_t">Biyografi</h3>
-        <div class="bio-txt"><p data-i18n="bio_p1">Aslen Malatyalı olan R. Oktay Öz, ilk, orta ve lise öğrenimini Gaziosmanpaşa Plevne Lisesi'nde tamamladı. İstanbul Teknik Üniversitesi Maden Fakültesi Jeoloji Mühendisliği Bölümü'nden mezun oldu. Evli ve iki çocuk babasıdır.</p><p data-i18n="bio_p2">İş hayatına Öz Plastik bünyesinde, plastik poşet imalatı alanında başladı ve bu sektörde 11 yıl görev yaptı. Ardından otomotiv sektörüne geçerek Volkswagen Grubu'nun Türkiye temsilcisi Doğuş Grubu bünyesinde 15 yıl boyunca Skoda Yetkili Bayisi olarak hizmet verdi. Sonrasında Suzuki bayisi olarak satış ve servis hizmeti sunan Atik Otomotiv Tic. Ltd. Şti.'nin Yönetim Kurulu Başkanlığını yürüttü. Bu dönemde Atik Sigorta Aracılık Hizmetleri Ltd. Şti. bünyesinde altı sigorta şirketinin acenteliğini üstlendi.</p><p data-i18n="bio_p3">R. Oktay Öz, Gaziosmanpaşa'nın ilk kentsel dönüşüm projesi olan Essenora'nın kurucu ortağıdır. 758 konut, 82 teras villa ve ticari birimlerden oluşan projenin anahtar teslim töreni, dönemin Cumhurbaşkanı tarafından gerçekleştirildi.</p><p data-i18n="bio_p4">Kurucu ortağı olduğu BY OKTAYÖZ İnşaat A.Ş.'nin bir diğer projesi, TEM Otoyolu kenarında toplam 1.600 konut olarak planlanan Plevne İstanbul'dur. İlk etabında 400 konut, ofis katları ve mağazaların yer aldığı projenin temel atma töreni, dönemin Çevre ve Şehircilik Bakanı tarafından gerçekleştirildi.</p><p data-i18n="bio_p5">Şirketin uzun vadeli projeleri arasında Beyoğlu'ndaki Taksim Hacıhüsrev kentsel dönüşüm projesi yer alıyor. BY OKTAYÖZ İnşaat'ın Hacıhüsrev'de açtığı kentsel dönüşüm bürosunda ön sözleşme ve vekâlet çalışmaları sürüyor.</p></div>
-        <h3 class="bio-h" data-i18n="bio_vision">Yaklaşımı</h3>
-        <div class="bio-txt"><p data-i18n="bio_p6">R. Oktay Öz, kentsel dönüşümün gönül rızasına dayanması gerektiğine ve iletişimde pozitif bir dilin her iki taraf için de kazanç yarattığına inanır. Ona göre insanın yüreğine dokunabilmek, en zor süreçleri bile mümkün kılar. Güler yüzlü, samimi ve insan odaklı yaklaşımıyla tanınır.</p><p data-i18n="bio_p7">Hedefi; nitelikleriyle öne çıkan projeler geliştirmek, bölge halkıyla uyum içinde çalışmak ve insanlara hayal ettikleri yaşamı sunmaktır. İnsana yatırım yapmayı iş hayatının temeli olarak görür.</p></div>
-        <ul class="bio-facts">
-      <li><span data-i18n="bio_from_k">Memleket</span><span data-i18n="bio_from_v">Malatya</span></li>
-      <li><span data-i18n="bio_edu_k">Eğitim</span><span data-i18n="bio_edu_v">İTÜ Maden Fakültesi, Jeoloji Mühendisliği</span></li>
-      <li><span data-i18n="bio_proj_k">Projeler</span><span><a href="#essenora">Essenora</a> · <a href="#plevne">Plevne</a> · Taksim Hacıhüsrev</span></li>
-      <li><span data-i18n="bio_mem_k">Üyelikler</span><span data-i18n="bio_mem_v">OYDER (Otomotiv Yetkili Satıcılar Derneği), İMAD (Malatyalı İş Adamları Derneği)</span></li>
+      <figure class="bd-quote">
+        <blockquote><p data-i18n="bd_lead">“Yönetim anlayışı;<br>uzun vadeli düşünce, şeffaflık ve<br>verilen söze sadakat üzerine kurulu olmalıdır.”</p><cite class="bd-sig">- R. Oktay Öz</cite></blockquote>
+      </figure>
+      <ul class="bio-facts bd-facts">
+      <li><span data-i18n="bio_mem_k">Üyelikler</span><span data-i18n="bio_mem_v">OYDER (Otomotiv Yetkili Satıcılar Derneği)<br>İMAD (Malatyalı İş Adamları Derneği)</span></li>
     </ul>
+    </aside>
+    <div class="bd-main rv d1">
+      <div class="bd-head">
+        <div><h2 class="h-sec">R. Oktay Öz</h2><p class="bd-role" data-i18n="bd_role">İş İnsanı</p></div>
         <a class="bar-btn" href="#kurumsal-basin"><svg><use href="#arr"/></svg><span data-i18n="bd_cta">Röportajlarını izleyin</span></a>
       </div>
-    </article>
-    <figure class="bd-quote rv">
-      <blockquote><p data-i18n="bd_lead">“Yönetim anlayışı; uzun vadeli düşünce, şeffaflık ve verilen söze sadakat üzerine kurulu olmalıdır.”</p></blockquote>
-      <figcaption>— R. Oktay Öz</figcaption>
-    </figure>
+      <div class="bd-cols">
+        <h3 class="bio-h" data-i18n="bio_t">Biyografi</h3>
+        <p data-i18n="bio_p1">Aslen Malatyalı olan R. Oktay Öz, 1960 yılında İstanbul'da dünyaya geldi. Lise öğrenimini Gaziosmanpaşa Plevne Lisesi'nde tamamladıktan sonra İstanbul Teknik Üniversitesi Maden Fakültesi Jeoloji Mühendisliği Bölümü'nden mezun oldu. Evli ve iki çocuk babasıdır.</p><p data-i18n="bio_p2">İş hayatına Öz Plastik bünyesinde, plastik poşet imalatı sektöründe başlayan Öz, bu alanda 11 yıl boyunca görev aldı. Ardından otomotiv sektörüne geçerek Doğuş Grubu bünyesinde, Škoda markasının yetkili bayisi olarak 15 yıl süreyle faaliyet gösterdi.</p><p data-i18n="bio_p3">Otomotiv sektöründe edindiği deneyimi girişimcilik vizyonuyla birleştirerek Suzuki markasının satış ve satış sonrası hizmetlerini yürüten Atik Otomotiv Tic. Ltd. Şti.'nin Yönetim Kurulu Başkanlığını üstlendi. Aynı dönemde Atik Sigorta Aracılık Hizmetleri Ltd. Şti. bünyesinde altı farklı sigorta şirketinin acentelik faaliyetlerini de yönetti.</p><p data-i18n="bio_p4">Farklı sektörlerde kazandığı ticari ve yönetsel birikimini gayrimenkul geliştirme ve inşaat alanına taşıyan Öz, Gaziosmanpaşa'nın ilk kentsel dönüşüm projelerinden biri olan Essenora'nın kurucu ortakları arasında yer aldı. Toplam 758 konut, 82 teras villa ve ticari alanlardan oluşan projenin anahtar teslim töreni, dönemin Cumhurbaşkanı'nın katılımıyla gerçekleştirildi.</p><p data-i18n="bio_p5">Kurucu ortağı olduğu BY OKTAYÖZ İnşaat A.Ş. bünyesinde geliştirilen bir diğer önemli yatırım ise TEM Otoyolu kenarında konumlanan ve toplam 1.600 konut olarak planlanan Plevne İstanbul projesidir. İlk etabında 400 konutun yanı sıra ofis katları ve ticari mağazaların yer aldığı projenin temel atma töreni, dönemin Çevre ve Şehircilik Bakanı'nın katılımıyla gerçekleştirildi.</p><p data-i18n="bio_p6">Şirketin uzun vadeli yatırım ve gelişim hedefleri arasında, İstanbul'un önemli kentsel dönüşüm alanlarından biri olan Beyoğlu Hacıhüsrev projesi de bulunmaktadır. Bu doğrultuda bölgede açılan kentsel dönüşüm ofisi aracılığıyla hak sahipleriyle görüşmeler yürütülmekte, ön sözleşme ve vekâlet süreçleri sürdürülmektedir.</p><p data-i18n="bio_p7">Farklı sektörlerde edindiği tecrübe, girişimcilik anlayışı ve yatırım vizyonuyla gayrimenkul geliştirme alanındaki çalışmalarını sürdüren Öz, nitelikli yaşam alanları oluşturmayı, bulunduğu bölgelere değer katmayı ve kentsel dönüşüm süreçlerini toplumsal fayda anlayışıyla hayata geçirmeyi hedeflemektedir.</p>
+        <h3 class="bio-h" data-i18n="bio_vision">İş Felsefesi ve Yaklaşımı</h3>
+        <p data-i18n="bio_p8">R. Oktay Öz için kentsel dönüşüm, yalnızca yapıların yenilenmesinden ibaret değildir. Ona göre dönüşümün gerçek başarısı; insanı merkeze alan, karşılıklı güvene dayanan ve bölge halkının gönül rızasını esas alan bir anlayışla mümkündür.</p><p data-i18n="bio_p9">İletişimde samimiyetin, pozitif yaklaşımın ve karşılıklı anlayışın önemine inanan Öz, en zorlu süreçlerin dahi doğru iletişim ve güven ilişkisiyle aşılabileceğini savunur. İnsanların beklentilerini anlamayı, ihtiyaçlarına duyarlılıkla yaklaşmayı ve kalıcı ilişkiler kurmayı iş yapış biçiminin temel unsurları arasında görür.</p><p data-i18n="bio_p10">Güler yüzlü, samimi ve çözüm odaklı yaklaşımıyla insan ilişkilerine önem veren Öz'ün temel hedefi; bulunduğu bölgeye değer katan, mimari ve yaşam standartlarıyla öne çıkan projeler geliştirmek, bölge halkıyla uyum içerisinde çalışmak ve insanlara hayal ettikleri yaşam alanlarını sunmaktır.</p><p data-i18n="bio_p11">R. Oktay Öz'ün iş anlayışının merkezinde insan vardır. Çünkü ona göre kalıcı başarı, yalnızca projeler inşa etmekle değil, insanların hayatına değer katmakla mümkündür.</p>
+      </div>
+    </div>
   </div></section>
 </div>
 
@@ -902,9 +1033,9 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
       <p class="pg-lead" data-i18n="vm_lead">Neden inşa ettiğimizi ve nasıl çalıştığımızı anlatan üç ilke.</p>
   </div></section>
   <section class="about-sec"><div class="wrap">
-    <div class="about-row rv"><h2 data-i18n="ban_t">Vizyonumuz</h2><div></div><p data-i18n="ban_p1">Projelerimizle farklı ve öncü olmak, sürdürülebilir özellikleriyle kalıcı yapılar üretmek, ihtiyaçları en doğru şekilde analiz etmek ve ileri teknoloji mimarlık ve mühendislik hizmeti almış projelerle şehre ve topluma değer katmak.</p></div>
-    <div class="about-row rv"><h2 data-i18n="ab_mis_t">Misyonumuz</h2><div></div><p data-i18n="ab_mis">Konut, otel ve ticari projeler geliştiren şirketimizin misyonu; müşterilerimizin barınma, alışveriş ve yatırım ihtiyaçlarını yalnızca dört duvarla değil, gelişmiş çevre düzeni, nitelikli donatılar ve markamızın güvencesiyle karşılamaktır.</p></div>
-    <div class="about-row rv"><h2 data-i18n="vm_aim_t">Amacımız</h2><div></div><p data-i18n="vm_aim">Depreme dayanıklı yaşam alanları inşa etmek.</p></div>
+    <div class="about-row rv"><h2 data-i18n="ban_t">Vizyonumuz</h2><div></div><p data-i18n="ban_p1">Projelerimizde farklılık ve öncülük anlayışını benimseyerek, sürdürülebilir, nitelikli ve kalıcı yapılar üretmek; ihtiyaçları doğru analiz ederek ileri teknoloji, çağdaş mimari ve mühendislik çözümleriyle şehre ve topluma değer katmak.</p></div>
+    <div class="about-row rv"><h2 data-i18n="ab_mis_t">Misyonumuz</h2><div></div><p data-i18n="ab_mis">Konut, otel ve ticari gayrimenkul projeleri geliştiren şirketimiz; müşterilerinin barınma, yaşam, alışveriş ve yatırım ihtiyaçlarını yalnızca fiziksel mekânlarla sınırlı kalmadan, nitelikli çevre düzenlemeleri, sosyal donatılar, çağdaş yaşam standartları ve kurumsal güvencesiyle karşılamayı amaçlar.</p></div>
+    <div class="about-row rv"><h2 data-i18n="vm_aim_t">Amacımız</h2><div></div><p data-i18n="vm_aim">Deprem güvenliğini esas alan, dayanıklı ve sürdürülebilir yaşam alanları inşa ederek insanların güvenle, huzurla ve mutlulukla yaşayabilecekleri yapılar geliştirmek.</p></div>
   </div></section>
 </div>
 
@@ -938,6 +1069,15 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
   </div></section>
   <section class="pgroup pp-only"><div class="wrap"><h2 class="sr-only" id="ppTitle"></h2><span class="count" id="ppCount" hidden></span><div class="vgrid" id="ppGrid"></div></div></section>
 </div>
+
+<!-- ======================= LEGAL ======================= -->
+<div class="view nohero" data-view="legal" hidden>
+  <section class="lg"><div class="wrap lg-wrap">
+    <nav class="lg-crumb" id="lgCrumb" aria-label="Breadcrumb"></nav>
+    <div class="lg-head"><h1 id="lgTitle"></h1><div class="lg-lang" id="lgLang" role="group" aria-label="Dil"><button type="button" data-l="tr">Türkçe</button><button type="button" data-l="en" lang="en">English</button></div></div>
+    <div class="lg-grid"><article class="lg-body" id="lgBody"></article><nav class="lg-nav" id="lgNav" aria-label="Yasal metinler"></nav></div>
+  </div></section>
+</div>
 </main>
 
 <footer id="footer">
@@ -951,7 +1091,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
       <ul><li class="small"><a class="fh" href="#iletisim" data-i18n="nav_contact">İletişim</a></li><li><a href="#iletisim" data-i18n="ct_form">İletişim formu</a></li><li><a href="#iletisim" data-topic="Kariyer" data-i18n="career">Kariyer</a></li></ul>
       <ul><li class="small" data-i18n="ct_addr">Adres</li><li class="v addr">Mevlana Mah. İbrahim Hayırlıoğlu Cad. No:6<br>Plevne Konutları &amp; Çarşı<br>34255 Gaziosmanpaşa / İstanbul</li><li class="small" data-i18n="phone">Telefon</li><li class="v">+90 212 615 24 44</li><li class="small" data-i18n="mail">E-posta</li><li class="v">info@byoktayozinsaat.com</li></ul>
     </div>
-    <div class="ft-legal"><a href="#" data-i18n="kvkk">KVKK Aydınlatma Metni</a><a href="#" data-i18n="privacy">Gizlilik Politikası</a><a href="#" data-i18n="cookies">Çerez Politikası</a><button type="button" id="cookieOpen" data-i18n="cookie_pref">Çerez tercihleri</button></div>
+    <div class="ft-legal"><a href="#kvkk" data-i18n="kvkk">KVKK Aydınlatma Metni</a><a href="#gizlilik" data-i18n="privacy">Gizlilik Politikası</a><a href="#cerez" data-i18n="cookies">Çerez Politikası</a><span class="lang ft-lang" role="group" aria-label="Dil"><button type="button" data-lang="tr" aria-pressed="true">TR</button><button type="button" data-lang="en" aria-pressed="false">EN</button></span><button type="button" id="cookieOpen" data-i18n="cookie_pref">Çerez tercihleri</button></div>
     <p class="ft-co">© 2026 BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. · <span data-i18n="taxo">Vergi Dairesi</span>: Küçükköy · <span data-i18n="taxno">Vergi No</span>: 396 070 53 95</p>
   </div>
 </footer>
@@ -988,7 +1128,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
           <input id="of-tel" type="tel" autocomplete="tel-national" placeholder="(5__) ___ __ __" inputmode="tel" maxlength="15" aria-label="Telefon">
           <div class="cc-pop" id="ccPop" hidden><input id="ccSearch" type="text" placeholder="Ülke ara" data-i18n-ph="cc_search" autocomplete="off"><ul id="ccList" role="listbox"></ul></div>
         </div></div>
-        <label class="of-kvkk"><input type="checkbox" id="of-kvkk"><span data-i18n="of_kvkk">KVKK Aydınlatma Metni'ni okudum; bilgilerimin yalnızca teklifime dönüş yapmak için kullanılmasını kabul ediyorum. *</span></label>
+        <label class="of-kvkk"><input type="checkbox" id="of-kvkk"><span data-i18n="of_kvkk"><a href="#kvkk" target="_blank" class="inl">KVKK Aydınlatma Metni</a>'ni okudum; bilgilerimin yalnızca teklifime dönüş yapmak için kullanılmasını kabul ediyorum. *</span></label>
         <p class="of-note" data-i18n="of_note">Yıldızlı (*) tüm alanların doldurulması zorunludur.</p>
         <button class="of-send" type="submit" id="ofSend" aria-disabled="true" data-i18n="of_send">Teklifi gönder</button>
         <p class="of-msg" id="ofMsg" role="status" hidden></p>
@@ -1019,7 +1159,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 
 <div class="cookie" id="cookie" role="region" aria-label="Çerez tercihleri" hidden>
   <strong data-i18n="cookie_pref">Çerez tercihleri</strong>
-  <p data-i18n="cookie_p">Siteyi çalıştırmak için zorunlu çerezler kullanıyoruz. Analitik çerezler yalnızca onayınızla etkinleşir.</p>
+  <p data-i18n="cookie_p">Siteyi çalıştırmak için yalnızca zorunlu çerezler kullanıyoruz. Zorunlu olmayan çerezler yalnızca onayınızla etkinleşir. Ayrıntılar için <a href="#cerez">Çerez Politikası</a>.</p>
   <div class="row"><button type="button" class="solid" data-c="all" data-i18n="c_all">Tümünü kabul et</button><button type="button" data-c="ess" data-i18n="c_ess">Yalnızca zorunlu</button></div>
 </div>
 
@@ -1108,17 +1248,17 @@ plevne:[
 const COV={essenora:["ess-hero","ess-towers","ess-front","ess-sign","ess-park","ess-wide","ess-city","ess-flare","ess-gate","ess-pool","ess-gym","ess-court"],plevne:["plv-render","plv-hero","plv-render2","plv-garden","plv-carsi","plv-top","plv-a","plv-b","plv-carsi-sign"]};
 
 /* =========================== i18n =========================== */
-const EN={nav_press_oz:"Oktay Öz in the press",bio_p1:"Originally from Malatya, R. Oktay Öz completed his primary, secondary and high school education at Gaziosmanpaşa Plevne High School. He graduated from the Department of Geological Engineering at the Faculty of Mines, Istanbul Technical University. He is married and the father of two children.",bio_p2:"He began his career at Öz Plastik in plastic bag manufacturing, where he worked for 11 years. He then moved into the automotive sector, serving for 15 years as an authorised Škoda dealer within Doğuş Group, Volkswagen Group's representative in Türkiye. He went on to chair the board of Atik Otomotiv Tic. Ltd. Şti., a Suzuki dealership providing sales and service. During this period, Atik Sigorta Aracılık Hizmetleri Ltd. Şti. held the agencies of six insurance companies.",bio_p3:"R. Oktay Öz is a founding partner of Essenora, the first urban regeneration project in Gaziosmanpaşa. The key handover ceremony for the project, comprising 758 homes, 82 terrace villas and retail units, was held by the then President of Türkiye.",bio_p4:"Another project of BY OKTAYÖZ İnşaat A.Ş., of which he is a founding partner, is Plevne İstanbul beside the TEM motorway, planned at 1,600 homes in total. Its first phase includes 400 homes, office floors and shops; the groundbreaking ceremony was held by the then Minister of Environment and Urbanisation.",bio_p5:"The company's long-term projects include the Taksim Hacıhüsrev urban regeneration project in Beyoğlu. Preliminary agreements and power-of-attorney work continue at the urban regeneration office BY OKTAYÖZ İnşaat opened in Hacıhüsrev.",bio_p6:"R. Oktay Öz believes urban regeneration should rest on willing consent, and that a positive tone in communication benefits everyone involved. In his view, reaching people's hearts makes even the hardest processes possible. He is known for his warm, sincere and people-centred approach.",bio_p7:"His aim is to develop projects that stand out for their qualities, to work in harmony with local communities and to offer people the life they imagine. He sees investing in people as the foundation of business.",bio_t:"Biography",bio_vision:"Approach",bio_edu_k:"Education",bio_edu_v:"ITU Faculty of Mines, Geological Engineering",bio_from_k:"Hometown",bio_from_v:"Malatya",bio_mem_k:"Memberships",bio_mem_v:"OYDER (Automotive Authorised Dealers Association), İMAD (Malatya Businessmen's Association)",bio_proj_k:"Projects",bio_sum:"Founding partner of Essenora, Gaziosmanpaşa's first urban regeneration project, and of BY OKTAYÖZ İnşaat A.Ş., developer of Plevne Konutları & Çarşı.",cc_search:"Search country",of_kvkk:"I have read the KVKK notice and agree that my details are used only to respond to my offer. *",nav_offer:"Project Offers",of_t:"Do you have an offer?",of_sub:"Tell us about your land or project. We will review it and get back to you.",of_desc_k:"Describe your offer",of_desc_ph:"Location of the land, parcel details, area, zoning status and your expectations. Anything you want us to know.",of_type_k:"Type of offer",of_o1:"Land sale offer",of_o2:"Flat-for-land project offer",of_o3:"Something else",of_loc_k:"Land / project location",of_loc_ph:"City, district, neighbourhood",opt:"Optional",of_files_k:"Documents and photos",of_files_h:"Title deed, zoning status, photos (PDF or image)",of_title_k:"Title",of_h0:"Dear",of_h1:"Mr",of_h2:"Ms",of_note:"All fields marked with an asterisk (*) are required.",of_send:"Send offer",of_need:"Please complete the fields marked in red. Turkish numbers must have 10 digits.",of_sent:"Thank you, your offer has reached us. We will get back to you shortly.",sending:"Sending…",send_err:"Could not send. Please try again or call +90 212 615 24 44.",ct_lead:"Contact us about our projects, partnerships and careers.<br>For land and flat-for-land offers, use the <a href=\"#teklif\" data-offer=\"\" class=\"inl\">Project Offers</a> form.",ct_addr:"Address",ct_dir:"Get directions",ct_form:"Contact form",c_fn:"First name *",c_ln:"Last name *",c_mail:"Email *",c_tel:"Phone *",ct_t0:"General enquiry",ct_t1:"Project information",ct_t5:"Press",c_kvkk:"I have read and understood the KVKK notice. *",c_cons:"I consent to receiving commercial messages through the following channels.",c_c1:"Phone call",c_c2:"SMS",c_c3:"Email",copy:"Copy",copied:"Copied",ct_sent:"Thank you, your message has reached us. We will get back to you shortly.",ct_need:"Please fill in the starred fields, enter a valid email and tick the KVKK consent.",vp_blocked:"This preview environment does not allow embedded video. On the live site the video plays right here, without leaving the page.",vp_open:"Open video",nav_board:"Board of Directors",nav_vm:"Vision & Mission",nav_press_us:"Our projects in the press",ab_who_t:"Who we are",ab_who:"We are a real estate developer that plans residential, retail and hotel functions together.",ab_who2:"We design our projects not just as housing but as a living environment with green spaces, social facilities and shopping arcades.",bd_lead:"“Management should be built on long-term thinking, transparency and keeping one's word.”",portrait_ph:"Portrait to be added",bd_bio:"Chairman of the Board of BY OKTAYÖZ İnşaat. He has discussed the Essenora and Plevne projects in the press and spoke at the Brand Cities Summit 2017 and the Bosch Construction and Housing Conference 2018.",bd_cta:"Watch his interviews",bd_other:"Board members",name_ph:"Full name",bd_ph:"Member details to be added",vm_lead:"Three principles that explain why we build and how we work.",vm_aim_t:"Our purpose",vm_aim:"To build earthquake-resistant living spaces.",cp_lead:"Interviews, summit talks and project reviews by Chairman Oktay Öz.",nav_about:"About us",all_projects:"All developments",ab_lead:"We are a real estate developer building residential, hotel and commercial projects. Essenora and Plevne, completed in Gaziosmanpaşa, are now places where thousands of people live and shop.",ab_mis_t:"Our mission",ab_mis:"The mission of our company, which develops residential, hotel and commercial projects, is to meet our customers' housing, shopping and investment needs not only with four walls but with a developed environment, quality amenities and the assurance of our brand.",ab_info_t:"Company details",ab_title:"Legal name",ab_field:"Fields of activity",ab_field_v:"Residential · Retail · Hotel",ab_done:"Completed projects",ab_chair:"Chairman of the Board",pr_ey:"Completed projects",pr_lead:"Two completed developments bringing residences, terrace villas, a shopping arcade and a hotel together.",nav_home:"Home",nav_company:"Company",nav_dev:"Developments",nav_press:"Press",nav_contact:"Contact",nav_p1:"Essenora",nav_p2:"Plevne",
+const EN={m_about:"About",m_offer:"Offers",bio_p1:"Originally from Malatya, R. Oktay Öz was born in Istanbul in 1960. After completing high school at Gaziosmanpaşa Plevne High School, he graduated from the Department of Geological Engineering, Faculty of Mines, Istanbul Technical University. He is married and the father of two children.",bio_p2:"Öz began his career in plastic bag manufacturing at Öz Plastik, where he worked for 11 years. He then moved into the automotive sector and operated as an authorised Škoda dealer within Doğuş Group for 15 years.",bio_p3:"Combining his automotive experience with an entrepreneurial vision, he became Chairman of the Board of Atik Otomotiv Tic. Ltd. Şti., which runs sales and after-sales services for Suzuki. In the same period, he also managed the agency operations of six insurance companies within Atik Sigorta Aracılık Hizmetleri Ltd. Şti.",bio_p4:"Bringing the commercial and managerial experience he gained across different sectors into real estate development and construction, Öz became one of the founding partners of Essenora, one of the first urban regeneration projects in Gaziosmanpaşa. The key handover ceremony of the project, comprising 758 homes, 82 terrace villas and retail space, was attended by the then President of Türkiye.",bio_p5:"Another major investment developed under BY OKTAYÖZ İnşaat A.Ş., of which he is a founding partner, is Plevne İstanbul, located beside the TEM motorway and planned at 1,600 homes in total. The groundbreaking ceremony of its first phase, comprising 400 homes as well as office floors and retail shops, was attended by the then Minister of Environment and Urbanisation.",bio_p6:"The company's long-term investment and development goals include the Beyoğlu Hacıhüsrev project, one of Istanbul's important urban regeneration areas. To this end, meetings with rights holders are being held through the urban regeneration office opened in the area, and preliminary agreement and power-of-attorney processes are under way.",bio_p7:"Continuing his work in real estate development with the experience, entrepreneurial approach and investment vision gained across different sectors, Öz aims to create quality living spaces, add value to the areas where he works and carry out urban regeneration with a sense of public benefit.",bio_p8:"For R. Oktay Öz, urban regeneration is not merely the renewal of buildings. In his view, its true success is possible only through an approach that puts people at the centre, rests on mutual trust and is based on the willing consent of local residents.",bio_p9:"Believing in the importance of sincerity, a positive approach and mutual understanding in communication, Öz holds that even the most difficult processes can be overcome through the right communication and a relationship of trust. He sees understanding people's expectations, responding sensitively to their needs and building lasting relationships as core elements of how he does business.",bio_p10:"Valuing human relationships with his warm, sincere and solution-oriented approach, Öz's main goal is to develop projects that add value to their surroundings and stand out for their architecture and living standards, to work in harmony with local communities, and to offer people the living spaces they imagine.",bio_p11:"People are at the heart of R. Oktay Öz's business philosophy. In his view, lasting success comes not only from building projects but from adding value to people's lives.",bio_vision:"Business philosophy and approach",bd_role:"Businessman",nav_press_oz:"Oktay Öz in the press",bio_t:"Biography",bio_edu_k:"Education",bio_edu_v:"ITU Faculty of Mines, Geological Engineering",bio_from_k:"Hometown",bio_from_v:"Malatya",bio_mem_k:"Memberships",bio_mem_v:"OYDER (Automotive Authorised Dealers Association)<br>İMAD (Malatya Businessmen's Association)",bio_proj_k:"Projects",bio_sum:"Founding partner of Essenora, Gaziosmanpaşa's first urban regeneration project, and of BY OKTAYÖZ İnşaat A.Ş., developer of Plevne Konutları & Çarşı.",cc_search:"Search country",of_kvkk:"I have read the <a href=\"#kvkk\" target=\"_blank\" class=\"inl\">KVKK notice</a> and agree that my details are used only to respond to my offer. *",nav_offer:"Project Offers",of_t:"Do you have an offer?",of_sub:"Tell us about your land or project. We will review it and get back to you.",of_desc_k:"Describe your offer",of_desc_ph:"Location of the land, parcel details, area, zoning status and your expectations. Anything you want us to know.",of_type_k:"Type of offer",of_o1:"Land sale offer",of_o2:"Flat-for-land project offer",of_o3:"Something else",of_loc_k:"Land / project location",of_loc_ph:"City, district, neighbourhood",opt:"Optional",of_files_k:"Documents and photos",of_files_h:"Title deed, zoning status, photos (PDF or image)",of_title_k:"Title",of_h0:"Dear",of_h1:"Mr",of_h2:"Ms",of_note:"All fields marked with an asterisk (*) are required.",of_send:"Send offer",of_need:"Please complete the fields marked in red. Turkish numbers must have 10 digits.",of_sent:"Thank you, your offer has reached us. We will get back to you shortly.",sending:"Sending…",send_err:"Could not send. Please try again or call +90 212 615 24 44.",ct_lead:"Contact us about our projects, partnerships and careers.<br>For land and flat-for-land offers, use the <a href=\"#teklif\" data-offer=\"\" class=\"inl\">Project Offers</a> form.",ct_addr:"Address",ct_dir:"Get directions",ct_form:"Contact form",c_fn:"First name *",c_ln:"Last name *",c_mail:"Email *",c_tel:"Phone *",ct_t0:"General enquiry",ct_t1:"Project information",ct_t5:"Press",c_kvkk:"I have read and understood the <a href=\"#kvkk\" target=\"_blank\" class=\"inl\">KVKK notice</a>. *",c_cons:"I consent to receiving commercial messages through the following channels.",c_c1:"Phone call",c_c2:"SMS",c_c3:"Email",copy:"Copy",copied:"Copied",ct_sent:"Thank you, your message has reached us. We will get back to you shortly.",ct_need:"Please fill in the starred fields, enter a valid email and tick the KVKK consent.",vp_blocked:"This preview environment does not allow embedded video. On the live site the video plays right here, without leaving the page.",vp_open:"Open video",nav_board:"Board of Directors",nav_vm:"Vision & Mission",nav_press_us:"Our projects in the press",ab_who_t:"Who we are",ab_who:"We are a real estate developer that plans residential, retail and hotel functions together.",ab_who2:"We design our projects not just as housing but as a living environment with green spaces, social facilities and shopping arcades.",bd_lead:"“Management should be built on<br>long-term thinking, transparency<br>and keeping one's word.”",portrait_ph:"Portrait to be added",bd_bio:"Chairman of the Board of BY OKTAYÖZ İnşaat. He has discussed the Essenora and Plevne projects in the press and spoke at the Brand Cities Summit 2017 and the Bosch Construction and Housing Conference 2018.",bd_cta:"Watch his interviews",bd_other:"Board members",name_ph:"Full name",bd_ph:"Member details to be added",vm_lead:"Three principles that explain why we build and how we work.",vm_aim_t:"Our purpose",vm_aim:"To develop buildings where people can live safely, peacefully and happily, by constructing durable and sustainable living spaces built on earthquake safety.",cp_lead:"Interviews, summit talks and project reviews by Chairman Oktay Öz.",nav_about:"About us",all_projects:"All developments",ab_lead:"We are a real estate developer building residential, hotel and commercial projects. Essenora and Plevne, completed in Gaziosmanpaşa, are now places where thousands of people live and shop.",ab_mis_t:"Our mission",ab_mis:"As a developer of residential, hotel and commercial real estate projects, our company aims to meet its customers' needs for housing, living, shopping and investment not only with physical spaces, but with quality landscaping, social amenities, contemporary living standards and its corporate assurance.",ab_info_t:"Company details",ab_title:"Legal name",ab_field:"Fields of activity",ab_field_v:"Residential · Retail · Hotel",ab_done:"Completed projects",ab_chair:"Chairman of the Board",pr_ey:"Completed projects",pr_lead:"Two completed developments bringing residences, terrace villas, a shopping arcade and a hotel together.",nav_home:"Home",nav_company:"Company",nav_dev:"Developments",nav_press:"Press",nav_contact:"Contact",nav_p1:"Essenora",nav_p2:"Plevne",
 press_oktay_s:"Oktay Öz in the press",press_p1_s:"Essenora",press_p2_s:"Plevne",
 hero_cta:"Discover the project",intro_t:"Developments",intro_p:"We develop residential, hotel and commercial projects. Our aim is to meet our residents' housing, shopping and investment needs not only with four walls, but with a developed environment, quality amenities and the assurance of our brand. Our two completed projects are now home to thousands of people.",intro_cta:"See our developments",
-tab_press:"In the press",see_project:"Go to project page",ban_t:"Our vision",ban_p1:"To stand out and lead with our projects, to build permanent structures with sustainable features, to analyse needs accurately and to add value to the city and society through projects backed by advanced architecture and engineering.",ban_p2:"Under BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. we plan residential, retail and hotel functions together.",ban_cta:"Chairman Oktay Öz in the press",feat:"Plevne Çarşı · 60 retail units",
+tab_press:"In the press",see_project:"Go to project page",ban_t:"Our vision",ban_p1:"To embrace distinction and leadership in our projects, producing sustainable, high-quality and lasting buildings; and, by analysing needs correctly, to add value to the city and society through advanced technology, contemporary architecture and engineering solutions.",ban_p2:"Under BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. we plan residential, retail and hotel functions together.",ban_cta:"Chairman Oktay Öz in the press",feat:"Plevne Çarşı · 60 retail units",
 press_t:"BY OKTAYÖZ in the press",press_all:"All press content",discover:"Discover",in_numbers:"In numbers",gallery:"Gallery",
 info_ey:"Enquiry",info_t:"Ask about the project",info_p:"Send us your questions about sales, rentals or retail space and our team will get back to you. You can also call: +90 212 615 24 44",
 f_name:"Full name",f_phone:"Phone",f_mail:"Email",f_topic:"Subject",f_msg:"Message",f_kvkk:"I consent to the processing of my personal data under the KVKK notice.",f_send:"Send",t1:"Apartment for sale / rent",t2:"Retail space",t3:"Partnership",t4:"Land development offer",t5:"Other",
 press_ey:"Press & Media",press_h:"Press",press_hp:"Interviews with Chairman Oktay Öz, plus TV, news and advertising films for Essenora and Plevne. Videos open on YouTube.",f_all:"All",
 g1_ey:"Chairman of the Board",g1_t:"Oktay Öz in the press",g1_p:"Interviews, summit talks and project reviews.",g2_t:"Essenora in the press",g2_p:"Promotional and advertising films, opening and TV news.",g3_t:"Plevne in the press",g3_p:"Launch and advertising films, groundbreaking ceremony, urban regeneration news.",
 vision:"Vision & Mission",career:"Careers",land:"Land development",hq:"Headquarters",addr_ph:"New address to be added",phone:"Telephone",mail:"Email",mail_ph:"Corporate email to be added",kvkk:"KVKK Notice",privacy:"Privacy Policy",cookies:"Cookie Policy",cookie_pref:"Cookie preferences",taxo:"Tax office",taxno:"Tax no",
-cookie_p:"We use essential cookies to run the site. Analytics cookies are enabled only with your consent.",c_all:"Accept all",c_ess:"Essential only",
+cookie_p:"We use only strictly necessary cookies to run the site. Non-essential cookies are enabled only with your consent. See our <a href=\"#cerez\">Cookie Policy</a>.",c_all:"Accept all",c_ess:"Essential only",
 press_ey_p:"Press & Media",k_loc:"Location",k_status:"Status",k_types:"Unit types",k_func:"Functions",k_web:"Website",watch:"Watch",press_of:"in the press",videos:"videos",photos:"photos",project:"Project",
 sent:"Thank you, your request has reached us. We will get back to you shortly.",need:"Please fill in name, phone and the KVKK consent."};
 const TRK={of_files_h:"Tapu, imar durumu, fotoğraf (PDF veya görsel)",of_need:"Lütfen kırmızıyla işaretli alanları doldurun. Türkiye numaraları 10 haneli olmalı (5XX XXX XX XX).",of_sent:"Teşekkürler, teklifiniz bize ulaştı. En kısa sürede size dönüş yapacağız.",sending:"Gönderiliyor…",send_err:"Gönderilemedi. Lütfen tekrar deneyin ya da +90 212 615 24 44 numarasını arayın.",ct_sent:"Teşekkürler, mesajınız bize ulaştı. En kısa sürede size dönüş yapacağız.",ct_need:"Lütfen yıldızlı alanları doldurun, geçerli bir e-posta girin ve KVKK onayını işaretleyin.",copied:"Kopyalandı",press_ey_p:"Basın & Medya",k_loc:"Konum",k_status:"Durum",k_types:"Daire tipleri",k_func:"Fonksiyonlar",k_web:"Web sitesi",watch:"İzle",press_of:"basında",videos:"video",photos:"fotoğraf",project:"Proje",
@@ -1200,7 +1340,7 @@ const HOME=[
   {img:"img/ess-towers.jpg",p:"essenora",alt:"Essenora kuleleri"},
   {img:"img/plv-carsi.jpg",p:"plevne",alt:"Plevne Çarşı"}
 ];
-let homeShow=null,projShow=null;
+let homeShow=null,projShow=null;const projShows={};
 function startHome(){
   homeShow&&homeShow.stop();
   homeShow=slideshow({box:$("#slides"),prog:$("#prog"),items:HOME,dur:(+MEDIA.homeDur||6.5)*1000});
@@ -1246,7 +1386,7 @@ function railify(r,nav){
   nav.querySelector(".next-b").addEventListener("click",()=>r.scrollBy({left:step(),behavior:"smooth"}));
 }
 if(rail)railify(rail,$("#show .rail-nav"));
-railify($("#pRail"),$(".gal .rail-nav"));
+/* project rails are wired in setupProjViews() */
 
 /* =========================== Home press =========================== */
 function renderHomePress(){
@@ -1258,10 +1398,12 @@ function renderHomePress(){
 
 /* =========================== Project page =========================== */
 let curProj=null;
-function renderProject(key){
-  const p=P[key];curProj=key;
-  projShow&&projShow.stop();
-  projShow=slideshow({box:$("#pSlides"),prog:$("#pProg"),items:p.hero.map(i=>({img:i,alt:p.name})),dur:(+MEDIA.projDur||6.5)*1000});
+const PJV={};
+const pq=(root,id)=>root.querySelector(`[data-pid="${id}"]`);
+function renderProject(key,root){
+  root=root||PJV[key]||PJV.essenora;const p=P[key];curProj=key;root.dataset.proj=key;const $=sel=>pq(root,sel.slice(1));
+  projShows[key]&&projShows[key].stop();
+  projShows[key]=slideshow({box:$("#pSlides"),prog:$("#pProg"),items:p.hero.map(i=>({img:i,alt:p.name})),dur:(+MEDIA.projDur||6.5)*1000});
   $("#pKicker").textContent=L(p.tag);
   swapWord($("#pWord"),p.word,true);
   $("#pMeta").innerHTML=`<span>${esc(L(p.loc))}</span><span class="chip">${esc(L(p.status))}</span>`;
@@ -1287,6 +1429,23 @@ function renderProject(key){
   $("#pVids").innerHTML=V[key].slice(0,6).map((v,i)=>vitem(v)).join("");
     $("#formNote").hidden=true;
 }
+
+
+/* proje görünümleri: Essenora ve Plevne için iki ayrı sayfa */
+const PROJV=["project","project2"];
+(function setupProjViews(){
+  const v1=document.querySelector('.view[data-view="project"]');
+  v1.querySelectorAll("[id]").forEach(el=>{el.dataset.pid=el.id});
+  const v2=v1.cloneNode(true);v2.dataset.view="project2";v2.id="v-project2";
+  v2.querySelectorAll("[id]").forEach(el=>el.removeAttribute("id"));
+  v2.querySelectorAll('[data-to="pIntro"]').forEach(b=>b.removeAttribute("data-to"));
+  v1.querySelectorAll('[data-to="pIntro"]').forEach(b=>b.removeAttribute("data-to"));
+  const pr=document.querySelector('.view[data-view="projects"]'),pp=document.querySelector('.view[data-view="ppress"]');
+  pr.after(v1);v1.after(v2);v2.after(pp);
+  PJV.essenora=v1;PJV.plevne=v2;v1.dataset.proj="essenora";v2.dataset.proj="plevne";
+  [v1,v2].forEach(v=>{railify(pq(v,"pRail"),v.querySelector(".gal .rail-nav"));wireInfoForm(pq(v,"infoForm"));
+    v.querySelector(".hero .bar-btn").addEventListener("click",()=>{const it=pq(v,"pIntro");scrollTo({top:it.getBoundingClientRect().top+scrollY-stkOff(),behavior:reduce?"auto":"smooth"})})});
+})();
 
 /* contact form */
 $("#ctForm").addEventListener("submit",async e=>{e.preventDefault();const ok=["#c-fn","#c-ln","#c-mail","#c-tel"].every(q=>$(q).value.trim())&&/\S+@\S+\.\S+/.test($("#c-mail").value)&&$("#c-kvkk").checked;const n=$("#ctNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("ct_need");return}
@@ -1355,7 +1514,7 @@ $("#ccSearch").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefau
 /* TR phone mask: (5XX) XXX XX XX */
 function trFmt(v){let d=v.replace(/\D/g,"");if(d.startsWith("90")&&d.length>10)d=d.slice(2);if(d[0]==="0")d=d.slice(1);d=d.slice(0,10);if(!d)return"";let o="("+d.slice(0,3);if(d.length>=3)o+=")";if(d.length>3)o+=" "+d.slice(3,6);if(d.length>6)o+=" "+d.slice(6,8);if(d.length>8)o+=" "+d.slice(8,10);return o}
 function maskTel(el,isTR){el.addEventListener("input",e=>{if(!isTR()||el.value.trim().startsWith("+"))return;const back=e.inputType==="deleteContentBackward";let v=el.value;if(back&&/\)$/.test(v))v=v.slice(0,-2);el.value=trFmt(v)})}
-maskTel($("#of-tel"),()=>ccCur[0]==="TR");maskTel($("#c-tel"),()=>true);maskTel($("#f-phone"),()=>true);
+maskTel($("#of-tel"),()=>ccCur[0]==="TR");maskTel($("#c-tel"),()=>true);document.querySelectorAll('[data-pid="f-phone"]').forEach(el=>maskTel(el,()=>true));
 $("#ccList").addEventListener("click",e=>{const li=e.target.closest("li");if(!li)return;ccCur=CC.find(c=>c[0]===li.dataset.c);$("#ccFlag").textContent=flag(ccCur[0]);$("#ccCode").textContent="+"+ccCur[2];$("#of-tel").placeholder=ccCur[0]==="TR"?"(5__) ___ __ __":"";$("#of-tel").maxLength=ccCur[0]==="TR"?15:20;$("#of-tel").dispatchEvent(new Event("input"));ccOpen(false);$("#of-tel").focus();ofCheck(ofTried)});
 document.addEventListener("click",e=>{if(!e.target.closest(".tel"))ccOpen(false)});
 /* video player */
@@ -1388,16 +1547,16 @@ addEventListener("hashchange",()=>{if(vpId&&!$("#vp").classList.contains("mini")
 let lbI=0;
 function lbOpen(i){const g=P[curProj].gallery;lbI=(i+g.length)%g.length;$("#lbImg").src=I(R(g[lbI][0]));$("#lbImg").alt=g[lbI][1];$("#lbCap").textContent=`${g[lbI][1]} · ${lbI+1}/${g.length}`;$("#lb").classList.add("open")}
 function lbClose(){$("#lb").classList.remove("open")}
-$("#pRail").addEventListener("click",e=>{const b=e.target.closest("[data-lb]");if(b)lbOpen(+b.dataset.lb)});
+document.addEventListener("click",e=>{const b=e.target.closest('[data-pid="pRail"] [data-lb]');if(!b)return;curProj=b.closest(".view").dataset.proj||curProj;lbOpen(+b.dataset.lb)});
 $("#lbX").addEventListener("click",lbClose);$("#lbP").addEventListener("click",()=>lbOpen(lbI-1));$("#lbN").addEventListener("click",()=>lbOpen(lbI+1));
 $("#lb").addEventListener("click",e=>{if(e.target.id==="lb")lbClose()});
 document.addEventListener("keydown",e=>{if(!$("#lb").classList.contains("open"))return;if(e.key==="ArrowRight")lbOpen(lbI+1);if(e.key==="ArrowLeft")lbOpen(lbI-1)});
 
 /* form */
-$("#infoForm").addEventListener("submit",async e=>{e.preventDefault();const ok=$("#f-name").value.trim()&&$("#f-phone").value.trim()&&$("#f-kvkk").checked;const n=$("#formNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("need");return}
+function wireInfoForm(f){f.addEventListener("submit",async e=>{e.preventDefault();const q=id=>f.querySelector(`[data-pid="${id}"]`);const pk=f.closest(".view").dataset.proj||curProj;const ok=q("f-name").value.trim()&&q("f-phone").value.trim()&&q("f-kvkk").checked;const n=q("formNote");n.hidden=false;n.style.color="";if(!ok){n.textContent=t("need");return}
   const b=e.target.querySelector('[type="submit"]');if(b&&b.getAttribute("aria-busy"))return;n.textContent=t("sending");
-  const sent=await sendForm("bilgi",{name:$("#f-name").value.trim(),phone:$("#f-phone").value.trim(),email:$("#f-mail").value.trim(),topic:$("#f-topic").value,message:$("#f-msg").value.trim(),project:P[curProj]?P[curProj].name:""},[],b);
-  if(sent){n.textContent=t("sent");e.target.reset()}else{n.textContent=t("send_err");n.style.color="#b3261e"}});
+  const sent=await sendForm("bilgi",{name:q("f-name").value.trim(),phone:q("f-phone").value.trim(),email:q("f-mail").value.trim(),topic:q("f-topic").value,message:q("f-msg").value.trim(),project:P[pk]?P[pk].name:""},[],b);
+  if(sent){n.textContent=t("sent");e.target.reset()}else{n.textContent=t("send_err");n.style.color="#b3261e"}})}
 
 /* =========================== Press page =========================== */
 let ppKey="essenora";
@@ -1427,32 +1586,38 @@ function reveal(root){
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("shown");io.unobserve(e.target)}}),{rootMargin:"0px 0px 6% 0px"});
   root.querySelectorAll(".rv:not(.shown)").forEach(el=>{if(el.getBoundingClientRect().top>innerHeight)io.observe(el)});
 }
-const ROUTES={iletisim:"contact",hakkimizda:"about","yonetim-kurulu":"board","vizyon-misyon":"vision","kurumsal-basin":"cpress",projeler:"projects","proje-basin":"ppress"};
-const GROUP={contact:"contact",about:"corp",board:"corp",vision:"corp",cpress:"corp",projects:"proj",project:"proj",ppress:"proj"};
+const ROUTES={kvkk:"legal",gizlilik:"legal",cerez:"legal",iletisim:"contact",hakkimizda:"about","yonetim-kurulu":"board","vizyon-misyon":"vision","kurumsal-basin":"cpress",projeler:"projects","proje-basin":"ppress"};
+const GROUP={contact:"contact",about:"corp",board:"corp",vision:"corp",cpress:"corp",projects:"proj",project:"proj",project2:"proj",ppress:"proj"};
 function route(){
   let h=location.hash.slice(1);
   if(h==="teklif"){ofOpen("");h=""}
   if(h==="basin"){history.replaceState(null,"","#kurumsal-basin");h="kurumsal-basin"}
-  const view=P[h]?"project":ROUTES[h]||(typeof cpage==="function"&&cpage(h)?"custom":"home");
-  document.querySelectorAll(".view").forEach(v=>{const on=v.dataset.view===view;v.hidden=!on;if(on&&!reduce){v.classList.remove("enter");void v.offsetWidth;v.classList.add("enter")}});
+  const view=P[h]?(h==="plevne"?"project2":"project"):ROUTES[h]||(typeof cpage==="function"&&cpage(h)?"custom":"home");
+  const sk=stackOf(view),S=sk?STACKS[sk]:null,same=S&&STK===S;
+  if(same){if(view==="ppress"&&pendingFilter){setFilter(pendingFilter);pendingFilter=null}stkGo(view,true);return}
+  stkNav(false);stkClear();STK=S;document.body.classList.toggle("corp-stack",sk==="corp");document.body.classList.toggle("stack-on",!!S);
+  if(S){stkNav(true);S.views.forEach((k,i)=>{const v=cv(k);v.classList.add("stk");if(i===0)v.classList.add("stk-first")})}
+  const stack=!!S;
+  document.querySelectorAll(".view").forEach(v=>{const on=stack?S.views.includes(v.dataset.view):v.dataset.view===view;v.hidden=!on;if(on&&!reduce&&(!stack||v.dataset.view===S.views[0])){v.classList.remove("enter");void v.offsetWidth;v.classList.add("enter")}});
+  if(sk==="corp")renderCPress();
+  if(sk==="proj"){renderProjects();renderProject("essenora",PJV.essenora);renderProject("plevne",PJV.plevne);setFilter(pendingFilter||ppKey);pendingFilter=null}
   if(view!=="home"&&homeShow){homeShow.stop();homeShow=null}
-  if(view!=="project"&&projShow){projShow.stop();projShow=null}
+  if(!PROJV.includes(view)){Object.keys(projShows).forEach(k=>{projShows[k].stop();delete projShows[k]})}
   if(view==="home"&&!homeShow)startHome();
-  if(view==="project")renderProject(h);
-  if(view==="projects")renderProjects();
   if(view==="cpress")renderCPress();
+  if(view==="legal")renderLegal(h);else if(document.title.includes(" · BY OKTAYÖZ"))document.title="BY OKTAYÖZ";
   if(view==="custom")renderCustomPage(h);
-  if(view==="ppress"){setFilter(pendingFilter||ppKey);pendingFilter=null}
-  document.querySelectorAll(".hdr-r [data-grp]").forEach(a=>a.classList.toggle("on",a.dataset.grp===GROUP[view]));
+  document.querySelectorAll(".hdr-r [data-grp],.mnav [data-grp]").forEach(a=>a.classList.toggle("on",a.dataset.grp===GROUP[view]));
   document.querySelectorAll(".side a").forEach(a=>a.classList.toggle("cur",a.getAttribute("href")==="#"+h));
   document.querySelectorAll(".dd a,.subnav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));
   document.querySelectorAll(".view:not([hidden]) .subnav .wrap").forEach(w=>{const a=w.querySelector("a.on");w.scrollLeft=a?Math.max(0,a.offsetLeft-w.clientWidth/2+a.offsetWidth/2):0});
   scrollTo(0,0);onScroll();
-  requestAnimationFrame(()=>reveal(document.querySelector(`.view[data-view="${view}"]`)));
+  if(stack){S.views.forEach(k=>reveal(cv(k)));setTimeout(()=>{fitBio();stkStick();stkGo(view,false)},40)}
+  else requestAnimationFrame(()=>reveal(document.querySelector(`.view[data-view="${view}"]`)));
   window.decorate&&window.decorate();
 }
 addEventListener("hashchange",route);
-function renderAll(){buildRail();renderHomePress();const h=location.hash.slice(1);if(P[h])renderProject(h);if(h==="kurumsal-basin")renderCPress();if(h==="proje-basin")setFilter(ppKey);if(h==="projeler")renderProjects();if(homeShow){startHome()}}
+function renderAll(){setTimeout(()=>window.fitBio&&fitBio(),60);buildRail();renderHomePress();const h=location.hash.slice(1);if(STK===STACKS.proj){renderProject("essenora",PJV.essenora);renderProject("plevne",PJV.plevne)}if(h==="kurumsal-basin")renderCPress();if(h==="proje-basin")setFilter(ppKey);if(h==="projeler")renderProjects();if(homeShow){startHome()}}
 
 /* cookie */
 const ck=$("#cookie");
@@ -1460,6 +1625,232 @@ if(!store.get("bo_cookie")){const show=()=>{if(scrollY>innerHeight*.5){ck.hidden
 ck.querySelectorAll("[data-c]").forEach(b=>b.addEventListener("click",()=>{store.set("bo_cookie",b.dataset.c);ck.hidden=true}));
 $("#cookieOpen").addEventListener("click",()=>{ck.hidden=false});
 
+/* =========================== Yasal metinler =========================== */
+const CO={tr:`<ul class="lg-dl">
+<li><span>Unvan</span><span>BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. (“BY OKTAYÖZ”)</span></li>
+<li><span>Adres</span><span>Mevlana Mah. İbrahim Hayırlıoğlu Cad. No:6, Plevne Konutları &amp; Çarşı, 34255 Gaziosmanpaşa / İstanbul</span></li>
+<li><span>Vergi dairesi / no</span><span>Küçükköy / 396 070 53 95</span></li>
+<li><span>Telefon</span><span>+90 212 615 24 44</span></li>
+<li><span>E-posta</span><span>info@byoktayozinsaat.com</span></li></ul>`,
+en:`<ul class="lg-dl">
+<li><span>Company</span><span>BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. (“BY OKTAYÖZ”)</span></li>
+<li><span>Address</span><span>Mevlana Mah. İbrahim Hayırlıoğlu Cad. No:6, Plevne Konutları &amp; Çarşı, 34255 Gaziosmanpaşa / Istanbul, Türkiye</span></li>
+<li><span>Tax office / no</span><span>Küçükköy / 396 070 53 95</span></li>
+<li><span>Phone</span><span>+90 212 615 24 44</span></li>
+<li><span>Email</span><span>info@byoktayozinsaat.com</span></li></ul>`};
+const LEGAL={
+kvkk:{
+ tr:{t:"KVKK Aydınlatma Metni",lead:"Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca, kişisel verilerinizin nasıl işlendiğini açıklamak amacıyla hazırlanmıştır.",
+ s:[["Veri sorumlusu",CO.tr],
+ ["İşlediğimiz kişisel veriler",`<ul>
+<li><b>Kimlik:</b> ad, soyad ve hitap.</li>
+<li><b>İletişim:</b> e-posta adresi ve telefon numarası.</li>
+<li><b>Talep ve teklif bilgileri:</b> arsa veya proje konumu, teklif türü, ilgilendiğiniz proje, mesajınız ve isteğe bağlı olarak yüklediğiniz tapu, imar durumu ve fotoğraf gibi belgeler.</li>
+<li><b>Pazarlama izinleri:</b> ticari ileti almak için seçtiğiniz kanallar (telefon, SMS, e-posta).</li>
+<li><b>İşlem güvenliği:</b> IP adresi, tarayıcı ve cihaz bilgisi, formun gönderildiği sayfa ve zaman.</li></ul>`],
+ ["İşleme amaçları",`<ul>
+<li>Arsa satış ve kat karşılığı proje tekliflerinizi değerlendirmek ve size dönüş yapmak,</li>
+<li>Projelerimizle ilgili bilgi taleplerinizi ve iletişim mesajlarınızı yanıtlamak,</li>
+<li>Satış, satış sonrası ve kentsel dönüşüm süreçlerini yürütmek,</li>
+<li>Talebinizin alındığını bildiren otomatik yanıt e-postasını göndermek,</li>
+<li>Web sitesinin ve form altyapısının güvenliğini sağlamak, kötüye kullanımı önlemek,</li>
+<li>Mevzuattan doğan yükümlülükleri yerine getirmek ve yetkili kurumların taleplerini karşılamak,</li>
+<li>Açık rızanız bulunması halinde size kampanya ve proje duyuruları göndermek.</li></ul>`],
+ ["Hukuki sebepler",`<p>Kişisel verileriniz KVKK'nın 5. maddesinde yer alan şu hukuki sebeplere dayanılarak işlenir:</p><ul>
+<li>Bir sözleşmenin kurulması veya ifasıyla doğrudan ilgili olması (md. 5/2-c),</li>
+<li>Veri sorumlusunun hukuki yükümlülüğünü yerine getirmesi (md. 5/2-ç),</li>
+<li>Bir hakkın tesisi, kullanılması veya korunması (md. 5/2-e),</li>
+<li>Temel hak ve özgürlüklerinize zarar vermemek kaydıyla meşru menfaatimiz (md. 5/2-f),</li>
+<li>Ticari elektronik ileti gönderimi için açık rızanız (md. 5/1).</li></ul>`],
+ ["Toplama yöntemi",`<p>Kişisel verileriniz; web sitemizdeki proje teklifi, iletişim ve proje bilgi talebi formları, e-posta ve telefon aracılığıyla, kısmen otomatik yollarla toplanır.</p>`],
+ ["Kimlere aktarılır",`<p>Kişisel verileriniz yalnızca yukarıdaki amaçlarla ve gerektiği ölçüde şu taraflarla paylaşılır:</p><ul>
+<li><b>Hizmet sağlayıcılar:</b> web sitesi barındırma (GitHub Pages), form kayıtlarının saklandığı altyapı (Cloudflare), otomatik e-posta gönderimi (Resend) ve kurumsal e-posta hizmeti (Natro).</li>
+<li><b>Proje ortakları:</b> teklifinizin değerlendirilmesi için gerekli olduğu durumlarda, projenin ortak olduğumuz şirketleri.</li>
+<li><b>Yetkili kurum ve kuruluşlar:</b> mevzuatın gerektirdiği hallerde yargı mercileri ve kamu kurumları.</li></ul>
+<p>Hizmet sağlayıcılarımızın sunucuları yurt dışında bulunabilir. Bu durumda yurt dışına aktarım KVKK'nın 9. maddesinde öngörülen güvencelere (standart sözleşme vb.) uygun olarak, bunların bulunmadığı hallerde ise açık rızanıza dayanılarak gerçekleştirilir.</p>`],
+ ["Saklama süresi",`<p>Teklif, talep ve mesajlarınız, ilgili süreç sonuçlandıktan sonra en fazla 2 yıl saklanır; mevzuatta daha uzun bir süre öngörülmüşse o süre esas alınır. Süre dolduğunda verileriniz silinir, yok edilir veya anonim hale getirilir.</p>`],
+ ["Haklarınız",`<p>KVKK'nın 11. maddesi uyarınca veri sorumlusuna başvurarak:</p><ul>
+<li>Kişisel verilerinizin işlenip işlenmediğini öğrenme,</li>
+<li>İşlenmişse buna ilişkin bilgi talep etme,</li>
+<li>İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme,</li>
+<li>Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme,</li>
+<li>Eksik veya yanlış işlenmişse düzeltilmesini isteme,</li>
+<li>KVKK'nın 7. maddesindeki şartlar çerçevesinde silinmesini veya yok edilmesini isteme,</li>
+<li>Düzeltme, silme ve yok etme işlemlerinin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,</li>
+<li>Münhasıran otomatik sistemlerle analiz edilmesi sonucunda aleyhinize bir sonucun ortaya çıkmasına itiraz etme,</li>
+<li>Kanuna aykırı işleme nedeniyle zarara uğramanız halinde zararın giderilmesini talep etme haklarına sahipsiniz.</li></ul>`],
+ ["Başvuru",`<p>Haklarınıza ilişkin taleplerinizi, kimliğinizi tespit edici bilgilerle birlikte <b>info@byoktayozinsaat.com</b> adresine e-posta göndererek ya da yukarıdaki adresimize yazılı olarak iletebilirsiniz. Başvurunuz, talebin niteliğine göre en geç 30 gün içinde ücretsiz olarak sonuçlandırılır.</p>`]]},
+ en:{t:"Privacy Notice (KVKK)",lead:"This notice explains how your personal data is processed, in accordance with the Turkish Personal Data Protection Law No. 6698 (“KVKK”) and the related communiqué on disclosure obligations.",
+ s:[["Data controller",CO.en],
+ ["Personal data we process",`<ul>
+<li><b>Identity:</b> first name, last name and title.</li>
+<li><b>Contact:</b> email address and phone number.</li>
+<li><b>Request and offer details:</b> land or project location, offer type, the project you are interested in, your message and, optionally, documents you upload such as title deeds, zoning status and photos.</li>
+<li><b>Marketing permissions:</b> the channels you choose for commercial messages (phone, SMS, email).</li>
+<li><b>Transaction security:</b> IP address, browser and device information, the page and time the form was sent.</li></ul>`],
+ ["Purposes of processing",`<ul>
+<li>To evaluate and respond to your land sale and flat-for-land project offers,</li>
+<li>To answer your information requests and contact messages about our projects,</li>
+<li>To carry out sales, after-sales and urban regeneration processes,</li>
+<li>To send an automatic email confirming that your request has been received,</li>
+<li>To keep the website and form infrastructure secure and prevent misuse,</li>
+<li>To comply with legal obligations and requests from competent authorities,</li>
+<li>With your explicit consent, to send you campaign and project announcements.</li></ul>`],
+ ["Legal bases",`<p>Your personal data is processed on the following legal bases set out in Article 5 of the KVKK:</p><ul>
+<li>It is directly related to the conclusion or performance of a contract (Art. 5/2-c),</li>
+<li>It is necessary to fulfil our legal obligations (Art. 5/2-ç),</li>
+<li>It is necessary to establish, exercise or protect a right (Art. 5/2-e),</li>
+<li>Our legitimate interest, provided it does not harm your fundamental rights and freedoms (Art. 5/2-f),</li>
+<li>Your explicit consent for commercial electronic messages (Art. 5/1).</li></ul>`],
+ ["How we collect it",`<p>Your personal data is collected partly by automated means through the project offer, contact and project information forms on our website, and by email and phone.</p>`],
+ ["Who we share it with",`<p>Your personal data is shared only for the purposes above and only as needed with:</p><ul>
+<li><b>Service providers:</b> website hosting (GitHub Pages), the infrastructure storing form submissions (Cloudflare), automatic email delivery (Resend) and corporate email (Natro).</li>
+<li><b>Project partners:</b> partner companies in a project, where necessary to evaluate your offer.</li>
+<li><b>Competent authorities:</b> courts and public institutions where required by law.</li></ul>
+<p>Our service providers' servers may be located abroad. Such transfers are carried out in line with the safeguards in Article 9 of the KVKK (such as standard contracts) or, where these are not available, on the basis of your explicit consent.</p>`],
+ ["Retention",`<p>Offers, requests and messages are kept for up to 2 years after the related process ends, unless the law requires a longer period. After that, the data is deleted, destroyed or anonymised.</p>`],
+ ["Your rights",`<p>Under Article 11 of the KVKK you may apply to the data controller to:</p><ul>
+<li>Learn whether your personal data is processed,</li>
+<li>Request information about the processing,</li>
+<li>Learn the purpose of processing and whether data is used accordingly,</li>
+<li>Know the third parties in Türkiye or abroad to whom data is transferred,</li>
+<li>Request correction of incomplete or inaccurate data,</li>
+<li>Request deletion or destruction under the conditions of Article 7,</li>
+<li>Request that corrections, deletions and destructions be notified to third parties,</li>
+<li>Object to a result against you arising exclusively from automated analysis,</li>
+<li>Claim compensation for damage caused by unlawful processing.</li></ul>`],
+ ["How to apply",`<p>You can send your requests, together with information identifying you, to <b>info@byoktayozinsaat.com</b> or in writing to our address above. Requests are answered free of charge within 30 days at the latest, depending on their nature.</p>`]]}},
+gizlilik:{
+ tr:{t:"Gizlilik Politikası",lead:"BY OKTAYÖZ olarak byoktayozinsaat.com'u ziyaret edenlerin gizliliğine önem veriyoruz. Bu politika, sitemizi kullanırken hangi bilgilerin toplandığını, nasıl kullanıldığını ve nasıl korunduğunu açıklar.",
+ s:[["Kapsam",`<p>Bu politika byoktayozinsaat.com alan adındaki tüm sayfaları ve formları kapsar. Kişisel verilerinizin işlenmesine ilişkin ayrıntılı bilgi için <a href="#kvkk">KVKK Aydınlatma Metni</a>'ni inceleyebilirsiniz.</p>`],
+ ["Topladığımız bilgiler",`<ul>
+<li><b>Sizin verdiğiniz bilgiler:</b> proje teklifi, iletişim ve bilgi talebi formlarına yazdığınız bilgiler ile yüklediğiniz belgeler.</li>
+<li><b>Otomatik oluşan bilgiler:</b> sitenin güvenli çalışması için sunucu kayıtlarında tutulan IP adresi, tarayıcı türü ve ziyaret zamanı.</li>
+<li><b>Tarayıcınızda saklanan tercihler:</b> dil ve çerez tercihiniz. Ayrıntılar <a href="#cerez">Çerez Politikası</a>'nda yer alır.</li></ul>`],
+ ["Bilgileri nasıl kullanıyoruz",`<p>Bilgilerinizi yalnızca talebinize yanıt vermek, tekliflerinizi değerlendirmek, size bilgi sunmak ve sitenin güvenliğini sağlamak için kullanırız. Formu gönderdiğinizde talebinizin alındığını bildiren otomatik bir e-posta gönderilir.</p>`],
+ ["Paylaşım",`<p>Kişisel bilgilerinizi satmayız, kiralamayız ve reklam amacıyla üçüncü kişilerle paylaşmayız. Bilgileriniz yalnızca hizmet aldığımız altyapı sağlayıcılarıyla ve mevzuatın gerektirdiği hallerde yetkili kurumlarla paylaşılır.</p>`],
+ ["Üçüncü taraf içerikler",`<ul>
+<li><b>YouTube videoları:</b> basın videoları, gizlilik odaklı youtube-nocookie.com üzerinden ve yalnızca siz oynattığınızda yüklenir.</li>
+<li><b>Harita:</b> İletişim sayfasındaki harita OpenStreetMap altlığı kullanır.</li>
+<li><b>Yazı tipleri:</b> Google Fonts üzerinden yüklenir.</li></ul>
+<p>Bu hizmetler, içeriği size ulaştırmak için IP adresinizi işleyebilir. Kendi gizlilik politikaları geçerlidir.</p>`],
+ ["Güvenlik",`<p>Site yalnızca şifreli bağlantı (HTTPS) üzerinden çalışır. Form kayıtlarına yalnızca yetkili BY OKTAYÖZ çalışanları şifreli yönetim paneli üzerinden erişebilir.</p>`],
+ ["Çocukların gizliliği",`<p>Sitemiz 18 yaşın altındaki kişilere yönelik değildir ve bilerek bu kişilerden bilgi toplamayız.</p>`],
+ ["Değişiklikler",`<p>Bu politikayı gerektiğinde güncelleyebiliriz. Güncel metin her zaman bu sayfada yayımlanır.</p>`],
+ ["İletişim",`<p>Gizlilikle ilgili sorularınız için <b>info@byoktayozinsaat.com</b> adresine yazabilir ya da <b>+90 212 615 24 44</b> numarasını arayabilirsiniz.</p>`]]},
+ en:{t:"Privacy Policy",lead:"At BY OKTAYÖZ we care about the privacy of everyone who visits byoktayozinsaat.com. This policy explains what information is collected when you use our site, how it is used and how it is protected.",
+ s:[["Scope",`<p>This policy covers all pages and forms on byoktayozinsaat.com. For detailed information on the processing of your personal data, see the <a href="#kvkk">Privacy Notice (KVKK)</a>.</p>`],
+ ["Information we collect",`<ul>
+<li><b>Information you give us:</b> what you enter in the project offer, contact and information request forms, and any documents you upload.</li>
+<li><b>Information created automatically:</b> IP address, browser type and time of visit kept in server logs to run the site securely.</li>
+<li><b>Preferences stored in your browser:</b> your language and cookie choice. See the <a href="#cerez">Cookie Policy</a> for details.</li></ul>`],
+ ["How we use it",`<p>We use your information only to respond to your request, evaluate your offers, provide information and keep the site secure. When you submit a form, an automatic email confirms that your request has been received.</p>`],
+ ["Sharing",`<p>We do not sell or rent your personal information or share it with third parties for advertising. It is shared only with our infrastructure providers and, where required by law, with competent authorities.</p>`],
+ ["Third-party content",`<ul>
+<li><b>YouTube videos:</b> press videos load through the privacy-enhanced youtube-nocookie.com, and only when you play them.</li>
+<li><b>Map:</b> the map on the Contact page uses OpenStreetMap tiles.</li>
+<li><b>Fonts:</b> loaded from Google Fonts.</li></ul>
+<p>These services may process your IP address to deliver their content. Their own privacy policies apply.</p>`],
+ ["Security",`<p>The site runs only over an encrypted connection (HTTPS). Only authorised BY OKTAYÖZ staff can access form submissions, through a password-protected admin panel.</p>`],
+ ["Children's privacy",`<p>Our site is not intended for people under 18 and we do not knowingly collect information from them.</p>`],
+ ["Changes",`<p>We may update this policy when necessary. The current version is always published on this page.</p>`],
+ ["Contact",`<p>For privacy questions, email <b>info@byoktayozinsaat.com</b> or call <b>+90 212 615 24 44</b>.</p>`]]}},
+cerez:{
+ tr:{t:"Çerez Politikası",lead:"Bu politika, byoktayozinsaat.com'da çerezlerin ve benzeri teknolojilerin nasıl kullanıldığını açıklar. Zorunlu olanlar dışındaki çerezler yalnızca açık onayınızla etkinleştirilir.",
+ s:[["Çerez nedir?",`<p>Çerezler, bir web sitesini ziyaret ettiğinizde cihazınıza kaydedilen küçük metin dosyalarıdır. Tarayıcı depolaması (localStorage) gibi benzer teknolojiler de aynı amaçlarla kullanılabilir.</p>`],
+ ["Hangi çerezleri kullanıyoruz?",`<ul>
+<li><b>Zorunlu:</b> dil ve çerez tercihinizi hatırlamak, site içeriğini hızlı yüklemek ve formların güvenli çalışmasını sağlamak için kullanılır. Bunlar olmadan site düzgün çalışmaz; bu yüzden her zaman açıktır.</li>
+<li><b>Performans ve analitik:</b> şu anda kullanılmamaktadır. İleride eklenirse yalnızca onayınızla etkinleşir.</li>
+<li><b>Reklam ve pazarlama:</b> kullanılmamaktadır.</li></ul>`],
+ ["Ayrıntılı liste",`<div class="lg-tw"><table class="lg-tb"><thead><tr><th>Ad</th><th>Tür</th><th>Amaç</th><th>Süre</th></tr></thead><tbody>
+<tr><td>bo_lang</td><td>Zorunlu</td><td>Seçtiğiniz dili (TR / EN) hatırlar.</td><td>Siz silene kadar</td></tr>
+<tr><td>bo_cookie</td><td>Zorunlu</td><td>Çerez tercihinizi hatırlar.</td><td>Siz silene kadar</td></tr>
+<tr><td>bo_content</td><td>Zorunlu</td><td>Site içeriğinin hızlı yüklenmesi için bir kopyasını saklar.</td><td>Siz silene kadar</td></tr>
+</tbody></table></div><p>Bu kayıtlar tarayıcınızın yerel deposunda tutulur, sunucumuza gönderilmez ve sizi tanımlamak için kullanılmaz.</p>`],
+ ["Üçüncü taraf hizmetler",`<p>Basın videoları youtube-nocookie.com üzerinden yalnızca siz oynattığınızda yüklenir; oynatma sırasında YouTube kendi çerezlerini kullanabilir. İletişim sayfasındaki harita OpenStreetMap, yazı tipleri ise Google Fonts üzerinden yüklenir.</p>`],
+ ["Hukuki sebep",`<p>Zorunlu çerezler, KVKK'nın 5/2-f maddesi kapsamında meşru menfaatimize dayanılarak kullanılır. Zorunlu olmayan çerezler yalnızca açık rızanızla (md. 5/1) etkinleşir.</p>`],
+ ["Tercihlerinizi yönetme",`<p>Tercihinizi istediğiniz zaman sayfanın altındaki <b>Çerez tercihleri</b> bağlantısından değiştirebilirsiniz. Tarayıcınızın ayarlarından da çerezleri ve site verilerini silebilir veya engelleyebilirsiniz.</p>`],
+ ["İletişim",`<p>Sorularınız için <b>info@byoktayozinsaat.com</b> adresine yazabilirsiniz. Kişisel verilerinizle ilgili ayrıntılar için <a href="#kvkk">KVKK Aydınlatma Metni</a>'ne bakabilirsiniz.</p>`]]},
+ en:{t:"Cookie Policy",lead:"This policy explains how cookies and similar technologies are used on byoktayozinsaat.com. Cookies other than strictly necessary ones are enabled only with your explicit consent.",
+ s:[["What are cookies?",`<p>Cookies are small text files saved on your device when you visit a website. Similar technologies, such as browser storage (localStorage), may be used for comparable purposes.</p>`],
+ ["Which cookies do we use?",`<ul>
+<li><b>Strictly necessary:</b> remember your language and cookie choice, load site content quickly and keep the forms secure. The site cannot work properly without them, so they are always on.</li>
+<li><b>Performance and analytics:</b> not currently used. If added in the future, they will be active only with your consent.</li>
+<li><b>Advertising and marketing:</b> not used.</li></ul>`],
+ ["Detailed list",`<div class="lg-tw"><table class="lg-tb"><thead><tr><th>Name</th><th>Type</th><th>Purpose</th><th>Duration</th></tr></thead><tbody>
+<tr><td>bo_lang</td><td>Necessary</td><td>Remembers your language (TR / EN).</td><td>Until you delete it</td></tr>
+<tr><td>bo_cookie</td><td>Necessary</td><td>Remembers your cookie choice.</td><td>Until you delete it</td></tr>
+<tr><td>bo_content</td><td>Necessary</td><td>Keeps a copy of site content so it loads quickly.</td><td>Until you delete it</td></tr>
+</tbody></table></div><p>These entries are stored in your browser's local storage, are not sent to our server and are not used to identify you.</p>`],
+ ["Third-party services",`<p>Press videos load from youtube-nocookie.com only when you play them; YouTube may use its own cookies during playback. The map on the Contact page uses OpenStreetMap and fonts load from Google Fonts.</p>`],
+ ["Legal basis",`<p>Strictly necessary cookies are used on the basis of our legitimate interest under Article 5/2-f of the KVKK. Non-essential cookies are enabled only with your explicit consent (Art. 5/1).</p>`],
+ ["Managing your preferences",`<p>You can change your choice at any time via the <b>Cookie preferences</b> link at the bottom of the page. You can also delete or block cookies and site data in your browser settings.</p>`],
+ ["Contact",`<p>For questions, email <b>info@byoktayozinsaat.com</b>. For details on your personal data, see the <a href="#kvkk">Privacy Notice (KVKK)</a>.</p>`]]}}
+};
+let LGL=null;
+function renderLegal(k){
+  const doc=LEGAL[k];if(!doc)return;const l=LGL||LANG,d=doc[l];
+  $("#lgCrumb").innerHTML=`<a href="#" data-go="home">${l==="en"?"Home":"Ana Sayfa"}</a><span>/</span><span>${l==="en"?"Legal":"Yasal"}</span>`;
+  $("#lgTitle").textContent=d.t;
+  document.querySelectorAll("#lgLang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));
+  $("#lgBody").innerHTML=`<p class="lg-lead">${d.lead}</p>`+d.s.map(([h,b],i)=>`<section><h2>${i+1}. ${h}</h2>${b}</section>`).join("")+`<p class="lg-up">${l==="en"?"Last updated: 5 November 2026":"Son güncelleme: 5 Kasım 2026"}</p>`;
+  $("#lgNav").innerHTML=[["kvkk",l==="en"?"Privacy Notice (KVKK)":"KVKK Aydınlatma Metni"],["gizlilik",l==="en"?"Privacy Policy":"Gizlilik Politikası"],["cerez",l==="en"?"Cookie Policy":"Çerez Politikası"]].map(([h,t])=>`<a href="#${h}" class="${h===k?"on":""}">${t}</a>`).join("");
+  document.title=`${d.t} · BY OKTAYÖZ`;
+}
+$("#lgLang").addEventListener("click",e=>{const b=e.target.closest("[data-l]");if(!b)return;LGL=b.dataset.l;renderLegal(location.hash.slice(1))});
+
+
+
+/* =========================== Sayfalar birbirinin üzerine doğar (Kurumsal, Projeler) =========================== */
+const STACKS={
+  corp:{views:["about","board","vision","cpress"],hash:{about:"hakkimizda",board:"yonetim-kurulu",vision:"vizyon-misyon",cpress:"kurumsal-basin"}},
+  proj:{views:["projects","project","project2","ppress"],hash:{projects:"projeler",project:"essenora",project2:"plevne",ppress:"proje-basin"}}};
+const CORP=STACKS.corp.views;
+const cv=k=>document.querySelector(`.view[data-view="${k}"]`);
+let STK=null,stkSN=null,stkSNHome=null,stkLock=0;
+const stackOf=view=>Object.keys(STACKS).find(k=>STACKS[k].views.includes(view));
+function stkNav(on){
+  if(stkSN){stkSN.classList.remove("stk-sn");stkSNHome.after(stkSN);stkSN=null}
+  if(on){const first=cv(STK.views[0]);stkSN=first.querySelector(".subnav");stkSNHome=stkSN.previousElementSibling;document.body.appendChild(stkSN);stkSN.classList.add("stk-sn")}
+}
+const stkOff=()=>{const hd=$("#hdr").getBoundingClientRect().height,n=stkSN?stkSN.offsetHeight:0;document.documentElement.style.setProperty("--snh",n+"px");document.documentElement.style.setProperty("--stko",(hd+n)+"px");return hd+n};
+const corpOff=stkOff;
+function flowTop(k){let y=$("main").offsetTop;for(const x of STK.views){if(x===k)break;y+=cv(x).offsetHeight}return y}
+function stkClear(){document.querySelectorAll(".view.stk").forEach(v=>{v.classList.remove("stk","stk-first");v.style.top="";v.style.zIndex="";v.style.removeProperty("--cv")})}
+function stkStick(){
+  if(!STK)return;const off=stkOff();
+  STK.views.forEach((k,i)=>{const v=cv(k);const h=v.offsetHeight;v.style.zIndex=i+1;v.style.top=(i===0?Math.min(0,innerHeight-h):Math.min(off,innerHeight-h))+"px"});
+  stkFx();
+}
+const corpStick=stkStick;
+function stkFx(){
+  if(!STK)return;const off=stkOff();
+  for(let i=0;i<STK.views.length-1;i++){const nx=cv(STK.views[i+1]).getBoundingClientRect().top;const p=Math.max(0,Math.min(1,(innerHeight-nx)/Math.max(1,innerHeight-off)));cv(STK.views[i]).style.setProperty("--cv",p.toFixed(3))}
+}
+function stkMark(view){
+  const h=STK.hash[view];
+  document.querySelectorAll(".dd a,.subnav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));
+  document.querySelectorAll(".side a").forEach(a=>a.classList.toggle("cur",a.getAttribute("href")==="#"+h));
+  const w=stkSN&&stkSN.querySelector(".wrap"),a=w&&w.querySelector("a.on");if(a&&w.scrollWidth>w.clientWidth)w.scrollTo({left:Math.max(0,a.offsetLeft-w.clientWidth/2+a.offsetWidth/2),behavior:"smooth"});
+  if(PROJV.includes(view))curProj=cv(view).dataset.proj;
+  if(location.hash!=="#"+h)history.replaceState(null,"","#"+h);
+}
+function stkGo(view,smooth){
+  if(!STK)return;const y=view===STK.views[0]?0:Math.max(0,flowTop(view)-stkOff()+1);
+  stkMark(view);stkLock=Date.now()+(smooth?1100:150);
+  scrollTo({top:y,behavior:smooth&&!reduce?"smooth":"auto"});
+}
+const corpGo=stkGo;
+function stkSpy(){
+  if(!STK)return;stkFx();if(Date.now()<stkLock)return;
+  const off=stkOff();let cur=STK.views[0];
+  for(const k of STK.views)if(flowTop(k)-off<=scrollY+innerHeight*.35)cur=k;
+  if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)cur=STK.views[STK.views.length-1];
+  if(!document.querySelector(`.stk-sn a.on[href="#${STK.hash[cur]}"]`))stkMark(cur);
+}
+addEventListener("scroll",()=>requestAnimationFrame(stkSpy),{passive:true});
+addEventListener("resize",()=>{clearTimeout(stkStick.t);stkStick.t=setTimeout(stkStick,80)});
+if(window.ResizeObserver){const ro=new ResizeObserver(()=>{clearTimeout(stkStick.r);stkStick.r=setTimeout(stkStick,60)});Object.values(STACKS).forEach(S=>S.views.forEach(k=>{const v=cv(k);v&&ro.observe(v)}))}
 /* =========================== CMS: içerik, formlar, admin =========================== */
 const API=(window.__API||"https://byoktayoz-api.yigitozz44.workers.dev");
 const MAILTO="info@byoktayozinsaat.com";
@@ -1727,7 +2118,7 @@ if(ADMIN)(function(){
     modal(`<h3>Sayfa silinsin mi?</h3><p style="margin:0">“${LT(p.title)}” sayfası ve menüdeki bağlantısı silinecek.</p>`,()=>{CMS.pages=CMS.pages.filter(x=>x.id!==id);dirty("pages");location.hash=p.parent==="proj"?"projeler":"hakkimizda";refreshAll();return true})}
 
   /* videolar */
-  const GRIDS=[["#g-oktay",()=>"oktay"],["#ppGrid",()=>ppKey],["#pVids",()=>curProj]];
+  const GRIDS=[["#g-oktay",()=>"oktay"],["#ppGrid",()=>ppKey],['.view[data-view="project"] [data-pid="pVids"]',()=>"essenora"],['.view[data-view="project2"] [data-pid="pVids"]',()=>"plevne"]];
   window.decorate=function(){
     document.querySelectorAll(".cms-x[data-delvid],.cms-vadd").forEach(n=>{if(!EDIT)n.remove()});
     if(!EDIT||!PW)return;
@@ -1751,8 +2142,17 @@ if(ADMIN)(function(){
 })();
 if(typeof window.decorate!=="function")window.decorate=()=>{};
 
+
+/* Yönetim Kurulu: biyografi ekrana tam sığacak en büyük yazı boyutu */
+function fitBio(){const v=document.querySelector('.view[data-view="board"]');if(!v||v.hidden||innerWidth<=1100){v&&v.style.removeProperty("--bdfs");return}
+  const last=v.querySelector('[data-i18n="bio_p7"]');if(!last)return;const lim=innerHeight-20;let lo=14.5,hi=21,best=14.5;
+  const base=document.body.classList.contains("corp-stack")?stkOff():0;
+  for(let i=0;i<7;i++){const m=(lo+hi)/2;v.style.setProperty("--bdfs",m+"px");if(last.getBoundingClientRect().bottom-v.getBoundingClientRect().top+base<=lim){best=m;lo=m}else hi=m}
+  v.style.setProperty("--bdfs",best.toFixed(1)+"px")}
+addEventListener("resize",()=>{clearTimeout(fitBio.t);fitBio.t=setTimeout(fitBio,120)});
+addEventListener("hashchange",()=>setTimeout(fitBio,60));
 /* boot */
-LANG=store.get("bo_lang")||"tr";applyLang();buildRail();renderHomePress();route();
+LANG=store.get("bo_lang")||"tr";applyLang();buildRail();renderHomePress();route();setTimeout(fitBio,60);document.fonts&&document.fonts.ready.then(fitBio);
 </script>
 
 </body>
