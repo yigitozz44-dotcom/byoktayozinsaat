@@ -53,7 +53,7 @@ img{display:block;max-width:100%}
 .wrap{max-width:1600px;margin:0 auto;padding-left:calc(var(--gutL) + 3vw);padding-right:calc(var(--gutR) + 3vw)}
 @media (max-width:700px){.wrap{padding-left:var(--gutL);padding-right:var(--gutR)}}
 h1,h2,h3{font-weight:300;margin:0;text-wrap:balance}
-.h-sec{font-size:clamp(30px,2.7vw,40px);letter-spacing:-1.4px;line-height:1.15}
+.h-sec{font-size:clamp(30px,2.7vw,40px);letter-spacing:-1.4px;line-height:1.15;color:var(--blue)}
 .eyebrow{display:block;font-size:13px;letter-spacing:.24em;text-transform:uppercase;font-weight:400;color:var(--blue);margin-bottom:14px}
 .ph{display:inline-block;font:500 10px/1 var(--f-body);letter-spacing:.18em;text-transform:uppercase;color:var(--blue);border:1px solid currentColor;padding:4px 7px 3px;border-radius:2px;vertical-align:middle;white-space:nowrap}
 .view[hidden]{display:none!important}
@@ -291,6 +291,8 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .filters button{font:inherit;font-size:16px;padding:10px 18px;border-radius:40px;border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
 .filters button[aria-pressed="true"]{background:#fff;color:var(--deep);border-color:#fff}
 .pgroup{padding-block:clamp(56px,7vw,96px) 0}
+.pgroup.cp-only{padding-top:clamp(24px,2.6vw,36px)}
+.cp-count{display:flex;justify-content:flex-end;padding-bottom:14px;margin-bottom:28px;border-bottom:1px solid var(--line)}
 .pgroup:last-of-type{padding-bottom:clamp(64px,8vw,110px)}
 .pgroup .press-head{margin-bottom:28px;border-bottom:1px solid var(--line);padding-bottom:22px}
 .pgroup .press-head p{margin:8px 0 0;color:var(--muted);max-width:60ch}
@@ -300,7 +302,7 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .about-sec{padding-block:clamp(64px,8vw,120px)}
 .about-sec + .about-sec{padding-top:0}
 .about-row{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,1fr) minmax(0,7fr);gap:24px;padding-block:clamp(32px,4vw,56px);border-top:1px solid var(--line)}
-.about-row h2{font-size:clamp(28px,2.4vw,36px);letter-spacing:-1px}
+.about-row h2{font-size:clamp(28px,2.4vw,36px);letter-spacing:-1px;color:var(--blue)}
 .about-row p{margin:0;font-size:clamp(19px,1.5vw,22px);line-height:1.6;max-width:60ch}
 .bio-txt{display:grid;gap:18px}
 .bio-txt p{margin:0;font-size:clamp(17px,1.25vw,19px);line-height:1.7;max-width:64ch;color:var(--ink)}
@@ -312,15 +314,20 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .about-row li a{border-bottom:1px solid currentColor}
 @media (max-width:860px){.about-row{grid-template-columns:1fr}.about-row > div:empty{display:none}}
 .plist{display:grid;gap:clamp(56px,7vw,110px);padding-block:clamp(64px,8vw,120px)}
-.pitem{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,64px);align-items:end}
+.pitem{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,64px);align-items:center}
 .pitem:nth-child(2){grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
 .pitem:nth-child(2) .pimg{order:2}
 .pimg{position:relative;display:block;aspect-ratio:16/11;max-width:100%;overflow:hidden;border-radius:2px;background:var(--mist)}
 .pimg img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--ease)}
 .pimg:hover img{transform:scale(1.05)}
-.pinfo .plogo{height:clamp(56px,6vw,90px);width:auto;margin-bottom:24px}
-.pinfo .plogo.wide{height:clamp(34px,3.6vw,52px)}
-.pinfo h2{font-size:clamp(30px,2.7vw,40px);letter-spacing:-1.4px;margin-bottom:14px}
+.plogos{margin-bottom:clamp(28px,3vw,40px)}
+.pinfo .plogo{display:block;height:clamp(130px,12vw,190px);width:auto;max-width:100%}
+.pinfo .plogo.wide{height:clamp(56px,5.6vw,86px)}
+.plogos.grp{display:grid;justify-items:center;gap:clamp(22px,2.4vw,32px)}
+.psubs{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:clamp(16px,2vw,28px)}
+.psubs img{height:clamp(26px,2.2vw,34px);width:auto;max-width:30%;object-fit:contain}
+
+.pinfo h2:not(.sr-only){font-size:clamp(30px,2.7vw,40px);letter-spacing:-1.4px;margin-bottom:14px}
 .pinfo p{color:var(--muted);margin:0 0 26px;max-width:46ch}
 .pinfo .facts{margin-bottom:30px}
 .pinfo .bar-btn{display:inline-flex}
@@ -337,7 +344,7 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .dd a:hover,.dd a.on{color:var(--blue)}
 @media (max-width:1180px){.nav-item{display:none}}
 /* Sub navigation */
-.subnav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 68px);z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.subnav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);z-index:20;background:#fff;border-bottom:1px solid var(--line)}
 .subnav .wrap{display:flex;gap:clamp(18px,3vw,44px);overflow-x:auto;scrollbar-width:none}
 .subnav .wrap::-webkit-scrollbar{display:none}
 .subnav a{position:relative;padding:20px 0;font-size:17px;white-space:nowrap;color:var(--muted);transition:color .3s}
@@ -356,6 +363,52 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .member .bar-btn{display:inline-flex}
 .member.empty .portrait{background:var(--mist);color:var(--ink)}
 @media (max-width:760px){.member{grid-template-columns:1fr}.portrait{max-width:320px}}
+.pg-intro{padding-block:clamp(32px,3.5vw,48px) 0}
+.pg-lead{margin:0;max-width:52ch;font-size:clamp(22px,2.1vw,30px);line-height:1.45;letter-spacing:-.3px;color:var(--ink);text-wrap:pretty}
+.pg-lead a{border-bottom:1px solid currentColor}
+.view[data-view="contact"] .pg-lead{max-width:66ch}
+.pg-intro .filters button{border-color:var(--line);color:var(--ink)}
+.pg-intro .filters button:hover{border-color:var(--ink)}
+.pg-intro .filters button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-intro + .about-sec,.pg-intro + .pgroup,.pg-intro + .ct{padding-top:clamp(28px,3vw,40px)}
+.pg-intro + section .plist{padding-top:clamp(28px,3vw,40px)}
+
+.about-one{padding-block:clamp(32px,3.5vw,48px) clamp(48px,5vw,72px)}
+.about-one .wrap{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,110px);align-items:start}
+.ao-main{display:grid;gap:clamp(18px,2vw,26px)}
+.ao-h{margin:0;font-size:clamp(28px,2.4vw,36px);font-weight:400;letter-spacing:-.6px;line-height:1.15;color:var(--blue)}
+.ao-who-txt{display:grid;gap:clamp(16px,1.8vw,26px)}
+.ao-quote{margin:clamp(6px,1vw,14px) 0 0;padding-top:clamp(20px,2.2vw,30px);border-top:1px solid var(--line);font-size:clamp(16px,1.15vw,18px);line-height:1.65;color:var(--muted);max-width:60ch;font-style:italic}
+.ao-quote::before{content:"“"}
+.ao-quote::after{content:"”"}
+.ao-who{display:grid;gap:12px;padding-top:clamp(24px,2.5vw,36px);border-top:1px solid var(--line)}
+.about-one .eyebrow{margin:0;font-weight:500}
+.ao-who p{margin:0;font-size:clamp(16px,1.15vw,18px);line-height:1.65;color:var(--muted);max-width:60ch}
+.ao-facts{display:grid;gap:clamp(18px,2vw,26px)}
+.ao-facts .facts li{padding:11px 0;font-size:16px}
+.ao-facts .facts li span:last-child{text-align:right}
+@media (max-width:900px){.about-one .wrap{grid-template-columns:1fr}}
+@media (max-width:560px){.ao-facts .facts li{flex-direction:column;gap:2px}.ao-facts .facts li span:last-child{text-align:left}}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.view.nohero{padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+@media (max-width:700px){.view.nohero{padding-top:calc(env(safe-area-inset-top,0px) + 64px)}}
+.bd-quote{margin:clamp(24px,3vw,40px) 0 0;padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line);display:grid;gap:20px;max-width:900px}
+.bd-quote blockquote{margin:0}
+.bd-quote p{margin:0;font-size:clamp(24px,2.4vw,34px);line-height:1.4;letter-spacing:-.4px;color:var(--ink);text-wrap:balance}
+.bd-quote figcaption{font-size:17px;color:var(--blue);letter-spacing:.04em}
+.bio-member{align-items:start}
+.bio-member .portrait{position:sticky;top:calc(env(safe-area-inset-top,0px) + 170px)}
+.bio-member .h-sec{margin-bottom:clamp(28px,3vw,44px)}
+.bio-h{font-size:clamp(24px,2vw,30px);font-weight:400;letter-spacing:-.5px;margin:0 0 18px;color:var(--blue)}
+.bio-member .bio-txt + .bio-h{margin-top:clamp(36px,4vw,56px)}
+.bio-member .bio-txt p{margin:0;max-width:64ch;color:var(--ink)}
+.bio-facts{margin:clamp(36px,4vw,56px) 0 36px;padding:0;list-style:none;border-top:1px solid var(--line)}
+.bio-facts li{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid var(--line);font-size:17px}
+.bio-facts li span:first-child{color:var(--muted);flex:none}
+.bio-facts li span:last-child{text-align:right}
+.bio-facts li a{border-bottom:1px solid currentColor}
+@media (max-width:760px){.bio-member .portrait{position:relative;top:auto}.bio-facts li{flex-direction:column;gap:4px}.bio-facts li span:last-child{text-align:left}}
+
 
 /* Contact */
 .ct{padding-block:clamp(56px,7vw,100px) 0}
@@ -416,7 +469,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 #ofForm{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(28px,4vw,56px)}
 .of-l,.of-r{display:flex;flex-direction:column;gap:8px;min-width:0}
 .of-ey{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
-.of h2{font-size:clamp(34px,3.6vw,52px);letter-spacing:-1.4px;line-height:1.05;margin:6px 0 4px}
+.of h2{font-size:clamp(34px,3.6vw,52px);letter-spacing:-1.4px;line-height:1.05;margin:6px 0 4px;color:var(--blue)}
 .of-sub{margin:0 0 18px;color:var(--muted);font-size:17px}
 .of-k{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:14px;margin-bottom:6px}
 .of-k em{font-style:normal;letter-spacing:.12em;opacity:.7;margin-left:6px}
@@ -684,15 +737,11 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 </div>
 
 <!-- ======================= CONTACT ======================= -->
-<div class="view" data-view="contact" hidden>
-  <section class="p-hero">
-    <img data-i="img/plv-lobby3.jpg" alt="" aria-hidden="true">
-    <div class="wrap">
-      <span class="eyebrow" style="color:var(--blue-lt)">BY OKTAYÖZ İnşaat A.Ş.</span>
-      <h1 data-i18n="nav_contact">İletişim</h1>
-      <p data-i18n="ct_lead">Projelerimiz, iş ortaklığı ve kariyer başvurularınız için bize ulaşın. Arsa ve kat karşılığı teklifleriniz için <a href="#teklif" data-offer="" class="inl">Proje Teklifleri</a> formunu kullanabilirsiniz.</p>
-    </div>
-  </section>
+<div class="view nohero" data-view="contact" hidden>
+  <h1 class="sr-only" data-i18n="nav_contact">İletişim</h1>
+  <section class="pg-intro"><div class="wrap">
+      <p class="pg-lead" data-i18n="ct_lead">Projelerimiz, iş ortaklığı ve kariyer başvurularınız için bize ulaşın.<br>Arsa ve kat karşılığı teklifleriniz için <a href="#teklif" data-offer="" class="inl">Proje Teklifleri</a> formunu kullanabilirsiniz.</p>
+  </div></section>
   <section class="ct"><div class="wrap"><div class="ct-grid">
     <div class="ct-info rv">
       <div class="ct-item"><svg class="ci" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><span class="ct-k" data-i18n="ct_addr">Adres</span><address>Mevlana Mah. İbrahim Hayırlıoğlu Cad. No:6<br>Plevne Konutları &amp; Çarşı<br>34255 Gaziosmanpaşa / İstanbul</address></div></div>
@@ -729,74 +778,66 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 </div>
 
 <!-- ======================= ABOUT ======================= -->
-<div class="view" data-view="about" hidden>
-  <section class="p-hero">
-    <img data-i="img/ess-flare.jpg" alt="" aria-hidden="true">
-    <div class="wrap">
-      <span class="eyebrow" style="color:var(--blue-lt)" data-i18n="nav_company">Kurumsal</span>
-      <h1 data-i18n="nav_about">Hakkımızda</h1>
-      <p data-i18n="ab_lead">Konut, otel ve ticari projeler geliştiren bir gayrimenkul geliştirme şirketiyiz. Gaziosmanpaşa'da tamamladığımız Essenora ve Plevne bugün binlerce kişinin yaşadığı, alışveriş yaptığı yerler.</p>
-    </div>
-  </section>
+<div class="view nohero" data-view="about" hidden>
+  <h1 class="sr-only" data-i18n="nav_about">Hakkımızda</h1>
   <nav class="subnav" aria-label="Kurumsal"><div class="wrap"><a href="#hakkimizda" data-i18n="nav_about">Hakkımızda</a><a href="#yonetim-kurulu" data-i18n="nav_board">Yönetim Kurulu</a><a href="#vizyon-misyon" data-i18n="nav_vm">Vizyon ve Misyonumuz</a><a href="#kurumsal-basin" data-i18n="nav_press_us">Basında Biz</a></div></nav>
-  <section class="about-sec"><div class="wrap">
-    <div class="about-row rv"><h2 data-i18n="ab_who_t">Biz kimiz</h2><div></div><p data-i18n="ab_who">BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş., konut, ticari alan ve otel fonksiyonlarını bir arada planlayan bir gayrimenkul geliştirme şirketidir. Projelerimizi yalnızca konut olarak değil; yeşil alanları, sosyal tesisleri ve çarşılarıyla birlikte yaşayan bir çevre olarak tasarlıyoruz.</p></div>
-    <div class="about-row rv"><h2 data-i18n="ab_info_t">Şirket bilgileri</h2><div></div><ul>
+  <section class="about-one"><div class="wrap">
+    <div class="ao-main rv">
+      <h2 class="ao-h" data-i18n="ab_who_t">Biz kimiz</h2>
+      <div class="ao-who-txt"><p class="pg-lead" data-i18n="ab_who">Konut, ticari alan ve otel fonksiyonlarını bir arada planlayan bir gayrimenkul geliştirme şirketiyiz.</p>
+      <p class="pg-lead" data-i18n="ab_who2">Projelerimizi yalnızca konut olarak değil; yeşil alanları, sosyal tesisleri ve çarşılarıyla birlikte yaşayan bir çevre olarak tasarlıyoruz.</p></div>
+      <p class="ao-quote" data-i18n="ab_lead">Konut, otel ve ticari projeler geliştiren bir gayrimenkul geliştirme şirketiyiz. Gaziosmanpaşa'da tamamladığımız Essenora ve Plevne bugün binlerce kişinin yaşadığı, alışveriş yaptığı yerler.</p>
+    </div>
+    <div class="ao-facts rv">
+      <h2 class="ao-h" data-i18n="ab_info_t">Şirket bilgileri</h2>
+      <ul class="facts">
       <li><span data-i18n="ab_title">Unvan</span><span>BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş.</span></li>
       <li><span data-i18n="ab_field">Faaliyet alanları</span><span data-i18n="ab_field_v">Konut · Ticari alan · Otel</span></li>
       <li><span data-i18n="ab_done">Tamamlanan projeler</span><span><a href="#essenora">Essenora</a> · <a href="#plevne">Plevne</a></span></li>
-      <li><span data-i18n="ab_chair">Yönetim Kurulu Başkanı</span><span><a href="#yonetim-kurulu">R. Oktay Öz</a></span></li>
       <li><span data-i18n="phone">Telefon</span><span>+90 212 615 24 44</span></li>
       <li><span data-i18n="ct_addr">Adres</span><span>Mevlana Mah. İbrahim Hayırlıoğlu Cad. No:6, Gaziosmanpaşa / İstanbul</span></li><li><span data-i18n="mail">E-posta</span><span>info@byoktayozinsaat.com</span></li>
-    </ul></div>
+    </ul>
+    </div>
   </div></section>
 </div>
 
 <!-- ======================= BOARD ======================= -->
-<div class="view" data-view="board" hidden>
-  <section class="p-hero">
-    <img data-i="img/plv-lobby.jpg" alt="" aria-hidden="true">
-    <div class="wrap">
-      <span class="eyebrow" style="color:var(--blue-lt)" data-i18n="nav_company">Kurumsal</span>
-      <h1 data-i18n="nav_board">Yönetim Kurulu</h1>
-      <p data-i18n="bd_lead">BY OKTAYÖZ'ün yönetim anlayışı; uzun vadeli düşünce, şeffaflık ve verilen söze sadakat üzerine kurulu.</p>
-    </div>
-  </section>
+<div class="view nohero" data-view="board" hidden>
+  <h1 class="sr-only" data-i18n="nav_board">Yönetim Kurulu</h1>
   <nav class="subnav" aria-label="Kurumsal"><div class="wrap"><a href="#hakkimizda" data-i18n="nav_about">Hakkımızda</a><a href="#yonetim-kurulu" data-i18n="nav_board">Yönetim Kurulu</a><a href="#vizyon-misyon" data-i18n="nav_vm">Vizyon ve Misyonumuz</a><a href="#kurumsal-basin" data-i18n="nav_press_us">Basında Biz</a></div></nav>
   <section class="about-sec"><div class="wrap board">
-    <article class="member rv">
+    <article class="member bio-member rv">
       <div class="portrait"><svg aria-hidden="true"><use href="#emblem"/></svg><span class="ph" data-i18n="portrait_ph">Portre eklenecek</span></div>
       <div class="mbody">
         <span class="eyebrow" data-i18n="ab_chair">Yönetim Kurulu Başkanı</span>
         <h2 class="h-sec">R. Oktay Öz</h2>
-        <p data-i18n="bio_sum">Gaziosmanpaşa'nın ilk kentsel dönüşüm projesi Essenora'nın ve Plevne Konutları &amp; Çarşı'yı geliştiren BY OKTAYÖZ İnşaat A.Ş.'nin kurucu ortağı.</p>
-        <a class="bar-btn" href="#kurumsal-basin"><svg><use href="#arr"/></svg><span data-i18n="bd_cta">Röportajlarını izleyin</span></a>
-      </div>
-    </article>
-  </div></section>
-  <section class="about-sec bio"><div class="wrap">
-    <div class="about-row rv"><h2 data-i18n="bio_t">Biyografi</h2><div></div><div class="bio-txt"><p data-i18n="bio_p1">Aslen Malatyalı olan R. Oktay Öz, ilk, orta ve lise öğrenimini Gaziosmanpaşa Plevne Lisesi'nde tamamladı. İstanbul Teknik Üniversitesi Maden Fakültesi Jeoloji Mühendisliği Bölümü'nden mezun oldu. Evli ve iki çocuk babasıdır.</p><p data-i18n="bio_p2">İş hayatına Öz Plastik bünyesinde, plastik poşet imalatı alanında başladı ve bu sektörde 11 yıl görev yaptı. Ardından otomotiv sektörüne geçerek Volkswagen Grubu'nun Türkiye temsilcisi Doğuş Grubu bünyesinde 15 yıl boyunca Skoda Yetkili Bayisi olarak hizmet verdi. Sonrasında Suzuki bayisi olarak satış ve servis hizmeti sunan Atik Otomotiv Tic. Ltd. Şti.'nin Yönetim Kurulu Başkanlığını yürüttü. Bu dönemde Atik Sigorta Aracılık Hizmetleri Ltd. Şti. bünyesinde altı sigorta şirketinin acenteliğini üstlendi.</p><p data-i18n="bio_p3">R. Oktay Öz, Gaziosmanpaşa'nın ilk kentsel dönüşüm projesi olan Essenora'nın kurucu ortağıdır. 758 konut, 82 teras villa ve ticari birimlerden oluşan projenin anahtar teslim töreni, dönemin Cumhurbaşkanı tarafından gerçekleştirildi.</p><p data-i18n="bio_p4">Kurucu ortağı olduğu BY OKTAYÖZ İnşaat A.Ş.'nin bir diğer projesi, TEM Otoyolu kenarında toplam 1.600 konut olarak planlanan Plevne Konutları & Çarşı'dır. İlk etabında 400 konut, ofis katları ve mağazaların yer aldığı projenin temel atma töreni, dönemin Çevre ve Şehircilik Bakanı tarafından gerçekleştirildi.</p><p data-i18n="bio_p5">Şirketin uzun vadeli projeleri arasında Beyoğlu'ndaki Taksim Hacıhüsrev kentsel dönüşüm projesi yer alıyor. BY OKTAYÖZ İnşaat'ın Hacıhüsrev'de açtığı kentsel dönüşüm bürosunda ön sözleşme ve vekâlet çalışmaları sürüyor.</p></div></div>
-    <div class="about-row rv"><h2 data-i18n="bio_vision">Yaklaşımı</h2><div></div><div class="bio-txt"><p data-i18n="bio_p6">R. Oktay Öz, kentsel dönüşümün gönül rızasına dayanması gerektiğine ve iletişimde pozitif bir dilin her iki taraf için de kazanç yarattığına inanır. Ona göre insanın yüreğine dokunabilmek, en zor süreçleri bile mümkün kılar. Güler yüzlü, samimi ve insan odaklı yaklaşımıyla tanınır.</p><p data-i18n="bio_p7">Hedefi; nitelikleriyle öne çıkan projeler geliştirmek, bölge halkıyla uyum içinde çalışmak ve insanlara hayal ettikleri yaşamı sunmaktır. İnsana yatırım yapmayı iş hayatının temeli olarak görür.</p></div></div>
-    <div class="about-row rv"><h2 data-i18n="ab_info_t">Künye</h2><div></div><ul>
+        <h3 class="bio-h" data-i18n="bio_t">Biyografi</h3>
+        <div class="bio-txt"><p data-i18n="bio_p1">Aslen Malatyalı olan R. Oktay Öz, ilk, orta ve lise öğrenimini Gaziosmanpaşa Plevne Lisesi'nde tamamladı. İstanbul Teknik Üniversitesi Maden Fakültesi Jeoloji Mühendisliği Bölümü'nden mezun oldu. Evli ve iki çocuk babasıdır.</p><p data-i18n="bio_p2">İş hayatına Öz Plastik bünyesinde, plastik poşet imalatı alanında başladı ve bu sektörde 11 yıl görev yaptı. Ardından otomotiv sektörüne geçerek Volkswagen Grubu'nun Türkiye temsilcisi Doğuş Grubu bünyesinde 15 yıl boyunca Skoda Yetkili Bayisi olarak hizmet verdi. Sonrasında Suzuki bayisi olarak satış ve servis hizmeti sunan Atik Otomotiv Tic. Ltd. Şti.'nin Yönetim Kurulu Başkanlığını yürüttü. Bu dönemde Atik Sigorta Aracılık Hizmetleri Ltd. Şti. bünyesinde altı sigorta şirketinin acenteliğini üstlendi.</p><p data-i18n="bio_p3">R. Oktay Öz, Gaziosmanpaşa'nın ilk kentsel dönüşüm projesi olan Essenora'nın kurucu ortağıdır. 758 konut, 82 teras villa ve ticari birimlerden oluşan projenin anahtar teslim töreni, dönemin Cumhurbaşkanı tarafından gerçekleştirildi.</p><p data-i18n="bio_p4">Kurucu ortağı olduğu BY OKTAYÖZ İnşaat A.Ş.'nin bir diğer projesi, TEM Otoyolu kenarında toplam 1.600 konut olarak planlanan Plevne İstanbul'dur. İlk etabında 400 konut, ofis katları ve mağazaların yer aldığı projenin temel atma töreni, dönemin Çevre ve Şehircilik Bakanı tarafından gerçekleştirildi.</p><p data-i18n="bio_p5">Şirketin uzun vadeli projeleri arasında Beyoğlu'ndaki Taksim Hacıhüsrev kentsel dönüşüm projesi yer alıyor. BY OKTAYÖZ İnşaat'ın Hacıhüsrev'de açtığı kentsel dönüşüm bürosunda ön sözleşme ve vekâlet çalışmaları sürüyor.</p></div>
+        <h3 class="bio-h" data-i18n="bio_vision">Yaklaşımı</h3>
+        <div class="bio-txt"><p data-i18n="bio_p6">R. Oktay Öz, kentsel dönüşümün gönül rızasına dayanması gerektiğine ve iletişimde pozitif bir dilin her iki taraf için de kazanç yarattığına inanır. Ona göre insanın yüreğine dokunabilmek, en zor süreçleri bile mümkün kılar. Güler yüzlü, samimi ve insan odaklı yaklaşımıyla tanınır.</p><p data-i18n="bio_p7">Hedefi; nitelikleriyle öne çıkan projeler geliştirmek, bölge halkıyla uyum içinde çalışmak ve insanlara hayal ettikleri yaşamı sunmaktır. İnsana yatırım yapmayı iş hayatının temeli olarak görür.</p></div>
+        <ul class="bio-facts">
       <li><span data-i18n="bio_from_k">Memleket</span><span data-i18n="bio_from_v">Malatya</span></li>
       <li><span data-i18n="bio_edu_k">Eğitim</span><span data-i18n="bio_edu_v">İTÜ Maden Fakültesi, Jeoloji Mühendisliği</span></li>
       <li><span data-i18n="bio_proj_k">Projeler</span><span><a href="#essenora">Essenora</a> · <a href="#plevne">Plevne</a> · Taksim Hacıhüsrev</span></li>
       <li><span data-i18n="bio_mem_k">Üyelikler</span><span data-i18n="bio_mem_v">OYDER (Otomotiv Yetkili Satıcılar Derneği), İMAD (Malatyalı İş Adamları Derneği)</span></li>
-    </ul></div>
+    </ul>
+        <a class="bar-btn" href="#kurumsal-basin"><svg><use href="#arr"/></svg><span data-i18n="bd_cta">Röportajlarını izleyin</span></a>
+      </div>
+    </article>
+    <figure class="bd-quote rv">
+      <blockquote><p data-i18n="bd_lead">“Yönetim anlayışı; uzun vadeli düşünce, şeffaflık ve verilen söze sadakat üzerine kurulu olmalıdır.”</p></blockquote>
+      <figcaption>— R. Oktay Öz</figcaption>
+    </figure>
   </div></section>
 </div>
 
 <!-- ======================= VISION ======================= -->
-<div class="view" data-view="vision" hidden>
-  <section class="p-hero">
-    <img data-i="img/ess-hero.jpg" alt="" aria-hidden="true">
-    <div class="wrap">
-      <span class="eyebrow" style="color:var(--blue-lt)" data-i18n="nav_company">Kurumsal</span>
-      <h1 data-i18n="nav_vm">Vizyon ve Misyonumuz</h1>
-      <p data-i18n="vm_lead">Neden inşa ettiğimizi ve nasıl çalıştığımızı anlatan iki ilke.</p>
-    </div>
-  </section>
+<div class="view nohero" data-view="vision" hidden>
+  <h1 class="sr-only" data-i18n="nav_vm">Vizyon ve Misyonumuz</h1>
   <nav class="subnav" aria-label="Kurumsal"><div class="wrap"><a href="#hakkimizda" data-i18n="nav_about">Hakkımızda</a><a href="#yonetim-kurulu" data-i18n="nav_board">Yönetim Kurulu</a><a href="#vizyon-misyon" data-i18n="nav_vm">Vizyon ve Misyonumuz</a><a href="#kurumsal-basin" data-i18n="nav_press_us">Basında Biz</a></div></nav>
+  <section class="pg-intro"><div class="wrap">
+      <p class="pg-lead" data-i18n="vm_lead">Neden inşa ettiğimizi ve nasıl çalıştığımızı anlatan iki ilke.</p>
+  </div></section>
   <section class="about-sec"><div class="wrap">
     <div class="about-row rv"><h2 data-i18n="ban_t">Vizyonumuz</h2><div></div><p data-i18n="ban_p1">Projelerimizle farklı ve öncü olmak, sürdürülebilir özellikleriyle kalıcı yapılar üretmek, ihtiyaçları en doğru şekilde analiz etmek ve ileri teknoloji mimarlık ve mühendislik hizmeti almış projelerle şehre ve topluma değer katmak.</p></div>
     <div class="about-row rv"><h2 data-i18n="ab_mis_t">Misyonumuz</h2><div></div><p data-i18n="ab_mis">Konut, otel ve ticari projeler geliştiren şirketimizin misyonu; müşterilerimizin barınma, alışveriş ve yatırım ihtiyaçlarını yalnızca dört duvarla değil, gelişmiş çevre düzeni, nitelikli donatılar ve markamızın güvencesiyle karşılamaktır.</p></div>
@@ -804,48 +845,33 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 </div>
 
 <!-- ======================= CORPORATE PRESS ======================= -->
-<div class="view" data-view="cpress" hidden>
-  <section class="p-hero">
-    <img data-i="img/plv-hero.jpg" alt="" aria-hidden="true">
-    <div class="wrap">
-      <span class="eyebrow" style="color:var(--blue-lt)" data-i18n="nav_company">Kurumsal</span>
-      <h1 data-i18n="nav_press_us">Basında Biz</h1>
-      <p data-i18n="cp_lead">Yönetim Kurulu Başkanı Oktay Öz'ün röportajları, zirve konuşmaları ve proje değerlendirmeleri. Videolar YouTube'da açılır.</p>
-    </div>
-  </section>
+<div class="view nohero" data-view="cpress" hidden>
+  <h1 class="sr-only" data-i18n="nav_press_us">Basında Biz</h1>
   <nav class="subnav" aria-label="Kurumsal"><div class="wrap"><a href="#hakkimizda" data-i18n="nav_about">Hakkımızda</a><a href="#yonetim-kurulu" data-i18n="nav_board">Yönetim Kurulu</a><a href="#vizyon-misyon" data-i18n="nav_vm">Vizyon ve Misyonumuz</a><a href="#kurumsal-basin" data-i18n="nav_press_us">Basında Biz</a></div></nav>
-  <section class="pgroup"><div class="wrap"><div class="press-head"><div><span class="eyebrow" data-i18n="ab_chair">Yönetim Kurulu Başkanı</span><h2 class="h-sec" data-i18n="g1_t">Oktay Öz basında</h2></div><span class="count" id="c-oktay"></span></div><div class="vgrid" id="g-oktay"></div></div></section>
+  <section class="pgroup cp-only"><div class="wrap"><h2 class="sr-only" data-i18n="g1_t">Oktay Öz basında</h2><div class="cp-count"><span class="count" id="c-oktay"></span></div><div class="vgrid" id="g-oktay"></div></div></section>
 </div>
 
 <!-- ======================= PROJECTS ======================= -->
-<div class="view" data-view="projects" hidden>
-  <section class="p-hero">
-    <img data-i="img/ess-hero.jpg" alt="" aria-hidden="true">
-    <div class="wrap">
-      <span class="eyebrow" style="color:var(--blue-lt)" data-i18n="nav_dev">Projeler</span>
-      <h1 data-i18n="all_projects">Tüm projeler</h1>
-      <p data-i18n="pr_lead">Gaziosmanpaşa'da tamamlanan iki yaşam projesi: konut, teras villa, çarşı ve otel fonksiyonlarını bir araya getiren yapılar.</p>
-    </div>
-  </section>
+<div class="view nohero" data-view="projects" hidden>
+  <h1 class="sr-only" data-i18n="all_projects">Tüm projeler</h1>
   <nav class="subnav" aria-label="Projeler"><div class="wrap"><a href="#projeler" data-i18n="all_projects">Tüm projeler</a><a href="#essenora">Essenora</a><a href="#plevne">Plevne</a><a href="#proje-basin" data-i18n="nav_press_us">Basında Biz</a></div></nav>
+  <section class="pg-intro"><div class="wrap">
+      <p class="pg-lead" data-i18n="pr_lead">Gaziosmanpaşa'da tamamlanan iki yaşam projesi: konut, teras villa, çarşı ve otel fonksiyonlarını bir araya getiren yapılar.</p>
+  </div></section>
   <section><div class="wrap plist" id="plist"></div></section>
 </div>
 
 <!-- ======================= PROJECT PRESS ======================= -->
-<div class="view" data-view="ppress" hidden>
-  <section class="p-hero">
-    <img id="ppImg" data-i="img/ess-towers.jpg" alt="" aria-hidden="true">
-    <div class="wrap">
-      <span class="eyebrow" style="color:var(--blue-lt)" data-i18n="nav_dev">Projeler</span>
-      <h1 data-i18n="nav_press_us">Basında Biz</h1>
-      <p id="ppDesc"></p>
+<div class="view nohero" data-view="ppress" hidden>
+  <h1 class="sr-only" data-i18n="nav_press_us">Basında Biz</h1>
+  <nav class="subnav" aria-label="Projeler"><div class="wrap"><a href="#projeler" data-i18n="all_projects">Tüm projeler</a><a href="#essenora">Essenora</a><a href="#plevne">Plevne</a><a href="#proje-basin" data-i18n="nav_press_us">Basında Biz</a></div></nav>
+  <section class="pg-intro"><div class="wrap">
+      <p class="pg-lead" id="ppDesc"></p>
       <div class="filters" id="filters">
         <button type="button" data-f="essenora" aria-pressed="true">Essenora</button>
         <button type="button" data-f="plevne" aria-pressed="false">Plevne</button>
       </div>
-    </div>
-  </section>
-  <nav class="subnav" aria-label="Projeler"><div class="wrap"><a href="#projeler" data-i18n="all_projects">Tüm projeler</a><a href="#essenora">Essenora</a><a href="#plevne">Plevne</a><a href="#proje-basin" data-i18n="nav_press_us">Basında Biz</a></div></nav>
+  </div></section>
   <section class="pgroup"><div class="wrap"><div class="press-head"><div><span class="eyebrow" data-i18n="press_ey">Basın &amp; Medya</span><h2 class="h-sec" id="ppTitle"></h2></div><span class="count" id="ppCount"></span></div><div class="vgrid" id="ppGrid"></div></div></section>
 </div>
 </main>
@@ -953,7 +979,7 @@ essenora:{
   next:"plevne"
 },
 plevne:{
-  no:"02",name:"Plevne",word:"PLEVNE",logo:"img/logo-plevne-istanbul.png",logoWide:true,
+  no:"02",name:"Plevne",word:"PLEVNE",logo:"img/logo-plevne-istanbul.png",logoWide:true,subLogos:["img/logo-plevne-konutlari.png","img/logo-plevne-carsi.png","img/logo-plevne-hotel.png"],
   loc:{tr:"Gaziosmanpaşa, İstanbul",en:"Gaziosmanpaşa, Istanbul"},
   status:{tr:"1. etap tamamlandı",en:"Phase 1 completed"},
   tag:{tr:"Konut · Çarşı · Otel",en:"Residences · Shopping · Hotel"},
@@ -1015,7 +1041,7 @@ plevne:[
 const COV={essenora:["ess-hero","ess-towers","ess-front","ess-sign","ess-park","ess-wide","ess-city","ess-flare","ess-gate","ess-pool","ess-gym","ess-court"],plevne:["plv-render","plv-hero","plv-render2","plv-garden","plv-carsi","plv-top","plv-a","plv-b","plv-carsi-sign"]};
 
 /* =========================== i18n =========================== */
-const EN={bio_p1:"Originally from Malatya, R. Oktay Öz completed his primary, secondary and high school education at Gaziosmanpaşa Plevne High School. He graduated from the Department of Geological Engineering at the Faculty of Mines, Istanbul Technical University. He is married and the father of two children.",bio_p2:"He began his career at Öz Plastik in plastic bag manufacturing, where he worked for 11 years. He then moved into the automotive sector, serving for 15 years as an authorised Škoda dealer within Doğuş Group, Volkswagen Group's representative in Türkiye. He went on to chair the board of Atik Otomotiv Tic. Ltd. Şti., a Suzuki dealership providing sales and service. During this period, Atik Sigorta Aracılık Hizmetleri Ltd. Şti. held the agencies of six insurance companies.",bio_p3:"R. Oktay Öz is a founding partner of Essenora, the first urban regeneration project in Gaziosmanpaşa. The key handover ceremony for the project, comprising 758 homes, 82 terrace villas and retail units, was held by the then President of Türkiye.",bio_p4:"Another project of BY OKTAYÖZ İnşaat A.Ş., of which he is a founding partner, is Plevne Konutları & Çarşı beside the TEM motorway, planned at 1,600 homes in total. Its first phase includes 400 homes, office floors and shops; the groundbreaking ceremony was held by the then Minister of Environment and Urbanisation.",bio_p5:"The company's long-term projects include the Taksim Hacıhüsrev urban regeneration project in Beyoğlu. Preliminary agreements and power-of-attorney work continue at the urban regeneration office BY OKTAYÖZ İnşaat opened in Hacıhüsrev.",bio_p6:"R. Oktay Öz believes urban regeneration should rest on willing consent, and that a positive tone in communication benefits everyone involved. In his view, reaching people's hearts makes even the hardest processes possible. He is known for his warm, sincere and people-centred approach.",bio_p7:"His aim is to develop projects that stand out for their qualities, to work in harmony with local communities and to offer people the life they imagine. He sees investing in people as the foundation of business.",bio_t:"Biography",bio_vision:"Approach",bio_edu_k:"Education",bio_edu_v:"ITU Faculty of Mines, Geological Engineering",bio_from_k:"Hometown",bio_from_v:"Malatya",bio_mem_k:"Memberships",bio_mem_v:"OYDER (Automotive Authorised Dealers Association), İMAD (Malatya Businessmen's Association)",bio_proj_k:"Projects",bio_sum:"Founding partner of Essenora, Gaziosmanpaşa's first urban regeneration project, and of BY OKTAYÖZ İnşaat A.Ş., developer of Plevne Konutları & Çarşı.",cc_search:"Search country",of_kvkk:"I have read the KVKK notice and agree that my details are used only to respond to my offer. *",nav_offer:"Project Offers",of_t:"Do you have an offer?",of_sub:"Tell us about your land or project. We will review it and get back to you.",of_desc_k:"Describe your offer",of_desc_ph:"Location of the land, parcel details, area, zoning status and your expectations. Anything you want us to know.",of_type_k:"Type of offer",of_o1:"Land sale offer",of_o2:"Flat-for-land project offer",of_o3:"Something else",of_loc_k:"Land / project location",of_loc_ph:"City, district, neighbourhood",opt:"Optional",of_files_k:"Documents and photos",of_files_h:"Title deed, zoning status, photos (PDF or image)",of_title_k:"Title",of_h0:"Dear",of_h1:"Mr",of_h2:"Ms",of_note:"All fields marked with an asterisk (*) are required.",of_send:"Send offer",of_need:"Please complete the fields marked in red. Turkish numbers must have 10 digits.",of_sent:"Thank you. In this preview the offer is not sent anywhere yet; on the live site it will go to info@byoktayozinsaat.com.",ct_lead:"Contact us about our projects, partnerships and careers. For land and flat-for-land offers, use the <a href=\"#teklif\" data-offer=\"\" class=\"inl\">Project Offers</a> form.",ct_addr:"Address",ct_dir:"Get directions",ct_form:"Contact form",c_fn:"First name *",c_ln:"Last name *",c_mail:"Email *",c_tel:"Phone *",ct_t0:"General enquiry",ct_t1:"Project information",ct_t5:"Press",c_kvkk:"I have read and understood the KVKK notice. *",c_cons:"I consent to receiving commercial messages through the following channels.",c_c1:"Phone call",c_c2:"SMS",c_c3:"Email",copy:"Copy",copied:"Copied",ct_sent:"Thank you. In this preview the form is not sent anywhere yet; on the live site your message will go to info@byoktayozinsaat.com.",ct_need:"Please fill in the starred fields, enter a valid email and tick the KVKK consent.",vp_blocked:"This preview environment does not allow embedded video. On the live site the video plays right here, without leaving the page.",vp_open:"Open video",nav_board:"Board of Directors",nav_vm:"Vision & Mission",nav_press_us:"In the press",ab_who_t:"Who we are",ab_who:"BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. is a real estate developer that plans residential, retail and hotel functions together. We design our projects not just as housing but as a living environment with green spaces, social facilities and shopping arcades.",bd_lead:"BY OKTAYÖZ's leadership rests on long-term thinking, transparency and keeping our word.",portrait_ph:"Portrait to be added",bd_bio:"Chairman of the Board of BY OKTAYÖZ İnşaat. He has discussed the Essenora and Plevne projects in the press and spoke at the Brand Cities Summit 2017 and the Bosch Construction and Housing Conference 2018.",bd_cta:"Watch his interviews",bd_other:"Board members",name_ph:"Full name",bd_ph:"Member details to be added",vm_lead:"Two principles that explain why we build and how we work.",cp_lead:"Interviews, summit talks and project reviews by Chairman Oktay Öz. Videos open on YouTube.",nav_about:"About us",all_projects:"All developments",ab_lead:"We are a real estate developer building residential, hotel and commercial projects. Essenora and Plevne, completed in Gaziosmanpaşa, are now places where thousands of people live and shop.",ab_mis_t:"Our mission",ab_mis:"The mission of our company, which develops residential, hotel and commercial projects, is to meet our customers' housing, shopping and investment needs not only with four walls but with a developed environment, quality amenities and the assurance of our brand.",ab_info_t:"Company details",ab_title:"Legal name",ab_field:"Fields of activity",ab_field_v:"Residential · Retail · Hotel",ab_done:"Completed projects",ab_chair:"Chairman of the Board",pr_ey:"Completed projects",pr_lead:"Two completed developments in Gaziosmanpaşa bringing residences, terrace villas, a shopping arcade and a hotel together.",nav_home:"Home",nav_company:"Company",nav_dev:"Developments",nav_press:"Press",nav_contact:"Contact",nav_p1:"Essenora",nav_p2:"Plevne",
+const EN={bio_p1:"Originally from Malatya, R. Oktay Öz completed his primary, secondary and high school education at Gaziosmanpaşa Plevne High School. He graduated from the Department of Geological Engineering at the Faculty of Mines, Istanbul Technical University. He is married and the father of two children.",bio_p2:"He began his career at Öz Plastik in plastic bag manufacturing, where he worked for 11 years. He then moved into the automotive sector, serving for 15 years as an authorised Škoda dealer within Doğuş Group, Volkswagen Group's representative in Türkiye. He went on to chair the board of Atik Otomotiv Tic. Ltd. Şti., a Suzuki dealership providing sales and service. During this period, Atik Sigorta Aracılık Hizmetleri Ltd. Şti. held the agencies of six insurance companies.",bio_p3:"R. Oktay Öz is a founding partner of Essenora, the first urban regeneration project in Gaziosmanpaşa. The key handover ceremony for the project, comprising 758 homes, 82 terrace villas and retail units, was held by the then President of Türkiye.",bio_p4:"Another project of BY OKTAYÖZ İnşaat A.Ş., of which he is a founding partner, is Plevne İstanbul beside the TEM motorway, planned at 1,600 homes in total. Its first phase includes 400 homes, office floors and shops; the groundbreaking ceremony was held by the then Minister of Environment and Urbanisation.",bio_p5:"The company's long-term projects include the Taksim Hacıhüsrev urban regeneration project in Beyoğlu. Preliminary agreements and power-of-attorney work continue at the urban regeneration office BY OKTAYÖZ İnşaat opened in Hacıhüsrev.",bio_p6:"R. Oktay Öz believes urban regeneration should rest on willing consent, and that a positive tone in communication benefits everyone involved. In his view, reaching people's hearts makes even the hardest processes possible. He is known for his warm, sincere and people-centred approach.",bio_p7:"His aim is to develop projects that stand out for their qualities, to work in harmony with local communities and to offer people the life they imagine. He sees investing in people as the foundation of business.",bio_t:"Biography",bio_vision:"Approach",bio_edu_k:"Education",bio_edu_v:"ITU Faculty of Mines, Geological Engineering",bio_from_k:"Hometown",bio_from_v:"Malatya",bio_mem_k:"Memberships",bio_mem_v:"OYDER (Automotive Authorised Dealers Association), İMAD (Malatya Businessmen's Association)",bio_proj_k:"Projects",bio_sum:"Founding partner of Essenora, Gaziosmanpaşa's first urban regeneration project, and of BY OKTAYÖZ İnşaat A.Ş., developer of Plevne Konutları & Çarşı.",cc_search:"Search country",of_kvkk:"I have read the KVKK notice and agree that my details are used only to respond to my offer. *",nav_offer:"Project Offers",of_t:"Do you have an offer?",of_sub:"Tell us about your land or project. We will review it and get back to you.",of_desc_k:"Describe your offer",of_desc_ph:"Location of the land, parcel details, area, zoning status and your expectations. Anything you want us to know.",of_type_k:"Type of offer",of_o1:"Land sale offer",of_o2:"Flat-for-land project offer",of_o3:"Something else",of_loc_k:"Land / project location",of_loc_ph:"City, district, neighbourhood",opt:"Optional",of_files_k:"Documents and photos",of_files_h:"Title deed, zoning status, photos (PDF or image)",of_title_k:"Title",of_h0:"Dear",of_h1:"Mr",of_h2:"Ms",of_note:"All fields marked with an asterisk (*) are required.",of_send:"Send offer",of_need:"Please complete the fields marked in red. Turkish numbers must have 10 digits.",of_sent:"Thank you. In this preview the offer is not sent anywhere yet; on the live site it will go to info@byoktayozinsaat.com.",ct_lead:"Contact us about our projects, partnerships and careers.<br>For land and flat-for-land offers, use the <a href=\"#teklif\" data-offer=\"\" class=\"inl\">Project Offers</a> form.",ct_addr:"Address",ct_dir:"Get directions",ct_form:"Contact form",c_fn:"First name *",c_ln:"Last name *",c_mail:"Email *",c_tel:"Phone *",ct_t0:"General enquiry",ct_t1:"Project information",ct_t5:"Press",c_kvkk:"I have read and understood the KVKK notice. *",c_cons:"I consent to receiving commercial messages through the following channels.",c_c1:"Phone call",c_c2:"SMS",c_c3:"Email",copy:"Copy",copied:"Copied",ct_sent:"Thank you. In this preview the form is not sent anywhere yet; on the live site your message will go to info@byoktayozinsaat.com.",ct_need:"Please fill in the starred fields, enter a valid email and tick the KVKK consent.",vp_blocked:"This preview environment does not allow embedded video. On the live site the video plays right here, without leaving the page.",vp_open:"Open video",nav_board:"Board of Directors",nav_vm:"Vision & Mission",nav_press_us:"In the press",ab_who_t:"Who we are",ab_who:"We are a real estate developer that plans residential, retail and hotel functions together.",ab_who2:"We design our projects not just as housing but as a living environment with green spaces, social facilities and shopping arcades.",bd_lead:"“Management should be built on long-term thinking, transparency and keeping one's word.”",portrait_ph:"Portrait to be added",bd_bio:"Chairman of the Board of BY OKTAYÖZ İnşaat. He has discussed the Essenora and Plevne projects in the press and spoke at the Brand Cities Summit 2017 and the Bosch Construction and Housing Conference 2018.",bd_cta:"Watch his interviews",bd_other:"Board members",name_ph:"Full name",bd_ph:"Member details to be added",vm_lead:"Two principles that explain why we build and how we work.",cp_lead:"Interviews, summit talks and project reviews by Chairman Oktay Öz.",nav_about:"About us",all_projects:"All developments",ab_lead:"We are a real estate developer building residential, hotel and commercial projects. Essenora and Plevne, completed in Gaziosmanpaşa, are now places where thousands of people live and shop.",ab_mis_t:"Our mission",ab_mis:"The mission of our company, which develops residential, hotel and commercial projects, is to meet our customers' housing, shopping and investment needs not only with four walls but with a developed environment, quality amenities and the assurance of our brand.",ab_info_t:"Company details",ab_title:"Legal name",ab_field:"Fields of activity",ab_field_v:"Residential · Retail · Hotel",ab_done:"Completed projects",ab_chair:"Chairman of the Board",pr_ey:"Completed projects",pr_lead:"Two completed developments in Gaziosmanpaşa bringing residences, terrace villas, a shopping arcade and a hotel together.",nav_home:"Home",nav_company:"Company",nav_dev:"Developments",nav_press:"Press",nav_contact:"Contact",nav_p1:"Essenora",nav_p2:"Plevne",
 press_oktay_s:"Oktay Öz in the press",press_p1_s:"Essenora",press_p2_s:"Plevne",
 hero_cta:"Discover the project",intro_t:"Developments",intro_p:"We develop residential, hotel and commercial projects. Our aim is to meet our residents' housing, shopping and investment needs not only with four walls, but with a developed environment, quality amenities and the assurance of our brand. Our two completed projects are now home to thousands of people.",intro_cta:"See our developments",
 tab_press:"In the press",see_project:"Go to project page",ban_t:"Our vision",ban_p1:"To stand out and lead with our projects, to build permanent structures with sustainable features, to analyse needs accurately and to add value to the city and society through projects backed by advanced architecture and engineering.",ban_p2:"Under BY OKTAYÖZ Gayrimenkul İnşaat Sanayi ve Ticaret A.Ş. we plan residential, retail and hotel functions together.",ban_cta:"Chairman Oktay Öz in the press",feat:"Plevne Çarşı · 60 retail units",
@@ -1062,7 +1088,7 @@ const covFor=(g,i)=>g==="oktay"?null:COV[g][i%COV[g].length];
 
 /* =========================== Header / menu =========================== */
 const hdr=$("#hdr"),burger=$("#burger");
-const onScroll=()=>hdr.classList.toggle("solid",scrollY>40);
+const onScroll=()=>hdr.classList.toggle("solid",scrollY>40||!!document.querySelector(".view.nohero:not([hidden])"));
 addEventListener("scroll",onScroll,{passive:true});
 function menu(o){document.body.classList.toggle("menu-open",o);burger.setAttribute("aria-expanded",o);document.querySelectorAll(".side > ul > li").forEach((li,i)=>li.style.transitionDelay=o?(.08+i*.05)+"s":"0s")}
 burger.addEventListener("click",()=>menu(!document.body.classList.contains("menu-open")));
@@ -1302,7 +1328,7 @@ function renderCPress(){$("#g-oktay").innerHTML=V.oktay.map((v,i)=>vitem(v)).joi
 function setFilter(f){
   if(!V[f]||f==="oktay")f="essenora";ppKey=f;
   document.querySelectorAll("#filters button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===f));
-  $("#ppDesc").textContent=L(PPDESC[f]);$("#ppImg").src=I(PPIMG[f]);
+  $("#ppDesc").textContent=L(PPDESC[f]);
   $("#ppTitle").textContent=`${P[f].name} ${t("press_of")}`;
   $("#ppCount").textContent=`${V[f].length} ${t("videos")}`;
   $("#ppGrid").innerHTML=V[f].map((v,i)=>vitem(v)).join("");
@@ -1311,7 +1337,7 @@ function setFilter(f){
 document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.f)));
 function renderProjects(){
   const PIMG={essenora:"img/ess-towers.jpg",plevne:"img/plv-hero.jpg"};
-  $("#plist").innerHTML=Object.entries(P).map(([k,p])=>`<article class="pitem rv"><a class="pimg" href="#${k}"><img src="${I(PIMG[k])}" alt="${esc(p.name)}" loading="lazy"></a><div class="pinfo"><img class="plogo${p.logoWide?" wide":""}" src="${I(p.logo)}" alt=""><h2>${esc(p.name)}</h2><p>${esc(L(p.tag))}</p><ul class="facts"><li><span>${t("k_loc")}</span><span>${esc(L(p.loc))}</span></li><li><span>${t("k_status")}</span><span>${esc(L(p.status))}</span></li><li><span>${t("k_func")}</span><span>${esc(L(p.facts[3][1]))}</span></li></ul><a class="bar-btn" href="#${k}">${ARR}<span>${LANG==="en"?"Discover the project":"Projeyi keşfedin"}</span></a></div></article>`).join("");
+  $("#plist").innerHTML=Object.entries(P).map(([k,p])=>`<article class="pitem rv"><a class="pimg" href="#${k}"><img src="${I(PIMG[k])}" alt="${esc(p.name)}" loading="lazy"></a><div class="pinfo"><div class="plogos grp"><img class="plogo${p.logoWide?" wide":""}" src="${I(p.logo)}" alt="${esc(p.name)}">${p.subLogos?`<div class="psubs">${p.subLogos.map(x=>`<img src="${I(x)}" alt="">`).join("")}</div>`:""}</div><h2 class="sr-only">${esc(p.name)}</h2><ul class="facts"><li><span>${t("k_loc")}</span><span>${esc(L(p.loc))}</span></li><li><span>${t("k_status")}</span><span>${esc(L(p.status))}</span></li><li><span>${t("k_func")}</span><span>${esc(L(p.facts[3][1]))}</span></li></ul><a class="bar-btn" href="#${k}">${ARR}<span>${LANG==="en"?"Discover the project":"Projeyi keşfedin"}</span></a></div></article>`).join("");
 }
 
 /* =========================== Router =========================== */
