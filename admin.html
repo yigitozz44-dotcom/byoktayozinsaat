@@ -1024,6 +1024,9 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
 
 <script>
 const I=s=>(window.__IMG&&window.__IMG[s])||s;
+const R=f=>/[\/:]/.test(f)?f:`img/${f}.jpg`;
+const MEDIA={homeDur:6.5,projDur:6.5};
+const PCOVER={essenora:"img/ess-towers.jpg",plevne:"img/plv-hero.jpg"};
 document.querySelectorAll("img[data-i]").forEach(e=>{e.src=I(e.dataset.i)});
 /* =========================== DATA =========================== */
 const P={
@@ -1171,7 +1174,7 @@ document.addEventListener("click",e=>{
 
 /* =========================== Hero slideshow =========================== */
 function slideshow(cfg){
-  const box=cfg.box,prog=cfg.prog;let i=0,timer=null,start=0;const DUR=6500;
+  const box=cfg.box,prog=cfg.prog;let i=0,timer=null,start=0;const DUR=cfg.dur||6500;
   box.innerHTML=cfg.items.map((s,k)=>`<div class="slide${k%2?" alt":""}${k===0?" on":""}"><img src="${I(s.img)}" alt="${esc(s.alt||"")}" ${k?'loading="lazy"':'fetchpriority="high"'}></div>`).join("");
   prog.innerHTML=cfg.items.map((s,k)=>`<button type="button" aria-label="${k+1}"><i></i></button>`).join("");
   const slides=[...box.children],bars=[...prog.children];
@@ -1199,7 +1202,7 @@ const HOME=[
 let homeShow=null,projShow=null;
 function startHome(){
   homeShow&&homeShow.stop();
-  homeShow=slideshow({box:$("#slides"),prog:$("#prog"),items:HOME});
+  homeShow=slideshow({box:$("#slides"),prog:$("#prog"),items:HOME,dur:(+MEDIA.homeDur||6.5)*1000});
 }
 
 /* =========================== Showcase =========================== */
@@ -1214,7 +1217,7 @@ function buildRail(){
     $("#railMore").href="#basin";$("#railMore").firstElementChild.textContent=t("press_all")==="press_all"?"Tüm basın içerikleri":(LANG==="en"?"All press content":"Tüm basın içerikleri");
   }else{
     const p=P[curTab];
-    html=p.gallery.slice(0,8).map(([f,alt])=>`<a class="card" href="#${curTab}" draggable="false"><img src="${I(`img/${f}.jpg`)}" alt="${esc(alt)}" loading="lazy"><span class="label-bar">${ARR}<span>${esc(alt)}</span></span></a>`).join("");
+    html=p.gallery.slice(0,8).map(([f,alt])=>`<a class="card" href="#${curTab}" draggable="false"><img src="${I(R(f))}" alt="${esc(alt)}" loading="lazy"><span class="label-bar">${ARR}<span>${esc(alt)}</span></span></a>`).join("");
     $("#railMore").href="#"+curTab;$("#railMore").firstElementChild.textContent=LANG==="en"?"Go to project page":"Proje sayfasına git";
   }
   rail.innerHTML=html;rail.scrollLeft=0;
@@ -1257,7 +1260,7 @@ let curProj=null;
 function renderProject(key){
   const p=P[key];curProj=key;
   projShow&&projShow.stop();
-  projShow=slideshow({box:$("#pSlides"),prog:$("#pProg"),items:p.hero.map(i=>({img:i,alt:p.name}))});
+  projShow=slideshow({box:$("#pSlides"),prog:$("#pProg"),items:p.hero.map(i=>({img:i,alt:p.name})),dur:(+MEDIA.projDur||6.5)*1000});
   $("#pKicker").textContent=L(p.tag);
   swapWord($("#pWord"),p.word,true);
   $("#pMeta").innerHTML=`<span>${esc(L(p.loc))}</span><span class="chip">${esc(L(p.status))}</span>`;
@@ -1266,16 +1269,16 @@ function renderProject(key){
   $("#pStory").textContent=L(p.story);$("#pStory").dataset.ck=`proj.${key}.story`;
   $("#pFacts").innerHTML=p.facts.map(([k,v])=>{const val=v==="loc"?esc(L(p.loc)):v==="status"?esc(L(p.status)):typeof v==="object"?esc(L(v)):v;return `<li><span>${t(k)}</span><span>${val}</span></li>`}).join("");
   $("#pStats").innerHTML=p.stats.map(([n,u,l])=>`<div class="stat rv"><b>${n}${u?`<small>${u}</small>`:""}</b><span>${esc(L(l))}</span></div>`).join("");
-  $("#pRail").innerHTML=p.gallery.map(([f,alt],i)=>`<button class="card" type="button" data-lb="${i}"><img src="${I(`img/${f}.jpg`)}" alt="${esc(alt)}" loading="lazy"><span class="label-bar">${ARR}<span>${esc(alt)}</span></span></button>`).join("");
+  $("#pRail").innerHTML=p.gallery.map(([f,alt],i)=>`<button class="card" type="button" data-lb="${i}"><img src="${I(R(f))}" alt="${esc(alt)}" loading="lazy"><span class="label-bar">${ARR}<span>${esc(alt)}</span></span></button>`).join("");
   $("#pRail").scrollLeft=0;
   $("#pCount").textContent=`${p.gallery.length} ${t("photos")}`;
   $("#pAmenT").textContent=L(p.amenT);
   if(p.amen){
     $("#pAmen").className="amen-grid";
-    $("#pAmen").innerHTML=p.amen.map(([f,l])=>`<div class="card rv"><img src="${I(`img/${f}.jpg`)}" alt="${esc(L(l))}" loading="lazy"><span class="label-bar"><span>${esc(L(l))}</span></span></div>`).join("");
+    $("#pAmen").innerHTML=p.amen.map(([f,l])=>`<div class="card rv"><img src="${I(R(f))}" alt="${esc(L(l))}" loading="lazy"><span class="label-bar"><span>${esc(L(l))}</span></span></div>`).join("");
   }else{
     $("#pAmen").className="brands";
-    $("#pAmen").innerHTML=p.brands.map(b=>`<article class="brand rv"><div class="bimg"><img src="${I(`img/${b.img}.jpg`)}" alt="" loading="lazy"></div><div class="bbody"><img class="blogo" src="${I(b.logo)}" alt="Plevne ${esc(L(b.t))}"><ul>${L(b.li).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></article>`).join("");
+    $("#pAmen").innerHTML=p.brands.map(b=>`<article class="brand rv"><div class="bimg"><img src="${I(R(b.img))}" alt="" loading="lazy"></div><div class="bbody"><img class="blogo" src="${I(b.logo)}" alt="Plevne ${esc(L(b.t))}"><ul>${L(b.li).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></article>`).join("");
   }
   $("#pPressEy").textContent=t("press_ey_p");
   $("#pPressT").textContent=`${p.name} ${t("press_of")}`;
@@ -1382,7 +1385,7 @@ addEventListener("hashchange",()=>{if(vpId&&!$("#vp").classList.contains("mini")
 
 /* lightbox */
 let lbI=0;
-function lbOpen(i){const g=P[curProj].gallery;lbI=(i+g.length)%g.length;$("#lbImg").src=I(`img/${g[lbI][0]}.jpg`);$("#lbImg").alt=g[lbI][1];$("#lbCap").textContent=`${g[lbI][1]} · ${lbI+1}/${g.length}`;$("#lb").classList.add("open")}
+function lbOpen(i){const g=P[curProj].gallery;lbI=(i+g.length)%g.length;$("#lbImg").src=I(R(g[lbI][0]));$("#lbImg").alt=g[lbI][1];$("#lbCap").textContent=`${g[lbI][1]} · ${lbI+1}/${g.length}`;$("#lb").classList.add("open")}
 function lbClose(){$("#lb").classList.remove("open")}
 $("#pRail").addEventListener("click",e=>{const b=e.target.closest("[data-lb]");if(b)lbOpen(+b.dataset.lb)});
 $("#lbX").addEventListener("click",lbClose);$("#lbP").addEventListener("click",()=>lbOpen(lbI-1));$("#lbN").addEventListener("click",()=>lbOpen(lbI+1));
@@ -1413,7 +1416,7 @@ function setFilter(f){
 }
 document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.f)));
 function renderProjects(){
-  const PIMG={essenora:"img/ess-towers.jpg",plevne:"img/plv-hero.jpg"};
+  const PIMG=PCOVER;
   $("#plist").innerHTML=Object.entries(P).map(([k,p])=>`<article class="pitem rv"><a class="pimg" href="#${k}"><img src="${I(PIMG[k])}" alt="${esc(p.name)}" loading="lazy"></a><div class="pinfo"><div class="plogos grp"><img class="plogo${p.logoWide?" wide":""}" src="${I(p.logo)}" alt="${esc(p.name)}">${p.subLogos?`<div class="psubs">${p.subLogos.map(x=>`<img src="${I(x)}" alt="">`).join("")}</div>`:""}</div><h2 class="sr-only">${esc(p.name)}</h2><ul class="facts"><li><span>${t("k_loc")}</span><span>${esc(L(p.loc))}</span></li><li><span>${t("k_status")}</span><span>${esc(L(p.status))}</span></li><li><span>${t("k_func")}</span><span>${esc(L(p.facts[3][1]))}</span></li></ul><a class="bar-btn" href="#${k}">${ARR}<span>${LANG==="en"?"Discover the project":"Projeyi keşfedin"}</span></a></div></article>`).join("");
 }
 
@@ -1488,6 +1491,15 @@ function applyContent(c){
   for(const[g,list]of Object.entries(CMS.videos||{}))if(Array.isArray(list)&&V[g])V[g]=list.map(x=>x.slice());
   Object.keys(V).forEach(g=>V[g].sort((a,b)=>(VMETA[b[0]]?.[0]||"").localeCompare(VMETA[a[0]]?.[0]||"")));
   for(const[k,o]of Object.entries(CMS.proj||{}))if(P[k])for(const[f,v]of Object.entries(o))P[k][f]=v;
+  const M=CMS.media||{};
+  if(M.home){if(Array.isArray(M.home.slides)&&M.home.slides.length)HOME.splice(0,HOME.length,...M.home.slides.map(r=>({img:r,alt:"BY OKTAYÖZ"})));if(M.home.dur)MEDIA.homeDur=M.home.dur}
+  if(M.projDur)MEDIA.projDur=M.projDur;
+  for(const k of Object.keys(P)){const m=M[k];if(!m)continue;
+    if(Array.isArray(m.hero)&&m.hero.length)P[k].hero=m.hero.slice();
+    if(Array.isArray(m.gallery))P[k].gallery=m.gallery.map(x=>[x[0],x[1]||""]);
+    if(Array.isArray(m.amen)&&P[k].amen)P[k].amen=m.amen.map(x=>[x[0],x[1]||{tr:"",en:""}]);
+    if(Array.isArray(m.brands)&&P[k].brands)m.brands.forEach((r,i)=>{if(r&&P[k].brands[i])P[k].brands[i].img=r});
+    if(m.cover)PCOVER[k]=m.cover}
 }
 function refreshAll(){applyLang();renderMenus();renderExtras();renderAll();const h=location.hash.slice(1);if(cpage(h))renderCustomPage(h);decorate()}
 
@@ -1553,14 +1565,16 @@ function ckGet(path,make){
 /* --- form gönderimi --- */
 async function sendForm(type,fields,files,btn){
   btn&&btn.setAttribute("aria-busy","true");
+  const tfetch=(u,o,ms)=>{const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);return fetch(u,{...o,signal:c.signal}).finally(()=>clearTimeout(t))};
   const fd=new FormData();fd.append("type",type);fd.append("lang",LANG);fd.append("page",location.hash||"#");
   for(const[k,v]of Object.entries(fields))if(v)fd.append(k,v);
   (files||[]).forEach(f=>fd.append("files",f));
-  let ok=false;
-  try{const r=await fetch(API+"/submit",{method:"POST",body:fd});ok=r.ok}catch(e){}
   const subj={teklif:"Yeni proje teklifi",iletisim:"Yeni iletişim mesajı",bilgi:"Yeni proje bilgi talebi"}[type];
-  try{const r2=await fetch("https://formsubmit.co/ajax/"+MAILTO,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
-    body:JSON.stringify({_subject:`${subj} · ${fields.name||""}`,_template:"table",_captcha:"false",...fields,...(files&&files.length?{ekler:`${files.length} dosya (yönetim panelinde)`}:{})})});ok=ok||r2.ok}catch(e){}
+  const viaForm=()=>tfetch("https://formsubmit.co/ajax/"+MAILTO,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+    body:JSON.stringify({_subject:`${subj} · ${fields.name||""}`,_template:"table",_captcha:"false",...fields,...(files&&files.length?{ekler:`${files.length} dosya (yönetim panelinde)`}:{})})},15000).then(r=>r.ok).catch(e=>{console.warn("mail",e);return false});
+  let ok=false,mailed=false;
+  try{const r=await tfetch(API+"/submit",{method:"POST",body:fd},30000);ok=r.ok;if(ok){try{mailed=!!(await r.json()).mailed}catch(e){}}else console.warn("submit",r.status,await r.text())}catch(e){console.warn("submit",e)}
+  if(!ok)ok=await viaForm();else if(!mailed)viaForm();
   btn&&btn.removeAttribute("aria-busy");
   return ok;
 }
@@ -1611,7 +1625,8 @@ if(ADMIN)(function(){
   .cms-pagebar{margin-top:8px}`;
   document.head.appendChild(css);
   const toast=t=>{let e=$(".cms-toast");if(!e){e=document.createElement("div");e.className="cms-toast";document.body.appendChild(e)}e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2600)};
-  const dirty=()=>{DIRTY=true;$("#cmsSave")&&$("#cmsSave").classList.add("dirty")};
+  const TOUCH=new Set();
+  const dirty=k=>{if(k)TOUCH.add(k);DIRTY=true;$("#cmsSave")&&$("#cmsSave").classList.add("dirty")};
   addEventListener("beforeunload",e=>{if(DIRTY){e.preventDefault();e.returnValue=""}});
 
   function modal(html,onSubmit){
@@ -1647,8 +1662,10 @@ if(ADMIN)(function(){
   }
   async function save(){
     const b=$("#cmsSave");b.textContent="Kaydediliyor…";
-    try{const r=await fetch(API+"/content",{method:"PUT",headers:{Authorization:"Bearer "+PW,"Content-Type":"application/json"},body:JSON.stringify(CMS)});
-      if(r.ok){DIRTY=false;b.classList.remove("dirty");lsSet("bo_content",JSON.stringify(CMS));toast("Kaydedildi. Değişiklikler canlı sitede.")}else toast(r.status===401?"Oturum düştü, tekrar giriş yapın":"Kaydedilemedi ("+r.status+")")}
+    let out=CMS;
+    try{const cur=await fetch(API+"/content",{cache:"no-store"}).then(r=>r.json());out={...cur};for(const k of ["tx","videos","vmeta","proj","extra","pages"])if(TOUCH.has(k))out[k]=CMS[k];}catch(e){}
+    try{const r=await fetch(API+"/content",{method:"PUT",headers:{Authorization:"Bearer "+PW,"Content-Type":"application/json"},body:JSON.stringify(out)});
+      if(r.ok){DIRTY=false;TOUCH.clear();b.classList.remove("dirty");Object.assign(CMS,out);lsSet("bo_content",JSON.stringify(out));toast("Kaydedildi. Değişiklikler canlı sitede.")}else toast(r.status===401?"Oturum düştü, tekrar giriş yapın":"Kaydedilemedi ("+r.status+")")}
     catch(e){toast("Sunucuya ulaşılamadı")}
     b.textContent="Kaydet";
   }
@@ -1691,21 +1708,21 @@ if(ADMIN)(function(){
       if(LANG==="tr"){TRK[k]=html;document.querySelectorAll(`[data-i18n="${k}"]`).forEach(n=>{n.dataset.tr=html;if(n!==el)n.innerHTML=html})}
       else{EN[k]=html;document.querySelectorAll(`[data-i18n="${k}"]`).forEach(n=>{if(n!==el)n.innerHTML=html})}
     }
-    el.innerHTML=html;dirty();
+    el.innerHTML=html;dirty(el.dataset.ck?el.dataset.ck.split(".")[0]:"tx");
   }
 
   /* alan ve sayfa */
   function addRow(base){const s=base.split(".");let arr;
     if(s[0]==="extra"){CMS.extra=CMS.extra||{};arr=CMS.extra[s[1]]=CMS.extra[s[1]]||[]}else{arr=(CMS.pages.find(p=>p.id===s[1])||{}).rows}
-    if(!arr)return;arr.push({t:{tr:"Yeni başlık",en:"New heading"},p:{tr:"Metni buraya yazın.",en:"Write the text here."}});dirty();refreshAll();toast("Alan eklendi. Başlığa ve metne tıklayıp düzenleyin.")}
+    if(!arr)return;arr.push({t:{tr:"Yeni başlık",en:"New heading"},p:{tr:"Metni buraya yazın.",en:"Write the text here."}});dirty(s[0]);refreshAll();toast("Alan eklendi. Başlığa ve metne tıklayıp düzenleyin.")}
   function delRow(path){const s=path.split(".");let arr=s[0]==="extra"?(CMS.extra||{})[s[1]]:(CMS.pages.find(p=>p.id===s[1])||{}).rows;const i=+s[s.length-1];if(!arr)return;
-    modal(`<h3>Alan silinsin mi?</h3><p style="margin:0">“${LT(arr[i].t)}” başlıklı alan silinecek.</p>`,()=>{arr.splice(i,1);dirty();refreshAll();return true})}
+    modal(`<h3>Alan silinsin mi?</h3><p style="margin:0">“${LT(arr[i].t)}” başlıklı alan silinecek.</p>`,()=>{arr.splice(i,1);dirty(s[0]);refreshAll();return true})}
   function addPage(parent){
     modal(`<h3>Yeni sayfa</h3><label>Menüde görünecek başlık<input name="t" placeholder="Örn. Kariyer"></label>`,f=>{const t=f.t.value.trim();if(!t)return"Başlık yazın.";
       const id=Date.now().toString(36);CMS.pages=CMS.pages||[];CMS.pages.push({id,parent,title:{tr:t,en:t},rows:[{t:{tr:t,en:t},p:{tr:"Metni buraya yazın.",en:"Write the text here."}}]});
-      dirty();renderMenus();location.hash="sayfa-"+id;toast("Sayfa eklendi. Kaydet'e basmayı unutmayın.");return true})}
+      dirty("pages");renderMenus();location.hash="sayfa-"+id;toast("Sayfa eklendi. Kaydet'e basmayı unutmayın.");return true})}
   function delPage(id){const p=CMS.pages.find(x=>x.id===id);if(!p)return;
-    modal(`<h3>Sayfa silinsin mi?</h3><p style="margin:0">“${LT(p.title)}” sayfası ve menüdeki bağlantısı silinecek.</p>`,()=>{CMS.pages=CMS.pages.filter(x=>x.id!==id);dirty();location.hash=p.parent==="proj"?"projeler":"hakkimizda";refreshAll();return true})}
+    modal(`<h3>Sayfa silinsin mi?</h3><p style="margin:0">“${LT(p.title)}” sayfası ve menüdeki bağlantısı silinecek.</p>`,()=>{CMS.pages=CMS.pages.filter(x=>x.id!==id);dirty("pages");location.hash=p.parent==="proj"?"projeler":"hakkimizda";refreshAll();return true})}
 
   /* videolar */
   const GRIDS=[["#g-oktay",()=>"oktay"],["#ppGrid",()=>ppKey],["#pVids",()=>curProj]];
@@ -1724,9 +1741,9 @@ if(ADMIN)(function(){
       const id=ytId(f.u.value);if(!id)return"Geçerli bir YouTube linki yapıştırın.";if(!f.t.value.trim())return"Başlık yazın.";if(V[g].some(v=>v[0]===id))return"Bu video zaten listede.";
       V[g].push([id,f.t.value.trim(),f.s.value.trim()]);const meta=[f.d.value||new Date().toISOString().slice(0,10),secs(f.l.value)];VMETA[id]=meta;CMS.vmeta=CMS.vmeta||{};CMS.vmeta[id]=meta;
       V[g].sort((a,b)=>(VMETA[b[0]]?.[0]||"").localeCompare(VMETA[a[0]]?.[0]||""));CMS.videos=CMS.videos||{};CMS.videos[g]=V[g].map(x=>x.slice());
-      dirty();renderAll();toast("Video eklendi. Kaydet'e basmayı unutmayın.");return true})}
+      dirty("videos");TOUCH.add("vmeta");renderAll();toast("Video eklendi. Kaydet'e basmayı unutmayın.");return true})}
   function delVideo(g,id){const v=V[g].find(x=>x[0]===id);if(!v)return;
-    modal(`<h3>Video kaldırılsın mı?</h3><p style="margin:0">“${esc(v[1])}” listeden kaldırılacak.</p>`,()=>{V[g]=V[g].filter(x=>x[0]!==id);CMS.videos=CMS.videos||{};CMS.videos[g]=V[g].map(x=>x.slice());dirty();renderAll();return true})}
+    modal(`<h3>Video kaldırılsın mı?</h3><p style="margin:0">“${esc(v[1])}” listeden kaldırılacak.</p>`,()=>{V[g]=V[g].filter(x=>x[0]!==id);CMS.videos=CMS.videos||{};CMS.videos[g]=V[g].map(x=>x.slice());dirty("videos");renderAll();return true})}
 
   if(PW){fetch(API+"/ping",{headers:{Authorization:"Bearer "+PW}}).then(r=>{if(r.ok)ready();else{PW="";login()}}).catch(()=>ready())}else login();
 })();
