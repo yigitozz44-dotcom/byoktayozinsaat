@@ -577,20 +577,20 @@ body.stack-on .view.stk .hero{height:calc(100svh - var(--stko,142px));min-height
 .ft-cols .addr{line-height:1.55}
 
 /* Footer */
-footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56px,6vw,90px) calc(28px + env(safe-area-inset-bottom,0px))}
-.ft-logo{height:64px;width:216px;display:block}
-.ft-rule{height:1px;background:rgba(255,255,255,.3);margin:30px 0 34px;border:0}
+footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(28px,3vw,40px) calc(18px + env(safe-area-inset-bottom,0px))}
+.ft-logo{height:44px;width:148px;display:block}
+.ft-rule{height:1px;background:rgba(255,255,255,.3);margin:18px 0 22px;border:0}
 .ft-cols{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
 .ft-cols a.fh{opacity:.75;transition:opacity .3s,color .3s}
 .ft-cols a.fh:hover{opacity:1;color:var(--blue-lt)}
-.ft-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:12px;font-size:16px;align-content:start}
+.ft-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:14.5px;line-height:1.35;align-content:start}
 .ft-cols a{opacity:.88;transition:opacity .3s,color .3s}
 .ft-cols a:hover{opacity:1;color:var(--blue-lt)}
-.ft-cols .small{font-size:13px;opacity:.7;letter-spacing:.04em}
-.ft-cols .v{margin-top:-6px}
-.ft-legal{display:flex;gap:28px;flex-wrap:wrap;margin-top:64px;padding-top:20px;border-top:1px solid rgba(255,255,255,.3);font-size:13px;opacity:.8}
+.ft-cols .small{font-size:12px;opacity:.7;letter-spacing:.04em}
+.ft-cols .v{margin-top:-4px}
+.ft-legal{display:flex;gap:24px;flex-wrap:wrap;margin-top:26px;padding-top:14px;border-top:1px solid rgba(255,255,255,.3);font-size:13px;opacity:.8}
 .ft-legal button{background:none;border:0;color:inherit;font:inherit;padding:0;cursor:pointer}
-.ft-co{margin-top:16px;font-size:12px;opacity:.6}
+.ft-co{margin-top:8px;font-size:12px;opacity:.6}
 @media (max-width:1100px){.ft-cols{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:860px){.ft-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .ft-cols li{min-width:0;overflow-wrap:anywhere}
@@ -869,7 +869,6 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(56p
     <li><a href="#teklif" data-offer="" data-i18n="nav_offer">Proje Teklifleri</a></li>
     <li><a href="#iletisim" data-i18n="nav_contact">İletişim</a></li>
   </ul>
-  <div class="side-foot">BY OKTAYÖZ Gayrimenkul İnşaat<br>Sanayi ve Ticaret A.Ş.<br>+90 212 615 24 44 · info@byoktayozinsaat.com</div>
 </nav>
 
 <main>
@@ -1423,8 +1422,8 @@ function renderProject(key,root){
     $("#pAmen").className="brands";
     $("#pAmen").innerHTML=p.brands.map(b=>`<article class="brand rv"><div class="bimg"><img src="${I(R(b.img))}" alt="" loading="lazy"></div><div class="bbody"><img class="blogo" src="${I(b.logo)}" alt="Plevne ${esc(L(b.t))}"><ul>${L(b.li).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></article>`).join("");
   }
-  $("#pPressEy").textContent=t("press_ey_p");
-  $("#pPressT").textContent=`${p.name} ${t("press_of")}`;
+  $("#pPressEy").hidden=true;
+  $("#pPressT").textContent=LANG==="en"?`${p.name} in the press`:`Basında ${p.name}`;
   $("#pPressAll").dataset.filter=key;
   $("#pVids").innerHTML=V[key].slice(0,6).map((v,i)=>vitem(v)).join("");
     $("#formNote").hidden=true;
