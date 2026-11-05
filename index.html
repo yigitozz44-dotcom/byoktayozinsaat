@@ -470,6 +470,9 @@ body.menu-open .side > ul > li{opacity:1;transform:none}
 .form .bar-btn[aria-disabled="true"]:hover{background:#9AA4A1}
 /* Sayfalar birbirinin üzerine doğar */
 .stk-sn{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 76px);z-index:60}
+.stk-sn a::before{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--blue);opacity:0;transition:opacity .3s}
+.stk-sn a.on::before{opacity:.14}
+.stk-sn a.on::after{transform:scaleX(var(--sp,0));transition:transform .15s linear}
 @media (max-width:700px){.stk-sn{top:calc(env(safe-area-inset-top,0px) + 64px)}}
 body.stack-on .view.stk{position:sticky;background:#fff;isolation:isolate}
 body.stack-on .view.stk-first{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding-top:calc(env(safe-area-inset-top,0px) + 76px + var(--snh,66px))}
@@ -1885,6 +1888,16 @@ const corpStick=stkStick;
 function stkFx(){
   if(!STK)return;const off=stkOff();
   for(let i=0;i<STK.views.length-1;i++){const nx=cv(STK.views[i+1]).getBoundingClientRect().top;const p=Math.max(0,Math.min(1,(innerHeight-nx)/Math.max(1,innerHeight-off)));cv(STK.views[i]).style.setProperty("--cv",p.toFixed(3))}
+  stkProg(off);
+}
+/* başlık çubuğu: bulunulan bölümün ne kadarı görüldü */
+function stkProg(off){
+  if(!STK||!stkSN)return;off=off??stkOff();
+  stkSN.querySelectorAll("a").forEach(a=>{const k=Object.keys(STK.hash).find(x=>"#"+STK.hash[x]===a.getAttribute("href"));
+    if(!k||!a.classList.contains("on")){a.style.removeProperty("--sp");return}
+    const first=k===STK.views[0],v=cv(k),start=first?0:flowTop(k)-off,len=v.offsetHeight-innerHeight+(first?0:off);
+    const p=len<=0?(scrollY>=start-2?1:0):(scrollY-start)/len;
+    a.style.setProperty("--sp",Math.max(0,Math.min(1,p)).toFixed(4))});
 }
 function stkMark(view){
   const h=STK.hash[view];
@@ -1893,6 +1906,7 @@ function stkMark(view){
   const w=stkSN&&stkSN.querySelector(".wrap"),a=w&&w.querySelector("a.on");if(a&&w.scrollWidth>w.clientWidth)w.scrollTo({left:Math.max(0,a.offsetLeft-w.clientWidth/2+a.offsetWidth/2),behavior:"smooth"});
   if(PROJV.includes(view))curProj=cv(view).dataset.proj;
   if(location.hash!=="#"+h)history.replaceState(null,"","#"+h);
+  stkProg();
 }
 function stkGo(view,smooth){
   if(!STK)return;const y=view===STK.views[0]?0:Math.max(0,flowTop(view)-stkOff()+1);
@@ -2099,7 +2113,7 @@ if(ADMIN)(function(){
   }
   function ready(){
     document.body.classList.add("cms-edit");
-    const pages=[["#","Ana sayfa"],["#hakkimizda","Hakkımızda"],["#yonetim-kurulu","Yönetim Kurulu"],["#vizyon-misyon","Vizyon ve Misyon"],["#kurumsal-basin","Basında Oktay Öz"],["#projeler","Tüm projeler"],["#essenora","Essenora"],["#plevne","Plevne"],["#proje-basin","Basında Projelerimiz"],["#iletisim","İletişim"]];
+    const pages=[["#","Ana sayfa"],["#hakkimizda","Hakkımızda"],["#yonetim-kurulu","Yönetim Kurulu"],["#vizyon-misyon","Vizyon ve Misyon"],["#kurumsal-basin","Basında Oktay Öz"],["#projeler","Tüm projeler"],["#essenora","Essenora"],["#plevne","Plevne"],["#proje-basin","Basında Projelerimiz"],["#bilgi-talebi","Proje Bilgi Talebi"],["#iletisim","İletişim"]];
     const bar=document.createElement("div");bar.className="cms-bar";
     bar.innerHTML=`<span class="tag">ADMIN</span><select id="cmsGo" aria-label="Sayfaya git">${pages.map(p=>`<option value="${p[0]}">${p[1]}</option>`).join("")}</select><button type="button" id="cmsEdit">✎ Düzenleme açık</button><a href="gelen.html" target="_blank" rel="noopener" id="cmsInbox">Gelen kutusu</a><button type="button" class="pri" id="cmsSave">Kaydet</button><button type="button" id="cmsOut">Çıkış</button>`;
     document.body.appendChild(bar);
