@@ -490,6 +490,15 @@ body.stack-on .view.stk .hero{height:calc(100svh - var(--stko,142px));min-height
 .lang-btn{display:inline-flex;align-items:center;gap:8px;background:none;border:0;color:inherit;font:inherit;font-size:15px;letter-spacing:.14em;cursor:pointer;padding:6px 2px}
 .lang-btn .lg-glb{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.3}
 .lang-btn:hover{opacity:.75}
+.m-lang{display:none}
+@media (max-width:1000px){
+  .hdr-in{padding-left:calc(var(--gutL) + 30px);padding-right:calc(var(--gutR) + 30px)}
+  .m-lang{display:flex;flex-direction:column;align-items:center;gap:3px;position:absolute;top:50%;right:max(8px,env(safe-area-inset-right,0px));transform:translateY(-50%);padding:8px 6px;font-size:9px;letter-spacing:.14em;line-height:1;opacity:.9}
+  .m-lang .lg-glb{width:17px;height:17px}
+  .ft-lang{display:none!important}
+}
+@media (max-width:360px){.hdr-in{padding-left:calc(var(--gutL) + 24px);padding-right:calc(var(--gutR) + 24px)}}
+
 .side-lang{color:#fff;font-size:14px;opacity:.85}
 .lm{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:20px;background:rgba(17,22,21,.55);opacity:0;transition:opacity .25s}
 .lm.in{opacity:1}
@@ -876,6 +885,7 @@ footer{background:var(--deep);color:#fff;--logo-ink:#fff;padding-block:clamp(28p
     <nav class="mnav mnav-l" aria-label="Menü"><a href="#hakkimizda" data-grp="corp" data-i18n="m_about">Hakkımızda</a><a href="#projeler" data-grp="proj" data-i18n="nav_dev">Projeler</a></nav>
     <a class="hlogo" href="#" data-go="home" aria-label="BY OKTAYÖZ İnşaat A.Ş. ana sayfa"><svg class="logo" role="img" aria-label="BY OKTAYÖZ İnşaat A.Ş."><use href="#logoH"/></svg></a>
     <nav class="mnav mnav-r" aria-label="Menü"><a href="#teklif" data-offer="" data-i18n="m_offer">Teklifler</a><a href="#iletisim" data-grp="contact" data-i18n="nav_contact">İletişim</a></nav>
+    <button type="button" class="lang-btn m-lang" data-langopen aria-haspopup="dialog" aria-label="Dil / Language"><svg class="lg-glb" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 3.8 5.8 3.8 9s-1.2 6.2-3.8 9c-2.6-2.8-3.8-5.8-3.8-9S9.4 5.8 12 3z"/></svg><span class="lang-code">TR</span></button>
     <div class="hdr-r">
       <div class="nav-item"><a href="#hakkimizda" data-grp="corp" data-i18n="nav_company">Kurumsal</a>
         <div class="dd"><a href="#hakkimizda" data-i18n="nav_about">Hakkımızda</a><a href="#yonetim-kurulu" data-i18n="nav_board">Yönetim Kurulu</a><a href="#vizyon-misyon" data-i18n="nav_vm">Vizyon ve Misyonumuz</a><a href="#kurumsal-basin" data-i18n="nav_press_oz">Basında Oktay Öz</a></div></div>
@@ -1339,8 +1349,12 @@ function applyLang(){
   document.querySelectorAll("[data-i18n]").forEach(n=>{if(n.dataset.tr===undefined)n.dataset.tr=n.innerHTML;n.innerHTML=LANG!=="tr"&&tl(n.dataset.i18n)?tl(n.dataset.i18n):n.dataset.tr});
   document.querySelectorAll(".lang-code").forEach(b=>b.textContent=(LOC==="en-GB"?"EN":LOC.slice(0,2)).toUpperCase());
   document.documentElement.lang=LANG;document.documentElement.dir=LANG==="ar"?"rtl":"ltr";
-  bidiFix();
+  bidiFix();requestAnimationFrame(fitMnav);
 }
+function fitMnav(){const navs=[...document.querySelectorAll(".mnav")],ml=document.querySelector(".m-lang");if(!navs.length)return;navs.forEach(n=>{n.style.fontSize="";n.style.letterSpacing=""});if(innerWidth>1000)return;
+  const bad=()=>{const m=ml&&ml.getBoundingClientRect();return navs.some(n=>[...n.children].some(a=>{const r=a.getBoundingClientRect();return a.scrollWidth>a.clientWidth+1||r.right>n.getBoundingClientRect().right+1||r.left<n.getBoundingClientRect().left-1||(m&&m.width&&r.right>m.left-2&&r.left<m.right)}))};
+  let fs=parseFloat(getComputedStyle(navs[0]).fontSize),ls=.16;while(bad()&&fs>7.5){fs-=.5;ls=Math.max(.04,ls-.02);navs.forEach(n=>{n.style.fontSize=fs+"px";n.style.letterSpacing=ls+"em"})}}
+addEventListener("resize",()=>{clearTimeout(fitMnav.t);fitMnav.t=setTimeout(fitMnav,120)});
 function bidiFix(){if(LANG!=="ar")return;const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const v=n.nodeValue;if(v.indexOf("+90")>-1&&v.indexOf("\u2066")<0)n.nodeValue=v.replace(/\+90[\d ()]*\d/g,m=>"\u2066"+m+"\u2069")}}
 function setLang(loc){const r=LANGS.find(x=>x[0]===loc)||LANGS[0];LOC=r[0];LANG=r[1];try{sessionStorage.setItem("bo_loc",LOC)}catch(e){}applyLang();if(typeof renderAll==="function")renderAll();if(location.hash.slice(1)in LEGAL)renderLegal(location.hash.slice(1));bidiFix()}
 /* dil penceresi */
